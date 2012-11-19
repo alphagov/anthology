@@ -3,7 +3,7 @@ class BookDetailsImporter
   class InvalidResponse < Exception; end
 
   def self.find_by_isbn(isbn)
-    format_response( GoogleBooks.search("isbn:#{isbn}").first )
+    format_response( GoogleBooks.search("isbn:#{isbn}", { }, ENV['REQUEST_IP']).first )
   end
 
   def self.find_cover(isbn)
