@@ -12,6 +12,8 @@ class Book < ActiveRecord::Base
   has_many :copies, :dependent => :destroy
   has_many :loans, :through => :copies
 
+  default_scope order("title ASC")
+
   def strip_isbn
     self.isbn = self.isbn.gsub(/\-?\s?/,'')
   end
