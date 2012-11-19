@@ -1,0 +1,14 @@
+<section class="single_book wrap">
+  <div class="cover"><%= book_cover_tag @book, :size => "S" %></div>
+
+  <div class="title">
+    <h1><%= @book.title %></h1>
+    <h2>by <%= @book.author %></h2>
+  </div>
+
+  <p><%= pluralize @book.copies.count, "copy" %> (<%= link_to "add another copy", new_book_copy_path(@book) %>)</p>
+
+  <ul class="copies">
+    <%= render :partial => "copy", :collection => @book.copies.ordered_by_availability %>
+  </ul>
+</section>

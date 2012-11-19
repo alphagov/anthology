@@ -1,0 +1,10 @@
+<section class="resource wrap">
+  <h1>New book</h1>
+
+  <%= semantic_form_for @book do |f| %>
+    <%= f.input :isbn, :label => "ISBN" %>
+
+    <%= f.actions %>
+  <% end %>
+</section>
+

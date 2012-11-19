@@ -1,0 +1,3 @@
+<ul class="books">
+  <% @books.each do |book| %><li><%= link_to book_path(book) do %><%= book_cover_tag(book) %><% end %></li><% end %>
+</ul>
