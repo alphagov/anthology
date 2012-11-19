@@ -102,7 +102,14 @@ ul.books {
   a { text-decoration: none; display: block; }
   a:hover, a:active { opacity: 0.7; }
 
-  img { background: #fff; min-width: 8em; display: block; min-height: 10em;  }
+  img { background: #fff; min-width: 8em; display: block; min-height: 10em;
+    @media (max-width: 640px){
+      max-width: 5.5em;
+      max-height: 8em;
+      min-height: 0;
+      min-width: 0;
+    }
+  }
 }
 
 .placeholder_book {
