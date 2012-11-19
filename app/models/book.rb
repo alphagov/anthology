@@ -14,7 +14,6 @@ class Book < ActiveRecord::Base
 
   def strip_isbn
     self.isbn = self.isbn.gsub(/\-?\s?/,'')
-    puts "new isbn = #{self.isbn}"
   end
 
   def update_metadata
@@ -23,8 +22,6 @@ class Book < ActiveRecord::Base
     self.title = book_details[:title]
     self.author = book_details[:author]
     self.google_id = book_details[:google_id]
-
-    puts "Updating metadata"
   rescue BookDetailsImporter::BookNotFound
     nil
   end
@@ -35,8 +32,6 @@ class Book < ActiveRecord::Base
 
   def setup_first_copy
     copy = self.copies.create
-    puts "new copy: #{copy.inspect}"
-    puts "new copy errors: #{copy.errors.inspect}"
     copy
   end
 end
