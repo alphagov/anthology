@@ -1,0 +1,6 @@
+<li class="loan_status with_link">
+  <%= link_to book_path(loan.book) do %>
+    <h2>#<%= loan.copy.book_reference %></h2>
+    <p><%= loan.book.title %><span class="since">borrowed on <%= loan.loan_date.strftime("%b %d, %Y") %></span></p>
+  <% end %>
+</li>

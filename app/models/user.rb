@@ -5,6 +5,14 @@ class User < ActiveRecord::Base
   has_many :copies, :through => :loans, :conditions => ['loans.state = ?','on_loan']
   has_many :books, :through => :copies
 
+  def current_copies
+    copies.includes(:book)
+  end
+
+  def previous_loans
+    loans.returned.includes(:copy).includes(:book)
+  end
+
   def self.find_or_create_from_auth_hash(auth_hash)
     github_id = auth_hash.uid.to_s
 

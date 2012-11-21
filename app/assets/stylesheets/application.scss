@@ -156,6 +156,11 @@ section.sign_in {
 section.single_book {
   @media (min-width: 640px){
     font-size: 1.2em;
+
+    .title {
+      h1 { font-size: 1.5em; }
+      h2 { font-size: 1.3em; }
+    }
   }
 
   .cover { background: #444; min-height: 8em; text-align: center; padding: 1em 0;
@@ -166,27 +171,33 @@ section.single_book {
     padding: 1em;
 
     h1, h2 { display: inline-block; margin: 0.1em 0; vertical-align: baseline; }
-    h1 { font-size: 1.5em; }
-    h2 { font-size: 1.2em; font-weight: normal; }
+    h1 { font-size: 1.2em; }
+    h2 { font-size: 1em; font-weight: normal; }
   }
 
-  p { padding: 0 1em; }
+  p { padding: 0 1rem; }
+}
 
-  .loan_status {
+section.user {
+  @media (min-width: 640px){
+    font-size: 1.2em;
+  }
+
+  h1, h2 { padding: 0 1rem; }
+  h2 { font-size: 1em; }
+}
+
+
+ul.copies {
+  padding: 0;
+
+  li {
+    list-style: none;
+    margin-bottom: 0.5em;
     padding: 1em;
     background: #ddd;
     font-weight: bold;
     font-size: 1em;
-
-    &.on_loan { background: #eee; /* #61b7d6; */
-      h2, .since { color: #555; /* #2c5665; */ }
-    }
-    &.available { background: #95d656;
-      h2 { color: #51752f; }
-    }
-    &.my_copy { background: #e6a3ea;
-      h2, .since { color: #793f80; }
-    }
 
     p, h2 { display: inline; margin: 0; padding: 0; font-size: 1em; }
     h2 { display: inline-block; font-weight: normal;  width: 2.5em; }
@@ -196,10 +207,31 @@ section.single_book {
         font-size: 0.75em; margin-left: 5em;
       }
     }
+
+    &.with_link {
+      a {
+        background: #ddd;
+        color: inherit;
+        display: block;
+        text-decoration: none;
+        padding: 1em;
+
+        &:hover { background: #ccc; }
+      }
+      padding: 0;
+    }
   }
-  ul.copies {
-    padding: 0;
-    li { list-style: none; margin-bottom: 0.5em; }
+
+  .loan_status {
+    &.on_loan { background: #eee; /* #61b7d6; */
+      h2, .since { color: #555; /* #2c5665; */ }
+    }
+    &.available { background: #95d656;
+      h2 { color: #51752f; }
+    }
+    &.my_copy { background: #e6a3ea;
+      h2, .since { color: #793f80; }
+    }
   }
 
   a.btn {

@@ -15,5 +15,7 @@ Books::Application.routes.draw do
     end
   end
 
+  resources :user, :only => :show
+
   root :to => "books#index"
 end

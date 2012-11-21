@@ -16,7 +16,7 @@
       <div class="user">
         <h1><%= current_user.name %></h1>
         <ul>
-          <li><%= link_to "my books", new_book_path %></li>
+          <li><%= link_to "my books", user_path(current_user) %></li>
           <li><%= link_to "new", new_book_path %></li>
           <li><%= link_to "sign out", sign_out_path %></li>
         </ul>
