@@ -71,7 +71,12 @@ header {
       margin-top: 0.35em;
     }
 
-    h1 { font-size: 1em; margin: 0; float: left; }
+    h1 { font-size: 1em; margin: 0; float: left;
+      a { text-decoration: none;
+        .name { text-decoration: underline; }
+        .loan_count { color: #000; }
+      }
+    }
     ul { margin: 0; padding-left: 0em; float: right;
       li { list-style: none; float: left; padding-left: 1em;}
     }

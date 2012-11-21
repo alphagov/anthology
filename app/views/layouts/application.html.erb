@@ -14,10 +14,13 @@
     <h1><%= link_to "GDS Library", root_path %></h1>
     <% if current_user %>
       <div class="user">
-        <h1><%= current_user.name %></h1>
+        <h1>
+          <%= link_to user_path(current_user) do %>
+            <span class="name"><%= current_user.name %></span> <span class="loan_count">(<%= current_user.copies.count %>)</span>
+          <% end %>
+        </h1>
         <ul>
-          <li><%= link_to "my books", user_path(current_user) %></li>
-          <li><%= link_to "new", new_book_path %></li>
+          <li><%= link_to "new book", new_book_path %></li>
           <li><%= link_to "sign out", sign_out_path %></li>
         </ul>
         <div class="clear"></div>
