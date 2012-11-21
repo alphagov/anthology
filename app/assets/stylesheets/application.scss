@@ -97,15 +97,21 @@ header {
 
 ul.books {
   padding: 0; text-align: center;
-  li { list-style: none; display: inline-block; vertical-align: bottom; margin-bottom: 1em; border-bottom: 6px solid #ddd; padding: 0 0.5em; }
+  li { list-style: none; display: inline-block; vertical-align: bottom; margin-bottom: 1em; border-bottom: 6px solid #ddd; padding: 0 0.5em;
+    font-size: 0.8em;
+
+    @media (min-width: 640px){
+      font-size: 1em;
+    }
+  }
 
   a { text-decoration: none; display: block; }
   a:hover, a:active { opacity: 0.7; }
 
   img { background: #fff; min-width: 8em; display: block; min-height: 10em;
     @media (max-width: 640px){
-      max-width: 5.5em;
-      max-height: 8em;
+      max-width: 8em;
+      max-height: 12em;
       min-height: 0;
       min-width: 0;
     }
