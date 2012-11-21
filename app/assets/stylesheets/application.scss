@@ -115,7 +115,7 @@ ul.books {
 
   img { background: #fff; min-width: 8em; display: block; min-height: 10em;
     @media (max-width: 640px){
-      max-width: 8em;
+      max-width: 7em;
       max-height: 12em;
       min-height: 0;
       min-width: 0;
@@ -135,6 +135,10 @@ ul.books {
   font-size: 1em;
   height: 10em;
   width: 6.5em;
+
+  @media (max-width: 640px){
+    font-size: 0.75em;
+  }
 
   span[rel='author'] { display: block; font-size: 0.8em; padding-top: 0.5em; color: #c4d3d8; }
 }
