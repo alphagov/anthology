@@ -13,7 +13,7 @@ module ApplicationHelper
   end
 
   def library_title
-    ENV['library_title'] || "Library"
+    ENV['LIBRARY_TITLE'] || "Library"
   end
 
   def organization_name
