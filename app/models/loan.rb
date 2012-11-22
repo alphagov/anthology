@@ -21,6 +21,7 @@ class Loan < ActiveRecord::Base
     raise NotOnLoan unless state == "on_loan"
 
     self.state = 'returned'
+    self.return_date = Time.now
     self.save
   end
 

@@ -59,6 +59,12 @@ class LoanTest < ActiveSupport::TestCase
         @loan.return
       end
     end
+
+    should "set the return date for the loan" do
+      @loan.return
+
+      assert ! @loan.return_date.blank?
+    end
   end
 
 end
