@@ -14,6 +14,8 @@ class Book < ActiveRecord::Base
   has_many :copies, :dependent => :destroy
   has_many :loans, :through => :copies
 
+  belongs_to :created_by, :class_name => "User"
+
   default_scope order("title ASC")
 
   def strip_isbn

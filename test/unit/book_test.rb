@@ -52,6 +52,13 @@ class BookTest < ActiveSupport::TestCase
 
       assert_equal 1, book.copies.count
     end
+
+    should "set the creating user" do
+      user = FactoryGirl.create(:user)
+      book = FactoryGirl.create(:book, :created_by => user)
+
+      assert_equal user.id, book.created_by.id
+    end
   end
 
 end
