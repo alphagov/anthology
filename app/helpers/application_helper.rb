@@ -12,4 +12,12 @@ module ApplicationHelper
     warden.user
   end
 
+  def library_title
+    ENV['library_title'] || "Library"
+  end
+
+  def organization_name
+    OpenSesame::Github.organization_name
+  end
+
 end

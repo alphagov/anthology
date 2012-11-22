@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Books</title>
+  <title><%= library_title %></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -11,7 +11,7 @@
 <body>
 
   <header>
-    <h1><%= link_to "GDS Library", root_path %></h1>
+    <h1><%= link_to library_title, root_path %></h1>
     <% if current_user %>
       <div class="user">
         <h1>
