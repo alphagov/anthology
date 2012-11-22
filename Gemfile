@@ -25,4 +25,5 @@ group :test do
   gem "factory_girl_rails"
   gem "database_cleaner"
   gem "webmock"
+  gem "mocha", "~> 0.13.0", :require => false
 end

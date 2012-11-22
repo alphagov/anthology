@@ -1,13 +1,9 @@
-class BookDetailsImporter
+class BookMetadataLookup
   class BookNotFound < Exception; end
   class InvalidResponse < Exception; end
 
   def self.find_by_isbn(isbn)
     format_response( GoogleBooks.search("isbn:#{isbn}", { }, ENV['REQUEST_IP']).first )
-  end
-
-  def self.find_cover(isbn)
-    format_response json_request("")
   end
 
   private

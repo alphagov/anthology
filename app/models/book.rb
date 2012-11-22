@@ -1,7 +1,9 @@
-require 'book_details_importer'
+require 'book_metadata_lookup'
 
 class Book < ActiveRecord::Base
   attr_accessible :title, :author, :google_id, :isbn
+
+  cattr_accessor :metadata_lookup
 
   before_validation :strip_isbn, :if => :isbn_changed?
   before_save :update_metadata, :if => :isbn_changed?
@@ -19,12 +21,12 @@ class Book < ActiveRecord::Base
   end
 
   def update_metadata
-    book_details = BookDetailsImporter.find_by_isbn(isbn)
+    book_details = (Book.metadata_lookup || BookMetadataLookup).find_by_isbn(isbn)
 
-    self.title = book_details[:title]
-    self.author = book_details[:author]
-    self.google_id = book_details[:google_id]
-  rescue BookDetailsImporter::BookNotFound
+    [:title, :author, :google_id].each do |field|
+      self.send("#{field.to_s}=".to_sym, book_details[field]) if book_details and book_details[field]
+    end
+  rescue BookMetadataLookup::BookNotFound
     nil
   end
 

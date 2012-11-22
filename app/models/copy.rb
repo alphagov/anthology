@@ -18,11 +18,11 @@ class Copy < ActiveRecord::Base
   class NotLoanedByUser < Exception; end
 
   def current_loan
-    @current_loan ||= loans.on_loan.first
+    loans.on_loan.first
   end
 
   def current_user
-    @current_user ||= current_loan.user if current_loan
+    current_loan.user if current_loan
   end
 
   def on_loan?
