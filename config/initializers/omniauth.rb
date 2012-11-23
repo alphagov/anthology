@@ -1,7 +1,7 @@
 OpenSesame::Github.organization_name = ENV['GITHUB_ORG'] || 'alphagov'
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :developer, { :fields => [:name, :id], :uid_field => :id } unless Rails.env.production?
+  provider :developer, { :fields => [:id, :name, :nickname], :uid_field => :id } unless Rails.env.production?
   provider :github, ENV['GITHUB_CLIENT_ID'], ENV['GITHUB_CLIENT_SECRET']
 end
 

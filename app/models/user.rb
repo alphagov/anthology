@@ -1,9 +1,11 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :github_id
+  attr_accessible :name, :github_id, :github_login
 
   has_many :loans, :dependent => :destroy
   has_many :copies, :through => :loans, :conditions => ['loans.state = ?','on_loan']
   has_many :books, :through => :copies
+
+  validates :github_id, :presence => true, :uniqueness => true
 
   def current_copies
     copies.includes(:book)
@@ -19,10 +21,11 @@ class User < ActiveRecord::Base
     current_user = self.where(:github_id => github_id).first
     if current_user
       current_user.update_attributes(
-        :name => auth_hash.info.name
+        :name => auth_hash.info.name,
+        :github_login => auth_hash.info.nickname,
       )
     else
-      current_user = self.create!(:github_id => github_id, :name => auth_hash.info.name)
+      current_user = self.create!(:github_id => github_id, :name => auth_hash.info.name, :github_login => auth_hash.info.nickname)
     end
 
     current_user
