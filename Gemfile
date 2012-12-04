@@ -8,11 +8,11 @@ gem 'googlebooks'
 gem "opensesame-github"
 gem "formtastic"
 gem "possessive"
+gem 'has_scope'
 
 gem 'jquery-rails'
 
 gem 'unicorn'
-
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
