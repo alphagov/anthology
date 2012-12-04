@@ -1,8 +1,16 @@
 class BooksController < ApplicationController
   include BooksHelper
 
+  has_scope :title_search, :as => :q
+
   def index
-    @books = Book.all
+    @books = apply_scopes(Book).all
+
+    if params[:display] == :list
+      render "list"
+    else
+      render "grid"
+    end
   end
 
   def new

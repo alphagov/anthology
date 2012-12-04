@@ -16,6 +16,8 @@ class Book < ActiveRecord::Base
 
   belongs_to :created_by, :class_name => "User"
 
+  scope :title_search, proc {|q| where("title ILIKE ?", "%#{q}%") }
+
   default_scope order("title ASC")
 
   def strip_isbn

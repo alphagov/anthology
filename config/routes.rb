@@ -6,6 +6,7 @@ Books::Application.routes.draw do
     get :failure, :collection => true
   end
 
+  get '/books/list' => "books#index", :as => :book_list, :display => :list
   resources :books do
     resources :copies do
       member do
