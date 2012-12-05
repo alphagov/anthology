@@ -8,7 +8,7 @@
     <% end %>
     <ul class="books books_list resource_list">
       <% @books.each do |book| %>
-        <li><%= link_to book_path(book) do %>
+        <li class="<%= book.available? ? "available" : "unavailable" %>"><%= link_to book_path(book) do %>
           <h2><%= book.title %></h2>
           <p><%= book.author %></p>
         <% end %></li>
