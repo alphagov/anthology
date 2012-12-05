@@ -52,7 +52,7 @@ class Copy < ActiveRecord::Base
     raise NotOnLoan unless on_loan?
     raise NotLoanedByUser, user unless current_user == user
 
-    loans.where(:user_id => user.id).each(&:return)
+    loans.where(:user_id => user.id, :state => 'on_loan').each(&:return)
   end
 
   def allocate_book_reference

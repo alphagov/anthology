@@ -88,6 +88,14 @@ class CopyTest < ActiveSupport::TestCase
       end
     end
 
+    should "only try to return current loans" do
+      previous_loan = @copy_on_loan.loans.create!(:user => @user, :state => 'returned')
+
+      assert_nothing_raised do
+        @copy_on_loan.return(@user)
+      end
+    end
+
     should "not allow a copy loaned by someone else to be returned" do
       another_user = FactoryGirl.create(:user)
 
