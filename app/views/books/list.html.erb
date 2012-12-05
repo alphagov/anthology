@@ -3,7 +3,7 @@
 <div class="wrap">
   <div class="searchable_container">
     <%= form_tag book_list_path, :method => :get do %>
-      <%= text_field_tag :q, params[:q], :placeholder => "Search.." %>
+      <%= text_field_tag :q, params[:q], :placeholder => "Search titles.." %>
       <%= submit_tag "Search", :class => "hidden" %>
     <% end %>
     <ul class="books books_list resource_list">
