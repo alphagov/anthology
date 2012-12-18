@@ -27,7 +27,7 @@ class Book < ActiveRecord::Base
   def update_metadata
     book_details = (Book.metadata_lookup || BookMetadataLookup).find_by_isbn(isbn)
 
-    [:title, :author, :google_id].each do |field|
+    [:title, :author, :google_id, :openlibrary_id].each do |field|
       self.send("#{field.to_s}=".to_sym, book_details[field]) if book_details and book_details[field]
     end
   rescue BookMetadataLookup::BookNotFound
