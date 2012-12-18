@@ -34,6 +34,6 @@ class BookMetadataLookup
         raise BookNotFound, sources.inspect
       end
 
-      metadata
+      { :google_id => nil, :openlibrary_id => nil }.merge(metadata)
     end
 end

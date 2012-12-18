@@ -17,6 +17,16 @@ class BooksController < ApplicationController
     @book = Book.new
   end
 
+  def lookup_isbn
+    isbn = params[:isbn]
+    render_404 if isbn.blank?
+
+    result = BookMetadataLookup.find_by_isbn(isbn.to_s)
+    render :json => result.merge(:covers => cover_urls(result))
+  rescue BookMetadataLookup::BookNotFound
+    render :json => { }
+  end
+
   def create
     @book = Book.new(params[:book])
     @book.created_by = current_user
