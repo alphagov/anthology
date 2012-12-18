@@ -21,8 +21,14 @@ class BooksController < ApplicationController
     isbn = params[:isbn]
     render_404 if isbn.blank?
 
-    result = BookMetadataLookup.find_by_isbn(isbn.to_s)
-    render :json => result.merge(:covers => cover_urls(result))
+    metadata = BookMetadataLookup.find_by_isbn(isbn.to_s)
+    isbn_exists = Book.where(:isbn => isbn.gsub(/\-?\s?/,'')).count > 0
+
+    render :json => metadata.merge({
+      :exists => isbn_exists,
+      :creatable => ! isbn_exists,
+      :covers => cover_urls(metadata)
+    })
   rescue BookMetadataLookup::BookNotFound
     render :json => { }
   end
