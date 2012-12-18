@@ -13,6 +13,7 @@ gem 'has_scope'
 gem 'jquery-rails'
 
 gem 'unicorn'
+gem 'airbrake'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
