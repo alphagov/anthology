@@ -3,7 +3,10 @@ class BookMetadataLookup
   class InvalidResponse < Exception; end
 
   def self.find_by_isbn(isbn)
-    format_response( GoogleBooks.search("isbn:#{isbn}", { }, ENV['REQUEST_IP']).first )
+    format_response({
+      :google => GoogleBooks.search("isbn:#{isbn}", { }, ENV['REQUEST_IP']).first,
+      :openlibrary => Openlibrary::Data.find_by_isbn(isbn)
+    })
   end
 
   private
@@ -12,17 +15,25 @@ class BookMetadataLookup
       JSON.parse(response)
     end
 
-    def self.format_response(book)
-      if book
-        {
-          :title => book.title,
-          :author => book.authors,
-          :google_id => book.id
-        }
-      elsif book.nil?
-        raise BookNotFound, book.inspect
-      else
-        raise InvalidResponse, book.inspect
+    def self.format_response(sources)
+      metadata = { }
+
+      if sources[:google]
+        metadata[:google_id] = sources[:google].id
+        metadata[:title] ||= sources[:google].title
+        metadata[:author] ||= sources[:google].authors
       end
+
+      if sources[:openlibrary]
+        metadata[:openlibrary_id] = sources[:openlibrary].identifiers["openlibrary"].first
+        metadata[:title] ||= sources[:openlibrary].title
+        metadata[:author] ||= sources[:openlibrary].authors
+      end
+
+      if metadata.empty?
+        raise BookNotFound, sources.inspect
+      end
+
+      metadata
     end
 end
