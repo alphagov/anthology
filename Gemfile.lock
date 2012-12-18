@@ -105,6 +105,9 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
+    openlibrary (0.0.9)
+      json
+      rest-client
     opensesame-github (0.0.5)
       faraday (~> 0.8)
       faraday_middleware
@@ -139,6 +142,8 @@ GEM
     rake (10.0.1)
     rdoc (3.12)
       json (~> 1.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rubinius-actor (0.0.2)
       rubinius-core-api
     rubinius-core-api (0.0.1)
@@ -184,6 +189,7 @@ DEPENDENCIES
   has_scope
   jquery-rails
   mocha (~> 0.13.0)
+  openlibrary
   opensesame-github
   pg
   possessive
