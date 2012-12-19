@@ -189,7 +189,7 @@ ul.copies {
     &.creatable { background: #77b631; text-shadow: #5a7e28 0px 1px 1px; }
     &.exists { background: #d63f36; text-shadow: #a8332c 0px 1px 1px; }
 
-    input[type='submit'] { float: right; margin-top: -2px;}
+    input[type='submit'], .btn { float: right; margin-top: -0.5em; text-shadow: none; }
 
     color: #fff;
     font-weight: bold;
