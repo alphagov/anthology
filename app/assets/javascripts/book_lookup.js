@@ -19,17 +19,22 @@ BookLookup.find_and_render = function(isbn) {
 
 $(document).ready(function() {
   var book_lookup_timeout;
+  var previous_query = '';
 
   $('#new_book input[name=commit]').remove();
 
-  $('#book_isbn').change( function(e) {
+  $('#book_isbn').keyup( function(e) {
     var isbn = $('#book_isbn').val();
-    $('#book-placeholder').addClass('loading').html('Searching for book...');
 
-    clearTimeout(book_lookup_timeout);
-    book_lookup_timeout = setTimeout(function() {
-      BookLookup.find_and_render(isbn);
-    }, 500);
+    if (isbn !== previous_query) {
+      $('#book-placeholder').addClass('loading').html('Searching for book...');
+
+      clearTimeout(book_lookup_timeout);
+      book_lookup_timeout = setTimeout(function() {
+        previous_query = isbn;
+        BookLookup.find_and_render(isbn);
+      }, 500);
+    }
   });
 
   var isbn = $('#book_isbn').val();
