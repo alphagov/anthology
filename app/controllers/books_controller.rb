@@ -18,7 +18,7 @@ class BooksController < ApplicationController
   end
 
   def lookup_isbn
-    isbn = params[:isbn]
+    isbn = params[:isbn].strip
     render_404 if isbn.blank?
 
     metadata = BookMetadataLookup.find_by_isbn(isbn.to_s)
