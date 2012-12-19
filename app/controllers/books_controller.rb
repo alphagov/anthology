@@ -28,7 +28,7 @@ class BooksController < ApplicationController
     render :json => metadata.merge({
       :exists => isbn_exists,
       :creatable => ! isbn_exists,
-      :existing_book_id => existing_book,
+      :existing_book => existing_book,
       :covers => cover_urls(metadata)
     })
   rescue BookMetadataLookup::BookNotFound
