@@ -1,7 +1,13 @@
 var BookLookup = { }
 
-BookLookup.find_by_isbn = function(isbn, callback) {
-  $.getJSON('/books/isbn/'+ encodeURI(isbn), callback);
+BookLookup.find_by_isbn = function(isbn, success, failure) {
+  $.getJSON('/books/isbn/'+ encodeURI(isbn), function(data) {
+    if (data.title !== null) {
+      success(data);
+    } else {
+      failure();
+    }
+  });
 }
 
 BookLookup.find_and_render = function(isbn) {
@@ -14,6 +20,8 @@ BookLookup.find_and_render = function(isbn) {
   BookLookup.find_by_isbn(isbn, function(data){
     output = Mustache.render($('#book-preview-template').html(), data);
     $('#book-placeholder').removeClass('loading').html( output );
+  }, function() {
+    $('#book-placeholder').html( 'No book found for this ISBN.' );
   });
 }
 
