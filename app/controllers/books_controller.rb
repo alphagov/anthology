@@ -22,11 +22,13 @@ class BooksController < ApplicationController
     render_404 if isbn.blank?
 
     metadata = BookMetadataLookup.find_by_isbn(isbn.to_s)
-    isbn_exists = Book.where(:isbn => isbn.gsub(/\-?\s?/,'')).count > 0
+    existing_book = Book.where(:isbn => isbn.gsub(/\-?\s?/,'')).first
+    isbn_exists = existing_book.present?
 
     render :json => metadata.merge({
       :exists => isbn_exists,
       :creatable => ! isbn_exists,
+      :existing_book_id => existing_book,
       :covers => cover_urls(metadata)
     })
   rescue BookMetadataLookup::BookNotFound

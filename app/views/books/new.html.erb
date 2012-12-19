@@ -23,10 +23,10 @@
   </article>
 
   {{#creatable}}
-    <div class="book-action creatable">This book can be added to the library. <input type="submit" value="Add to Library" /></div>
+    <div class="book-action creatable">This book can be added to the library. <input type="submit" value="Add to Library" class="btn" /></div>
   {{/creatable}}
 
   {{#exists}}
-    <div class="book-action exists">This book already exists in the library.</div>
+    <div class="book-action exists">This book already exists in the library. <a href="/books/{{ existing_book_id }}/copies/new" class='btn'>Add another copy</a></div>
   {{/exists}}
 </script>
