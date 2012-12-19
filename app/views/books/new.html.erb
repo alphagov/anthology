@@ -1,10 +1,32 @@
 <section class="resource wrap">
-  <h1>New book</h1>
+  <h1>Add a book</h1>
 
-  <%= semantic_form_for @book do |f| %>
-    <%= f.input :isbn, :label => "ISBN" %>
+  <%= semantic_form_for @book, :html => {:class => "new-book"} do |f| %>
+    <%= f.input :isbn, :label => "ISBN", :placeholder => "Enter the book's ISBN to search..." %>
+
+    <div id="book-placeholder">
+    </div>
 
     <%= f.actions %>
   <% end %>
 </section>
 
+<script id="book-preview-template" type="text/html">
+  <article id="book-preview">
+    <img src="{{ covers.google }}" />
+    <h1>{{ title }}</h1>
+    <dl>
+      <dt>Author</dt>
+      <dd>{{ author }}</dd>
+    </dl>
+    <div class="clear"></div>
+  </article>
+
+  {{#creatable}}
+    <div class="book-action creatable">This book can be added to the library. <input type="submit" value="Add to Library" class="btn" /></div>
+  {{/creatable}}
+
+  {{#exists}}
+    <div class="book-action exists">This book already exists in the library. <a href="/books/{{ existing_book.id }}/copies/new" class='btn'>Add another copy</a></div>
+  {{/exists}}
+</script>
