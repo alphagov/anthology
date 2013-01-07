@@ -13,6 +13,8 @@
  *= require_tree .
  */
 
+ @import 'mixins';
+
 body {
   background: #fcfcfc; font-family: Helvetica, Arial, sans-serif; margin: 0; padding: 0;
   font-size: 100%;
@@ -23,6 +25,14 @@ body {
 
   @media (min-width: 640px){
     width: 600px;
+  }
+
+  > h1, > h2 {
+    margin: 0.5em 1rem;
+
+    @media (min-width: 640px){
+      margin: 1rem 0;
+    }
   }
 }
 
@@ -138,9 +148,7 @@ ul.resource_list {
 
     @media (min-width: 640px){ padding: 0.25em; }
     input[type=text] {
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-      box-sizing: border-box;
+      @include border-box;
       font-size: 0.85em;
       margin: 0;
       padding: 0.45em;
@@ -175,7 +183,7 @@ ul.resource_list {
   }
 }
 
-.btn, a.btn, .formtastic input.btn {
+.btn, a.btn, .formtastic .btn {
   -webkit-border-radius: 4px;
   border-radius: 4px;
   border: 1px solid #aaa;
@@ -194,6 +202,13 @@ ul.resource_list {
 
 section.resource {
   padding: 1em;
+
+  &.wrap {
+    > h1, > h2 {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
 }
 
 section.sign_in {
@@ -205,4 +220,51 @@ section.sign_in {
 
 .formtastic {
   li.input { list-style: none; }
+
+  .inline-errors { background: #d63f36; color: #fff; font-size: 0.85em; padding: 0.25em; float: right; margin: -1.65rem 0.7rem 0 0; display: inline-block; position: relative; z-index: 1; }
+}
+
+.edit .formtastic {
+
+  abbr[title="required"] { color: #e13328; font-weight: bold; }
+
+  fieldset {
+    background: #fff;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 1em 1em 0.5em;
+    margin-bottom: 1em;
+
+    &.actions { padding: 1em;
+      .btn { margin-right: 0.5em; }
+    }
+
+    legend { font-size: 0.9em; color: #888; text-transform: uppercase; padding: 0.5em 0 0; }
+
+    @media (min-width: 640px){
+      border: 1px solid #ccc;
+    }
+  }
+
+  .input {
+    .label { color: #666; font-size: 0.9em; float: none; display: block; width: auto; padding: 0 0 0.5em; }
+
+    &.stringish input[type='text'] {
+      @include border-box;
+      display: block;
+      width: 100%;
+      padding: 0.25em 0;
+      font-size: 1.2em;
+      border: none;
+      border-bottom: 2px solid #444;
+    }
+  }
+
+}
+
+table {
+  font-size: 0.9rem;
+  border-collapse: collapse;
+
+  td, th { border: 1px solid #eee; background: #fdfdfd; padding: 0.5em; }
 }

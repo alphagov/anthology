@@ -1,0 +1,18 @@
+<section class="single_book history wrap">
+  <div class="title">
+    <h1><%= @book.title %></h1>
+    <h2>by <%= @book.author %></h2>
+  </div>
+
+  <table>
+    <tbody>
+      <% @book.versions.reverse_order.each do |version| %>
+      <tr>
+        <td style="width: 25%;"><%= formatted_version_author(version) %></td>
+        <td style="width: 25%;"><%= distance_of_time_in_words_to_now version.created_at %> ago</td>
+        <td><%= formatted_version_changes(version) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>

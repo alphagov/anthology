@@ -9,6 +9,10 @@ Books::Application.routes.draw do
   get '/books/isbn/:isbn' => "books#lookup_isbn", :as => :book_isbn_lookup
   get '/books/list' => "books#index", :as => :book_list, :display => :list
   resources :books do
+    member do
+      get :history
+    end
+
     resources :copies do
       member do
         post :borrow

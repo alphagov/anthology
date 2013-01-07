@@ -29,4 +29,21 @@ module BooksHelper
       "L" => 3
     }
   end
+
+  def formatted_version_author(version)
+    user_id = version.whodunnit
+    unless user_id.blank?
+      User.where(:id => user_id).first.name || "Unknown user"
+    else
+      "Unknown user"
+    end
+  end
+
+  def formatted_version_changes(version)
+    version.changeset.map do |key, (old_value,new_value)|
+      content_tag :li do
+        (key.capitalize + ": " + content_tag(:code){ new_value.to_s }).html_safe
+      end
+    end.join('').html_safe
+  end
 end

@@ -1,0 +1,21 @@
+<section class="wrap edit">
+  <h1>Edit book</h1>
+
+  <%= semantic_form_for @book do |f| %>
+    <%= f.inputs do %>
+      <%= f.input :title %>
+      <%= f.input :author %>
+    <% end %>
+
+    <%= f.inputs "Identifiers" do %>
+      <%= f.input :isbn, :label => "ISBN", :placeholder => "ISBN" %>
+      <%= f.input :google_id, :label => "Google Books ID", :placeholder => "Google Books ID" %>
+      <%= f.input :openlibrary_id, :label => "Openlibrary ID", :placeholder => "Openlibrary ID" %>
+    <% end %>
+
+    <%= f.actions do %>
+      <%= f.action :submit, :as => :button, :button_html => { :class => "btn" } %>
+      <%= f.action :cancel, :as => :link, :label => "cancel" %>
+    <% end %>
+  <% end %>
+</section>

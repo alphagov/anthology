@@ -72,6 +72,15 @@ section.single_book {
   }
 
   p { padding: 0 1rem; }
+
+  nav.actions {
+    font-size: 0.75em;
+    margin: 1em;
+
+    ul { padding: 0;
+      li { list-style: none; padding: 0.25em 0; }
+    }
+  }
 }
 
 section.user {
@@ -79,7 +88,6 @@ section.user {
     font-size: 1.2em;
   }
 
-  h1, h2 { padding: 0 1rem; }
   h2 { font-size: 1em; }
 }
 

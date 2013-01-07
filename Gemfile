@@ -11,6 +11,8 @@ gem "formtastic"
 gem "possessive"
 gem 'has_scope'
 
+gem 'paper_trail', '~> 2'
+
 gem 'jquery-rails'
 
 gem 'unicorn'

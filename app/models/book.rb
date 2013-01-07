@@ -1,12 +1,14 @@
 require 'book_metadata_lookup'
 
 class Book < ActiveRecord::Base
-  attr_accessible :title, :author, :google_id, :isbn
+  attr_accessible :title, :author, :google_id, :openlibrary_id, :isbn
+
+  has_paper_trail
 
   cattr_accessor :metadata_lookup
 
   before_validation :strip_isbn, :if => :isbn_changed?
-  before_save :update_metadata, :if => :isbn_changed?
+  before_create :update_metadata
   validates :isbn, :presence => :true, :uniqueness => { :case_sensitive => false }
 
   after_create :setup_first_copy
