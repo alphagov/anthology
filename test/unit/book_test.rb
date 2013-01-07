@@ -39,6 +39,25 @@ class BookTest < ActiveSupport::TestCase
         assert_equal "Where Did He Go?", book.title
         assert_equal "Lewis Carroll", book.author
       end
+
+      should "allow core attributes to be mass-assigned" do
+        assert_nothing_raised ActiveModel::MassAssignmentSecurity::Error do
+          Book.new(
+            :title => "Nineteen Eighty-Four",
+            :author => "George Orwell",
+            :isbn => "0140817743",
+            :google_id => "google id",
+            :openlibrary_id => "openlibrary id"
+          )
+        end
+      end
+
+      should "strip whitespace and dashes from the isbn" do
+        book = Book.create!(:isbn => "0 1408-177-43")
+        book.reload
+
+        assert_equal "0140817743", book.isbn
+      end
     end
 
     should "reject a blank ISBN" do
@@ -58,6 +77,34 @@ class BookTest < ActiveSupport::TestCase
       book = FactoryGirl.create(:book, :created_by => user)
 
       assert_equal user.id, book.created_by.id
+    end
+  end
+
+  context "editing a book" do
+    context "changing the ISBN" do
+      setup do
+        @book = FactoryGirl.create(:book)
+      end
+
+      should "not lookup metadata again" do
+        @book.expects(:update_metadata).never
+
+        assert @book.update_attributes(:isbn => "0140817743")
+      end
+
+      should "persist the new isbn" do
+        @book.update_attributes(:isbn => "0140817743")
+        @book.reload
+
+        assert_equal "0140817743", @book.isbn
+      end
+
+      should "strip whitespace and dashes from the isbn" do
+        @book.update_attributes(:isbn => "0 1408-177-43")
+        @book.reload
+
+        assert_equal "0140817743", @book.isbn
+      end
     end
   end
 
