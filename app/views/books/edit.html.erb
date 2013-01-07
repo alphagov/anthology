@@ -13,6 +13,9 @@
       <%= f.input :openlibrary_id, :label => "Openlibrary ID", :placeholder => "Openlibrary ID" %>
     <% end %>
 
-    <%= f.actions %>
+    <%= f.actions do %>
+      <%= f.action :submit, :as => :button, :button_html => { :class => "btn" } %>
+      <%= f.action :cancel, :as => :link, :label => "cancel" %>
+    <% end %>
   <% end %>
 </section>

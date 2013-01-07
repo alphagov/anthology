@@ -183,7 +183,7 @@ ul.resource_list {
   }
 }
 
-.btn, a.btn, .formtastic input.btn {
+.btn, a.btn, .formtastic .btn {
   -webkit-border-radius: 4px;
   border-radius: 4px;
   border: 1px solid #aaa;
@@ -234,6 +234,10 @@ section.sign_in {
     border-bottom: 1px solid #ccc;
     padding: 1em 1em 0.5em;
     margin-bottom: 1em;
+
+    &.actions { padding: 1em;
+      .btn { margin-right: 0.5em; }
+    }
 
     legend { font-size: 0.9em; color: #888; text-transform: uppercase; padding: 0.5em 0 0; }
 
