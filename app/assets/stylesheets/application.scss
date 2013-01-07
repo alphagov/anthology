@@ -261,3 +261,10 @@ section.sign_in {
   }
 
 }
+
+table {
+  font-size: 0.9rem;
+  border-collapse: collapse;
+
+  td, th { border: 1px solid #eee; background: #fdfdfd; padding: 0.5em; }
+}
