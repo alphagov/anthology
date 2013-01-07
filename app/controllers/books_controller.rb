@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   include BooksHelper
 
-  before_filter :lookup_book, :only => [:show, :edit, :update]
+  before_filter :lookup_book, :only => [:show, :edit, :history, :update]
   has_scope :title_search, :as => :q
 
   def index
@@ -54,6 +54,10 @@ class BooksController < ApplicationController
 
   def edit
     # edit.html.erb
+  end
+
+  def history
+    # history.html.erb
   end
 
   def update
