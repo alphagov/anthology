@@ -113,6 +113,9 @@ GEM
       faraday_middleware
       omniauth-github
       warden
+    paper_trail (2.7.0)
+      activerecord (~> 3.0)
+      railties (~> 3.0)
     pg (0.14.1)
     polyglot (0.3.3)
     possessive (1.0.1)
@@ -191,6 +194,7 @@ DEPENDENCIES
   mocha (~> 0.13.0)
   openlibrary
   opensesame-github
+  paper_trail (~> 2)
   pg
   possessive
   rails (= 3.2.8)

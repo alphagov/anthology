@@ -3,6 +3,8 @@ require 'book_metadata_lookup'
 class Book < ActiveRecord::Base
   attr_accessible :title, :author, :google_id, :isbn
 
+  has_paper_trail
+
   cattr_accessor :metadata_lookup
 
   before_validation :strip_isbn, :if => :isbn_changed?
