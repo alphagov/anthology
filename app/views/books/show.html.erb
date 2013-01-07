@@ -6,9 +6,16 @@
     <h2>by <%= @book.author %></h2>
   </div>
 
-  <p><%= pluralize @book.copies.count, "copy" %> (<%= link_to "add another copy", new_book_copy_path(@book) %>)</p>
+  <p><%= pluralize @book.copies.count, "copy" %></p>
 
   <ul class="copies">
     <%= render :partial => "copy", :collection => @book.copies.ordered_by_availability %>
   </ul>
+
+  <nav class="actions">
+    <ul>
+      <li><%= link_to "Edit this book's details", edit_book_path(@book) %></li>
+      <li><%= link_to "Add another copy", new_book_copy_path(@book) %></li>
+    </ul>
+  </nav>
 </section>
