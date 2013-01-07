@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
   include BooksHelper
 
+  before_filter :lookup_book, :only => [:show, :edit, :update]
   has_scope :title_search, :as => :q
 
   def index
@@ -48,6 +49,24 @@ class BooksController < ApplicationController
   end
 
   def show
-    @book = Book.includes(:copies).find(params[:id])
+    # show.html.erb
   end
+
+  def edit
+    # edit.html.erb
+  end
+
+  def update
+    if @book.update_attributes(params[:book])
+      flash[:notice] = 'Book updated'
+      redirect_to book_path(@book)
+    else
+      render :action => :edit
+    end
+  end
+
+  private
+    def lookup_book
+      @book = Book.includes(:copies).find(params[:id]) || render_404
+    end
 end
