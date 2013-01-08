@@ -16,6 +16,7 @@ development:
   adapter: postgresql
   encoding: unicode
   database: books_development
+  min_messages: warning
   pool: 5
   username: books
   password:
@@ -42,6 +43,7 @@ test:
   adapter: postgresql
   encoding: unicode
   database: books_test
+  min_messages: warning
   pool: 5
   username: books
   password:

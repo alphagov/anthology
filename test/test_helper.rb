@@ -8,7 +8,7 @@ require 'fixtures/mock_book_metadata_lookup'
 
 require 'mocha/setup'
 
-DatabaseCleaner.strategy = :transaction
+DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean
 
 WebMock.disable_net_connect!
