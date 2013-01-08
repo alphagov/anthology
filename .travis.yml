@@ -1,0 +1,8 @@
+language: ruby
+rvm:
+  - 1.9.3
+services: postgres
+before_script:
+  - rm config/database.yml
+  - cp config/database.travis.yml config/database.yml
+  - psql -c 'create database books_test;' -U postgres
