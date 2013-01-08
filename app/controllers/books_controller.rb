@@ -7,7 +7,7 @@ class BooksController < ApplicationController
   def index
     @books = apply_scopes(Book).all
 
-    if params[:display] == :list
+    if params[:display] == 'list'
       render "list"
     else
       render "grid"

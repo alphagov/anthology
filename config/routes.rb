@@ -7,7 +7,7 @@ Books::Application.routes.draw do
   end
 
   get '/books/isbn/:isbn' => "books#lookup_isbn", :as => :book_isbn_lookup
-  get '/books/list' => "books#index", :as => :book_list, :display => :list
+  get '/books/list' => "books#index", :as => :book_list, :display => 'list'
   resources :books do
     member do
       get :history
