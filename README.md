@@ -2,6 +2,8 @@
 
 A community library app with Google Books and GitHub integration. An easier way to keep track of the books on your office bookshelf.
 
+[![Build Status](https://travis-ci.org/JordanHatch/anthology.png?branch=master)](https://travis-ci.org/JordanHatch/anthology)
+
 ## Configuration
 
 The app is configured by a collection of environment variables:
