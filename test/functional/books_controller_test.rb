@@ -54,4 +54,38 @@ class BooksControllerTest < ActionController::TestCase
     end
   end
 
+  context "new book form" do
+    should "render the form" do
+      get :new
+      assert_template "new"
+    end
+
+    should "return a successful response" do
+      get :new
+      assert response.success?
+    end
+
+    should "assign an new book object" do
+      get :new
+
+      assert_instance_of Book, assigns(:book)
+      assert_nil assigns(:book).title
+    end
+  end
+
+  context "looking up isbns" do
+    should "raise a not found error if isbn is blank" do
+      assert_raise(ActionController::RoutingError) do
+        get :lookup_isbn, :isbn => ''
+      end
+    end
+
+    should "invoke the metadata lookup library for a valid request" do
+      BookMetadataLookup.expects(:find_by_isbn).with("12345").returns({})
+
+      get :lookup_isbn, :isbn => "12345"
+      assert_response :success
+    end
+  end
+
 end
