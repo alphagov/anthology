@@ -20,7 +20,7 @@ class BooksController < ApplicationController
 
   def lookup_isbn
     isbn = params[:isbn].strip
-    render_404 if isbn.blank?
+    not_found if isbn.blank?
 
     metadata = BookMetadataLookup.find_by_isbn(isbn.to_s)
     existing_book = Book.where(:isbn => isbn.gsub(/\-?\s?/,'')).first
@@ -71,6 +71,6 @@ class BooksController < ApplicationController
 
   private
     def lookup_book
-      @book = Book.includes(:copies).find(params[:id]) || render_404
+      @book = Book.includes(:copies).find(params[:id]) || not_found
     end
 end

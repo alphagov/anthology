@@ -4,4 +4,9 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
 
   before_filter :authenticate!
+
+  private
+    def not_found
+      raise ActionController::RoutingError.new('Not Found')
+    end
 end
