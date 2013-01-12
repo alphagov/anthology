@@ -26,6 +26,7 @@ end
 
 group :test do
   gem "shoulda-context", '~> 1.0.2'
+  gem 'capybara', '1.1.2'
   gem "factory_girl_rails"
   gem "database_cleaner"
   gem "webmock"
