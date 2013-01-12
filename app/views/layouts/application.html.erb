@@ -12,21 +12,28 @@
 
   <header>
     <h1><%= link_to library_title, root_path %></h1>
+    <div class="clear"></div>
     <% if current_user %>
-      <div class="user">
-        <h1>
-          <%= link_to user_path(current_user) do %>
-            <span class="name"><%= current_user.name %></span> <span class="loan_count">(<%= current_user.copies.count %>)</span>
-          <% end %>
-        </h1>
-        <ul>
+      <nav class="signed-in">
+        <ul class="routes">
+          <li><%= link_to "all books", books_path %></li>
           <li><%= link_to "new book", new_book_path %></li>
+        </ul>
+
+        <ul class="user">
+          <li>
+            <h1>
+            <%= link_to user_path(current_user) do %>
+              <span class="name"><%= current_user.name %></span> <span class="loan_count">(<%= current_user.copies.count %>)</span>
+            <% end %>
+            </h1>
+          </li>
           <li><%= link_to "sign out", sign_out_path %></li>
         </ul>
+
         <div class="clear"></div>
-      </div>
+      </nav>
     <% end %>
-    <div class="clear"></div>
   </header>
 
   <% flash.each do |id, message| %>

@@ -42,8 +42,7 @@ a:hover, a:active { color: #12404f; }
 .clear { clear: both; }
 
 header {
-  background: #fff;
-  background-image: -webkit-linear-gradient(#f6f6f6, #d6d6d6);
+  background: #333;
 
   @media (min-width: 640px){
     font-size: 1.5em;
@@ -51,7 +50,8 @@ header {
   }
 
   > h1 { font-size: 1em; margin: 0; text-align: left; padding: 0.6rem 1rem;
-    border-bottom: 1px solid #888; text-shadow: #fff 0px 1px 1px;
+    border-bottom: 1px solid #888; text-shadow: #555 0px 1px 1px;
+    font-weight: 100;
 
     @media (min-width: 640px){
       float: left;
@@ -60,12 +60,12 @@ header {
     }
 
     a { display: block; text-decoration: none;
-      &:link, &:visited { color: #111; }
-      &:hover, &:active { color: #444; }
+      &:link, &:visited { color: #fff; }
+      &:hover, &:active { color: #ddd; }
     }
   }
 
-  .user {
+  nav.signed-in {
     margin: 0;
     display: block;
     background: #fcfcfc;
@@ -74,11 +74,8 @@ header {
     padding: 0.5em 1rem;
 
     @media (min-width: 640px){
-      float: right;
-      background: none;
       border: none;
-      font-size: 0.75em;
-      margin-top: 0.35em;
+      font-size: 0.65em;
     }
 
     h1 { font-size: 1em; margin: 0; float: left;
@@ -87,8 +84,15 @@ header {
         .loan_count { color: #000; }
       }
     }
-    ul { margin: 0; padding-left: 0em; float: right;
-      li { list-style: none; float: left; padding-left: 1em;}
+    ul { margin: 0; padding-left: 0em;
+      li { list-style: none; float: left; }
+
+      &.routes { float: left;
+        li { padding-right: 1em; }
+      }
+      &.user { float: right;
+        li { padding-left: 1em; }
+      }
     }
   }
 }
