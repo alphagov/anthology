@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :book do
-    title "Alice's Adventures in Wonderland"
-    author "Lewis Carroll"
+    sequence(:title) {|n| "Alice's Adventures in Wonderland ##{n}" }
+    sequence(:author) {|n| "Lewis Carroll ##{n}" }
     sequence(:isbn) {|n| "155481#{n}" }
     google_id "cdxf__Ch8QMC"
   end
