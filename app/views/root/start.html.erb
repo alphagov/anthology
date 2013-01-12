@@ -1,0 +1,36 @@
+<section class="wrap two-column start">
+  <div class="greeting">
+    <h1>Welcome, <%= current_user.name %>!</h1>
+    <span>You have <%= link_to "#{pluralize current_user.copies.count, 'book'} on loan", user_path(current_user) %> right now.</span>
+  </div>
+
+  <div class="book-lookup column left">
+<!--     <div class="start-form">
+      <h2>Find a copy</h2>
+      <%= form_tag find_copy_path, :method => :post do %>
+        <p>
+          <%= text_field_tag :book_reference, nil, :placeholder => "Enter a copy ID..." %>
+          <%= submit_tag "Go", :class => "btn" %>
+        </p>
+      <% end %>
+    </div> -->
+
+    <div class="start-form">
+      <h2>Search books by title</h2>
+      <%= form_tag book_list_path, :method => :get do %>
+        <p>
+          <%= text_field_tag :q, params[:q], :placeholder => "Search titles.." %>
+          <%= submit_tag "Go", :class => "btn" %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="browse column right">
+    <h2>Browse the library</h2>
+    <%= render :partial => "books/book_grid", :locals => { :books => @books } %>
+    <%= link_to "View the whole collection", books_path, :class => "btn" %>
+  </div>
+
+  <div class="clear"></div>
+</section>

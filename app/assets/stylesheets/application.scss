@@ -23,8 +23,24 @@ body {
 .wrap {
   margin: 0 auto;
 
-  @media (min-width: 640px){
+  @media (min-width: 825px){
     width: 600px;
+
+    &.two-column {
+      width: 800px;
+    }
+  }
+
+  &.two-column .column {
+    margin: 0 1em;
+
+    @media (min-width: 825px){
+      width: 395px;
+      margin: 0;
+
+      &.left { float: left; }
+      &.right { float: right; }
+    }
   }
 
   > h1, > h2 {
