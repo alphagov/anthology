@@ -89,6 +89,10 @@ header {
     font-size: 0.85em;
     padding: 0.5em 1rem;
 
+    a { color: #555;
+      &:hover, &:active { color: #333; }
+    }
+
     @media (min-width: 640px){
       border: none;
       font-size: 0.65em;
