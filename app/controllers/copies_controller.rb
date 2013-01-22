@@ -43,7 +43,7 @@ class CopiesController < ApplicationController
     end
 
     def resource
-      @copy = Copy.where(:book_id => params[:book_id]).find(params[:id])
+      @copy = Copy.find_by_book_reference(params[:id]) || not_found
     end
 
 end

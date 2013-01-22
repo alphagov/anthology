@@ -6,6 +6,11 @@ class CopyTest < ActiveSupport::TestCase
     @book = FactoryGirl.create(:book)
   end
 
+  should "return the book reference as the url parameter" do
+    copy = FactoryGirl.create(:copy, :book_reference => "123")
+    assert_equal 123, copy.to_param
+  end
+
   context "creating a new copy" do
     should "increment the book reference" do
       first_copy = @book.copies.first # already created on book creation
