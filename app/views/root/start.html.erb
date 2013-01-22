@@ -7,7 +7,7 @@
   <div class="book-lookup column left">
 <!--     <div class="start-form">
       <h2>Find a copy</h2>
-      <%= form_tag find_copy_path, :method => :post do %>
+      <%= form_tag lookup_copy_index_path, :method => :post do %>
         <p>
           <%= text_field_tag :book_reference, nil, :placeholder => "Enter a copy ID..." %>
           <%= submit_tag "Go", :class => "btn" %>

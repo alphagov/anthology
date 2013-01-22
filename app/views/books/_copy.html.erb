@@ -1,10 +1,10 @@
 <li class="loan_status <%= copy.status.to_s %> <%= copy.current_user == current_user ? "my_copy" : "" %>">
   <h2>#<%= copy.book_reference %></h2>
   <% if copy.available? %>
-    <p>Available to borrow <%= link_to "Borrow", borrow_book_copy_path(@book, copy), :class => 'btn', :method => "POST" %></p>
+    <p>Available to borrow <%= link_to "Borrow", borrow_copy_path(@book, copy), :class => 'btn', :method => "POST" %></p>
   <% else %>
     <p>On loan to <%= copy.current_user == current_user ? "you" : copy.current_user.name %>
-      <%= link_to "Return", return_book_copy_path(@book, copy), :class => 'btn', :method => "POST" if copy.current_user == current_user %>
+      <%= link_to "Return", return_copy_path(@book, copy), :class => 'btn', :method => "POST" if copy.current_user == current_user %>
       <span class="since">since <%= copy.current_loan.loan_date.strftime("%b %d, %Y") %></span>
     </p>
   <% end %>
