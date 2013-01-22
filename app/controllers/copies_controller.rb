@@ -9,6 +9,17 @@ class CopiesController < ApplicationController
     @copy = parent.copies.build
   end
 
+  def lookup
+    @copy = Copy.find_by_book_reference(params[:book_reference])
+
+    if @copy
+      redirect_to copy_path(@copy)
+    else
+      flash[:alert] = "Copy #{params[:book_reference]} couldn't be found."
+      redirect_to root_path
+    end
+  end
+
   def create
     @copy = parent.copies.build(params[:copy])
 

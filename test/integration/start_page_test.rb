@@ -34,6 +34,31 @@ class StartPageTest < ActionDispatch::IntegrationTest
       visit '/'
       assert page.has_content?("You have 5 books on loan")
     end
+
+    should "allow the user to look up a valid copy by id" do
+      @copy = FactoryGirl.create(:copy, :book_reference => "123")
+
+      visit '/'
+
+      within ".start-form:first" do
+        fill_in 'book_reference', :with => "123"
+        click_on "Go"
+      end
+
+      assert "/copy/123", current_path
+    end
+
+    should "show an error when a user attempts to look up an invalid copy id" do
+      visit '/'
+
+      within ".start-form:first" do
+        fill_in 'book_reference', :with => "999"
+        click_on "Go"
+      end
+
+      assert "/", current_path
+      assert page.has_content?("Copy 999 couldn't be found")
+    end
   end
 
 
