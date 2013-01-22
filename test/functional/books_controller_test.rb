@@ -88,4 +88,29 @@ class BooksControllerTest < ActionController::TestCase
     end
   end
 
+  context "a single book" do
+    setup do
+      @book = FactoryGirl.create(:book)
+    end
+
+    should "return a successful response" do
+      get :show, :id => @book.id
+      assert response.success?
+    end
+
+    should "load the book details" do
+      get :show, :id => @book.id
+
+      assert_equal @book.id, assigns(:book).id
+      assert_equal @book.title, assigns(:book).title
+      assert_equal @book.author, assigns(:book).author
+    end
+
+    should "render the show template" do
+      get :show, :id => @book.id
+
+      assert_template "books/show"
+    end
+  end
+
 end

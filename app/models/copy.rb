@@ -58,4 +58,8 @@ class Copy < ActiveRecord::Base
   def allocate_book_reference
     self.book_reference = (Copy.order("book_reference desc nulls last").first || Copy.new).book_reference.to_i + 1
   end
+
+  def to_param
+    book_reference
+  end
 end

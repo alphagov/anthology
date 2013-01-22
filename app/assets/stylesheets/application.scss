@@ -55,7 +55,7 @@ body {
 a, a:link, a:visited { color: #0c6f9a; }
 a:hover, a:active { color: #12404f; }
 
-.clear { clear: both; }
+.clear { display: block; clear: both; }
 
 header {
   background: #333;

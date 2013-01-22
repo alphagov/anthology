@@ -54,6 +54,14 @@ section.single_book {
     }
   }
 
+  h1 {
+    .book_reference { font-size: 1.1em; color: #888; font-weight: normal; }
+  }
+  p.loan_status { padding: 1em; font-weight: bold;
+    .since { font-weight: normal; }
+    .btn { float: right; margin: -0.5em; }
+  }
+
   .cover { background: #444; min-height: 8em; text-align: center; padding: 1em 0;
     background: -webkit-linear-gradient(#555, #333);
   }
@@ -67,6 +75,8 @@ section.single_book {
   }
 
   p { padding: 0 1rem; }
+
+  .action { border: 1px solid #aaa; text-align: right; padding: 0.5em; }
 
   nav.actions {
     font-size: 0.75em;
@@ -121,21 +131,21 @@ ul.copies {
     }
   }
 
-  .loan_status {
-    &.on_loan { background: #eee; /* #61b7d6; */
-      h2, .since { color: #555; /* #2c5665; */ }
-    }
-    &.available { background: #95d656;
-      h2 { color: #51752f; }
-    }
-    &.my_copy { background: #e6a3ea;
-      h2, .since { color: #793f80; }
-    }
-  }
-
   a.btn {
     float: right;
     margin: -0.4em 0 0;
+  }
+}
+
+.loan_status {
+  &.on_loan { background: #eee;
+    h2, .since { color: #555; }
+  }
+  &.available { background: #95d656;
+    h2 { color: #51752f; }
+  }
+  &.my_copy { background: #e6a3ea;
+    h2, .since { color: #793f80; }
   }
 }
 

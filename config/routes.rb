@@ -6,8 +6,16 @@ Books::Application.routes.draw do
     get :failure, :collection => true
   end
 
-  post '/copy' => 'copy#find', :as => :find_copy
-  get '/copy/:id' => 'copy#show', :as => :copy
+  resources :copy, :controller => "copies" do
+    collection do
+      post :lookup
+    end
+
+    member do
+      post :borrow
+      post :return
+    end
+  end
 
   get '/books/isbn/:isbn' => "books#lookup_isbn", :as => :book_isbn_lookup
   get '/books/list' => "books#index", :as => :book_list, :display => 'list'
@@ -16,12 +24,7 @@ Books::Application.routes.draw do
       get :history
     end
 
-    resources :copies do
-      member do
-        post :borrow
-        post :return
-      end
-    end
+    resources :copies, :only => [:new, :create]
   end
 
   resources :user, :only => :show
