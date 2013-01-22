@@ -1,5 +1,10 @@
 class CopiesController < ApplicationController
 
+  def show
+    @copy = resource
+    @book = @copy.book
+  end
+
   def new
     @copy = parent.copies.build
   end
@@ -22,7 +27,7 @@ class CopiesController < ApplicationController
   rescue Copy::NotAvailable => e
     flash[:alert] = "Copy #{resource.book_reference} is already on loan to #{resource.current_user.name}."
   ensure
-    redirect_to book_path(resource.book)
+    redirect_to copy_path(resource)
   end
 
   def return
@@ -34,7 +39,7 @@ class CopiesController < ApplicationController
   rescue Copy::NotLoanedByUser => e
     flash[:alert] = "Copy #{resource.book_reference} is not on loan to you, so you cannot return it."
   ensure
-    redirect_to book_path(resource.book)
+    redirect_to copy_path(resource)
   end
 
   private
