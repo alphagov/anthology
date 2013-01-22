@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Books::Application.config.secret_token = ENV['rails_secret_token'] || 'generate a new secret token to replace this token in production'
+Books::Application.config.secret_token = ENV['RAILS_SECRET_TOKEN'] || 'generate a new secret token to replace this token in production'
