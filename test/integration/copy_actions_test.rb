@@ -84,5 +84,31 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         assert page.has_no_content?("Return")
       end
     end
+
+    context "given a copy which has been borrowed multiple times" do
+      setup do
+        @copy = FactoryGirl.create(:copy, :book_reference => "53")
+
+        @user1 = FactoryGirl.create(:user, :name => "Julia")
+        @user2 = FactoryGirl.create(:user, :name => "Emmanuel Goldstein")
+
+        @loans = [
+          FactoryGirl.create(:loan, :copy => @copy, :state => :returned, :user_id => @user1.id, :loan_date => Date.parse("1 January 2012").beginning_of_day, :return_date => Date.parse("15 January 2012").beginning_of_day),
+          FactoryGirl.create(:loan, :copy => @copy, :state => :returned, :user_id => @user2.id, :loan_date => Date.parse("5 April 2012").beginning_of_day, :return_date => Date.parse("1 May 2012").beginning_of_day),
+          FactoryGirl.create(:loan, :copy => @copy, :state => :returned, :user_id => @user1.id, :loan_date => Date.parse("17 June 2012").beginning_of_day, :return_date => Date.parse("10 July 2012").beginning_of_day)
+        ]
+      end
+
+      should "display a list of previous loans" do
+        visit "/copy/53"
+
+        rows = page.all('table.history tr').map {|r| r.all('th, td').map(&:text).map(&:strip) }
+        assert_equal [
+          [ "17 June 2012 - 10 July 2012", "Julia" ],
+          [ "5 April 2012 -  1 May 2012", "Emmanuel Goldstein" ],
+          [ "1 January 2012 - 15 January 2012", "Julia" ]
+        ], rows
+      end
+    end
   end # as signed in user
 end

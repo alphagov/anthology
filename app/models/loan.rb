@@ -8,6 +8,7 @@ class Loan < ActiveRecord::Base
 
   scope :on_loan, where(:state => 'on_loan')
   scope :returned, where(:state => 'returned')
+  scope :history, where(:state => 'returned').order("loan_date DESC")
 
   validates :user, :presence => true
   validates :copy, :presence => true
@@ -26,7 +27,7 @@ class Loan < ActiveRecord::Base
   end
 
   def set_loan_date
-    self.loan_date = Time.now
+    self.loan_date ||= Time.now
   end
 
   def update_copy_loan_status

@@ -3,6 +3,7 @@ class CopiesController < ApplicationController
   def show
     @copy = resource
     @book = @copy.book
+    @previous_loans = @copy.loans.history
   end
 
   def new

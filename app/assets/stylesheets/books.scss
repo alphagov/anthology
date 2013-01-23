@@ -74,9 +74,13 @@ section.single_book {
     h2 { font-size: 1em; font-weight: normal; }
   }
 
-  p { padding: 0 1rem; }
+  p, h3 { padding: 0 1rem; }
 
   .action { border: 1px solid #aaa; text-align: right; padding: 0.5em; }
+
+  table { width: 100%;
+    td { padding: 0.5em 1em; border-color: #ccc; }
+  }
 
   nav.actions {
     font-size: 0.75em;

@@ -18,6 +18,18 @@
     </p>
   <% end %>
 
+  <h3>Loan history</h3>
+  <table class="history">
+    <% if @previous_loans.any? %>
+      <% @previous_loans.each do |loan| %>
+      <tr>
+        <td><%= loan.loan_date.strftime("%e %B %Y") if loan.loan_date %> - <%= loan.return_date.strftime("%e %B %Y") if loan.return_date %></td>
+        <td><%= loan.user.name %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </table>
+
   <nav class="actions">
     <ul>
       <li><%= link_to "See all copies of this book", book_path(@book) %></li>
