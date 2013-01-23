@@ -31,6 +31,12 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         assert page.has_content?("since #{Date.today.strftime("%b %d, %Y")}")
       end
 
+      should "not display the loan history section if no previous loans" do
+        visit "/copy/123"
+
+        assert page.has_no_content?("Loan history")
+      end
+
       should "link to the book page" do
         visit "/copy/123"
         assert page.has_link?("See all copies of this book", :href => "/books/#{@copy.book.id}")
@@ -102,12 +108,21 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
       should "display a list of previous loans" do
         visit "/copy/53"
 
+        assert page.has_selector?("h3", :text => "Loan history")
+
         rows = page.all('table.history tr').map {|r| r.all('th, td').map(&:text).map(&:strip) }
         assert_equal [
           [ "17 June 2012 - 10 July 2012", "Julia" ],
           [ "5 April 2012 -  1 May 2012", "Emmanuel Goldstein" ],
           [ "1 January 2012 - 15 January 2012", "Julia" ]
         ], rows
+      end
+
+      should "link the name previous loaning user to their profile" do
+        visit "/copy/53"
+
+        assert page.has_link?("Julia", :href => "/user/#{@user1.id}")
+        assert page.has_link?("Emmanuel Goldstein", :href => "/user/#{@user2.id}")
       end
     end
   end # as signed in user

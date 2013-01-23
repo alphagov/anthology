@@ -18,17 +18,17 @@
     </p>
   <% end %>
 
-  <h3>Loan history</h3>
-  <table class="history">
-    <% if @previous_loans.any? %>
+  <% if @previous_loans.any? %>
+    <h3>Loan history</h3>
+    <table class="history">
       <% @previous_loans.each do |loan| %>
       <tr>
         <td><%= loan.loan_date.strftime("%e %B %Y") if loan.loan_date %> - <%= loan.return_date.strftime("%e %B %Y") if loan.return_date %></td>
-        <td><%= loan.user.name %></td>
+        <td><%= link_to loan.user.name, user_path(loan.user) %></td>
       </tr>
       <% end %>
-    <% end %>
-  </table>
+    </table>
+  <% end %>
 
   <nav class="actions">
     <ul>
