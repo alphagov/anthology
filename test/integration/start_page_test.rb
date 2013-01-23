@@ -59,6 +59,20 @@ class StartPageTest < ActionDispatch::IntegrationTest
       assert "/", current_path
       assert page.has_content?("Copy 999 couldn't be found")
     end
+
+    should "display recently added copies added to the library" do
+      @book = FactoryGirl.create(:book, :title => "The Lion, the Witch and the Wardrobe")
+      @older_copies = FactoryGirl.create_list(:copy, 10)
+      @copy = FactoryGirl.create(:copy, :book_reference => "123", :book => @book)
+
+      visit '/'
+      within '.recently-added' do
+        within 'li:first' do
+          assert page.has_selector?("img[alt^='The Lion, the Witch and the Wardrobe']")
+          assert page.has_selector?("a[href='/copy/123']")
+        end
+      end
+    end
   end
 
 

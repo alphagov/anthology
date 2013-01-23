@@ -12,6 +12,7 @@ class Copy < ActiveRecord::Base
   scope :on_loan, where(:on_loan => true)
   scope :available, where(:on_loan => false)
   scope :ordered_by_availability, order("on_loan ASC, book_reference ASC")
+  scope :recently_added, order("created_at DESC")
 
   class NotAvailable < Exception; end
   class NotOnLoan < Exception; end

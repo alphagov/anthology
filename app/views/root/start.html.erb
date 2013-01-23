@@ -26,10 +26,17 @@
     </div>
   </div>
 
-  <div class="browse column right">
-    <h2>Browse the library</h2>
-    <%= render :partial => "books/book_grid", :locals => { :books => @books } %>
-    <%= link_to "View the whole collection", books_path, :class => "btn" %>
+  <div class="column right">
+    <div class="recently-added">
+      <h2>Recently added copies</h2>
+      <%= render :partial => "books/copy_grid", :locals => { :copies => @recently_added_copies } %>
+    </div>
+
+    <div class="browse">
+      <h2>Browse the library</h2>
+      <%= render :partial => "books/book_grid", :locals => { :books => @books } %>
+      <%= link_to "View the whole collection", books_path, :class => "btn" %>
+    </div>
   </div>
 
   <div class="clear"></div>

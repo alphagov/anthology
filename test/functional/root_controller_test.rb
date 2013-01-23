@@ -25,6 +25,13 @@ class RootControllerTest < ActionController::TestCase
       assert_instance_of Book, assigns(:books).first
     end
 
+    should "load 3 recently added copies to display to the user" do
+      get :start
+
+      assert_equal 3, assigns(:recently_added_copies).count
+      assert_instance_of Copy, assigns(:recently_added_copies).first
+    end
+
     should "render the start template" do
       get :start
 

@@ -110,4 +110,19 @@ class CopyTest < ActiveSupport::TestCase
     end
   end
 
+  context "recently added copies" do
+    should "return newest copies first" do
+      # delete first auto-generated copy of book
+      @book.copies.delete_all
+
+      copies = [
+        FactoryGirl.create(:copy, :book_reference => 101, :book => @book),
+        FactoryGirl.create(:copy, :book_reference => 201, :book => @book),
+        FactoryGirl.create(:copy, :book_reference => 301, :book => @book)
+      ]
+      assert_equal 301, Copy.recently_added.first.book_reference
+      assert_equal 101, Copy.recently_added.last.book_reference
+    end
+  end
+
 end
