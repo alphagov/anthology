@@ -4,15 +4,19 @@
     <h2>by <%= @book.author %></h2>
   </div>
 
-  <table>
-    <tbody>
-      <% @book.versions.reverse_order.each do |version| %>
-      <tr>
-        <td style="width: 25%;"><%= formatted_version_author(version) %></td>
-        <td style="width: 25%;"><%= distance_of_time_in_words_to_now version.created_at %> ago</td>
-        <td><%= formatted_version_changes(version) %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <% if @book.versions.any? %>
+    <table class="history">
+      <tbody>
+        <% @book.versions.reverse_order.each do |version| %>
+        <tr>
+          <td style="width: 25%;"><%= formatted_version_author(version) %></td>
+          <td style="width: 25%;"><%= distance_of_time_in_words_to_now version.created_at %> ago</td>
+          <td><%= formatted_version_changes(version) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No changes have been made to this book yet.</p>
+  <% end %>
 </section>
