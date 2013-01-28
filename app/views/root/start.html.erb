@@ -30,14 +30,23 @@
     <div class="recently-added">
       <h2>Recently added copies</h2>
       <%= render :partial => "books/copy_grid", :locals => { :copies => @recently_added_copies } %>
+      <p style="text-align: center; "><%= link_to "View the whole collection", books_path, :class => "btn" %></p>
     </div>
 
-    <div class="browse">
+<!--     <div class="browse">
       <h2>Browse the library</h2>
       <%= render :partial => "books/book_grid", :locals => { :books => @books } %>
-      <%= link_to "View the whole collection", books_path, :class => "btn" %>
-    </div>
+    </div> -->
   </div>
 
   <div class="clear"></div>
+
+  <div class="recent-activity">
+    <h2>Recent loans</h2>
+    <ul>
+      <% @recent_loans.each do |loan| %>
+        <li><%= link_to loan.user.name, user_path(loan.user) %> borrowed <%= link_to "##{loan.copy.book_reference}: #{loan.book.title}", copy_path(loan.copy) %> <span class="timestamp"><%= distance_of_time_in_words_to_now loan.loan_date %> ago</span></li>
+      <% end %>
+    </ul>
+  </div>
 </section>

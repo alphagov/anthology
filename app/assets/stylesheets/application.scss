@@ -27,7 +27,7 @@ body {
     width: 600px;
 
     &.two-column {
-      width: 800px;
+      width: 850px;
     }
   }
 
@@ -35,7 +35,7 @@ body {
     margin: 0 1em;
 
     @media (min-width: 825px){
-      width: 395px;
+      width: 425px;
       margin: 0;
 
       &.left { float: left; }

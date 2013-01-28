@@ -14,18 +14,6 @@ class StartPageTest < ActionDispatch::IntegrationTest
 
       assert page.has_content?("Welcome, #{stub_user.name}!")
       assert page.has_content?("You have 0 books on loan")
-
-      within(".browse") do
-        assert page.has_content?("Browse the library")
-
-        within("ul.books_grid") do
-          assert page.has_selector?('li', :count => 8)
-
-          books.each do |book|
-            assert page.has_selector?("img[alt=\"#{book.title} by #{book.author}\"]")
-          end
-        end
-      end
     end
 
     should "update the number of items on loan" do
@@ -73,8 +61,22 @@ class StartPageTest < ActionDispatch::IntegrationTest
         end
       end
     end
+
+    should "display recent loans from the library" do
+      copies_on_loan = FactoryGirl.create_list(:copy_on_loan, 5)
+
+      visit '/'
+      within '.recent-activity' do
+        copies_on_loan.reverse.each_with_index do |copy, i|
+          within "li:nth-child(#{i+1})" do
+            assert page.has_content?("#{copy.current_user.name} borrowed ##{copy.book_reference}: #{copy.book.title}")
+            assert page.has_selector?("a[href='/user/#{copy.current_user.id}']")
+            assert page.has_selector?("a[href='/copy/#{copy.book_reference}']")
+          end
+        end
+      end
+
+      assert page.has_content?("Recent loans")
+    end
   end
-
-
-
 end

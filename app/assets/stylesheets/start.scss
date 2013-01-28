@@ -31,4 +31,19 @@
     input[type=text] { font-size: 1em; padding: 0.35em; width: 80%; }
   }
 
+  .recent-activity {
+    @media (min-width: 825px){
+      margin: 1em 0 4em;
+    }
+
+    border-top: 2px solid #ddd;
+    margin: 1em 1em 4em;
+    ul {
+      padding-left: 0;
+      li { list-style: none; font-size: 0.95em; margin: 0.5em 0;
+        span.timestamp { display: block; font-size: 0.9em; padding: 0.3em 0; color: #666; }
+      }
+    }
+  }
+
 }
