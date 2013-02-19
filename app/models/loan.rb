@@ -9,7 +9,7 @@ class Loan < ActiveRecord::Base
   scope :on_loan, where(:state => 'on_loan')
   scope :returned, where(:state => 'returned')
   scope :history, where(:state => 'returned').order("loan_date DESC")
-  scope :recently_loaned, where(:state => 'on_loan').order("loan_date DESC")
+  scope :recently_loaned, order("loan_date DESC")
 
   validates :user, :presence => true
   validates :copy, :presence => true
