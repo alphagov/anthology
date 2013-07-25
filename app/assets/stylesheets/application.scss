@@ -16,8 +16,14 @@
  @import 'mixins';
 
 body {
-  background: #fcfcfc; font-family: Helvetica, Arial, sans-serif; margin: 0; padding: 0;
+  background: #fcfcfc;
+  font-family: "Avenir Light", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
   font-size: 100%;
+}
+input, input[type='submit'] {
+  font-family: "Avenir Light", Helvetica, Arial, sans-serif;
 }
 
 .wrap {
