@@ -2,7 +2,7 @@
   <h1>Add a book</h1>
 
   <%= semantic_form_for @book, :html => {:class => "new-book"} do |f| %>
-    <%= f.input :isbn, :label => "ISBN", :placeholder => "Enter the book's ISBN to search..." %>
+    <%= f.input :isbn, :label => "ISBN", :placeholder => "Enter the book's ISBN to search...", :autofocus => "autofocus" %>
 
     <div id="book-placeholder">
     </div>
