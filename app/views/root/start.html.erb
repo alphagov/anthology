@@ -5,7 +5,7 @@
   </div>
 
   <div class="book-lookup column left">
-    <div class="start-form">
+    <div class="start-form copy-lookup">
       <h2>Find a copy</h2>
       <%= form_tag lookup_copy_index_path, :method => :post do %>
         <p>
@@ -15,7 +15,7 @@
       <% end %>
     </div>
 
-    <div class="start-form">
+    <div class="start-form title-lookup">
       <h2>Search books by title</h2>
       <%= form_tag book_list_path, :method => :get do %>
         <p>

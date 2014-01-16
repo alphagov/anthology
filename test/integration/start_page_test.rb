@@ -28,7 +28,7 @@ class StartPageTest < ActionDispatch::IntegrationTest
 
       visit '/'
 
-      within ".start-form:first" do
+      within ".copy-lookup" do
         fill_in 'book_reference', :with => "123"
         click_on "Go"
       end
@@ -39,7 +39,7 @@ class StartPageTest < ActionDispatch::IntegrationTest
     should "show an error when a user attempts to look up an invalid copy id" do
       visit '/'
 
-      within ".start-form:first" do
+      within ".copy-lookup" do
         fill_in 'book_reference', :with => "999"
         click_on "Go"
       end
@@ -66,9 +66,9 @@ class StartPageTest < ActionDispatch::IntegrationTest
       copies_on_loan = FactoryGirl.create_list(:copy_on_loan, 5)
 
       visit '/'
-      within '.recent-activity' do
+      within '.recent-activity ul' do
         copies_on_loan.reverse.each_with_index do |copy, i|
-          within "li:nth-child(#{i+1})" do
+          within "li:nth-of-type(#{i+1})" do
             assert page.has_content?("#{copy.current_user.name} borrowed ##{copy.book_reference}: #{copy.book.title}")
             assert page.has_selector?("a[href='/user/#{copy.current_user.id}']")
             assert page.has_selector?("a[href='/copy/#{copy.book_reference}']")
