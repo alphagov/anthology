@@ -234,7 +234,21 @@ section.sign_in {
 .formtastic {
   li.input { list-style: none; }
 
-  .inline-errors { background: #d63f36; color: #fff; font-size: 0.85em; padding: 0.25em; float: right; margin: -1.65rem 0.7rem 0 0; display: inline-block; position: relative; z-index: 1; }
+  .inline-errors {
+    background: #d63f36;
+    color: #fff;
+    font-size: 0.85em;
+    padding: 0.25em;
+    float: right;
+    margin: -1.65rem 0.7rem 0 0;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+  }
+
+  .input.error input {
+    border: 3px solid #d63f36;
+  }
 }
 
 .edit .formtastic {
