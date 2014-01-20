@@ -3,20 +3,9 @@
 
   <p style="text-align: center;"><%= book_cover_tag @book, :size => "S" %></p>
 
-  <% if @copy.available? %>
-    <p class="loan_status available">Available to borrow <%= link_to "Borrow", borrow_copy_path(@copy), :class => 'btn', :method => :post %>
-      <span class="clear"></span>
-    </p>
-  <% elsif @copy.current_user == current_user %>
-    <p class="loan_status my_copy">On loan to you <span class="since">since <%= @copy.current_loan.loan_date.strftime("%b %d, %Y") %></span>
-      <%= link_to "Return", return_copy_path(@copy), :class => 'btn', :method => :post if @copy.current_user == current_user %>
-      <span class="clear"></span>
-    </p>
-  <% else %>
-    <p class="loan_status on_loan">
-      On loan to <%= @copy.current_user.name %> <span class="since">since <%= @copy.current_loan.loan_date.strftime("%b %d, %Y") %></span>
-    </p>
-  <% end %>
+  <ul class="copies">
+    <%= render partial: "copy", locals: { copy: @copy, link_to_copy: false } %>
+  </ul>
 
   <% if @previous_loans.any? %>
     <h3>Loan history</h3>

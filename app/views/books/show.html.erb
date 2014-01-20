@@ -9,7 +9,7 @@
   <p><%= pluralize @book.copies.count, "copy" %></p>
 
   <ul class="copies">
-    <%= render :partial => "copy", :collection => @book.copies.ordered_by_availability %>
+    <%= render :partial => "copies/copy", :collection => @book.copies.ordered_by_availability, locals: { link_to_copy: true } %>
   </ul>
 
   <nav class="actions">

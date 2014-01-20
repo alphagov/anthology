@@ -57,10 +57,6 @@ section.single_book {
   h1 {
     .book_reference { font-size: 1.1em; color: #888; font-weight: normal; }
   }
-  p.loan_status { padding: 1em; font-weight: bold;
-    .since { font-weight: normal; }
-    .btn { float: right; margin: -0.5em; }
-  }
 
   .cover { background: #444; min-height: 8em; text-align: center; padding: 1em 0;
     background: -webkit-linear-gradient(#555, #333);
@@ -137,7 +133,11 @@ ul.copies {
 
   a.btn {
     float: right;
-    margin: -0.4em 0 0;
+    margin-top: -7px;
+
+    &:active {
+      margin-top: -5px;
+    }
   }
 }
 
@@ -206,12 +206,14 @@ ul.copies {
     &.creatable { background: #77b631; text-shadow: #5a7e28 0px 1px 1px; }
     &.exists { background: #d63f36; text-shadow: #a8332c 0px 1px 1px; }
 
-    input[type='submit'], .btn { float: right; margin-top: -0.5em; text-shadow: none; }
+    input[type='submit'], .btn { float: right; text-shadow: none; }
+    span { display: inline-block; padding: 0.8rem 0; font-size: 1.1rem; }
 
     color: #fff;
     font-weight: bold;
     padding: 1em;
-    font-size: -0.9em;
+    line-height: 1rem;
+    overflow: auto;
   }
 
 }
