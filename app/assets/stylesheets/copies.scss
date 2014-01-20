@@ -1,0 +1,46 @@
+.new-copy {
+  .formtastic .actions {
+    padding: 1em 0 0 0;
+  }
+
+  .formtastic .inline-errors {
+    float: none;
+    margin: 0;
+  }
+}
+
+fieldset.copy-number {
+  display: block;
+  padding: 1em;
+  background: #eee;
+  border-bottom: 1px solid #ccc;
+
+  label.copy-option-label {
+    display: block;
+    margin: 0.6em 0;
+    line-height: 1;
+
+    span {
+      display: inline-block;
+    }
+  }
+
+  input[type=radio] {
+    float: left;
+    margin-right: 1em;
+    line-height: 1;
+    display: inline-block;
+  }
+
+  li.input.numeric {
+    margin: 0 0 0 1.5em;
+    padding: 0.5em 0;
+
+    input {
+      width: 3em;
+      padding: 0.35em;
+      font-size: 1.2em;
+    }
+  }
+}
+

@@ -24,6 +24,10 @@ class CopiesController < ApplicationController
   def create
     @copy = parent.copies.build(params[:copy])
 
+    if params[:copy_has_id_number].blank?
+      @copy.book_reference = nil
+    end
+
     if @copy.save
       flash[:notice] = "Copy #{@copy.book_reference} has been added to the library."
       redirect_to book_path(@copy.book)
