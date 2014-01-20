@@ -1,7 +1,14 @@
 <section class="resource sign_in wrap">
-  <h1>Sign in</h1>
+  <% if use_developer_strategy? %>
+    <h1>Sign in</h1>
 
-  <p>Sign in with your <%= organization_name %> GitHub account to access <%= library_title %>.</p>
+    <p>You can sign in by providing a stub user in the development environment.</p>
+    <p><%= link_to "Sign in (development)", "/auth/developer", :class => 'btn' %></p>
+  <% else %>
+    <h1>Sign in</h1>
 
-  <p><%= link_to "Sign in with GitHub", "/auth/github", :class => 'btn' %></p>
+    <p>Sign in with your <strong><%= organization_name %></strong> GitHub account to access <%= library_title %>.</p>
+
+    <p><%= link_to "Sign in with GitHub", "/auth/github", :class => 'btn' %></p>
+  <% end %>
 </section>

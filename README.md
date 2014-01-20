@@ -8,6 +8,13 @@ An easier way to keep track of the books on your office bookshelf.
 
 ![](http://jordanhatch.github.com/anthology/img/screenshot.png)
 
+## Getting started
+
+    bundle install
+    bundle exec unicorn -p 5000
+
+If you're in the development or test environments, OmniAuth's developer strategy is available, and selected by default. This allows you to authenticate without using GitHub by providing details for a stub user. If configuration for GitHub is present, Anthology will default to using authentication with GitHub instead.
+
 ## Configuration
 
 The app is configured with a collection of environment variables:
