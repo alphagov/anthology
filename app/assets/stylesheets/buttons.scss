@@ -12,7 +12,7 @@
   background-image: linear-gradient(to bottom, #fff, #eee);
   color: #333;
   text-decoration: none;
-  font-size: 0.8em;
+  font-size: 1rem;
 
   &:hover {
     background-image: linear-gradient(to bottom, #f6f6f6, #e6e6e6);
@@ -27,5 +27,5 @@
 }
 
 .formtastic input[type=submit], .formtastic button {
-  font-size: 1em;
+  font-size: 1rem;
 }
