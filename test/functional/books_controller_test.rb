@@ -26,19 +26,9 @@ class BooksControllerTest < ActionController::TestCase
       assert_equal @books.map(&:title).sort, assigns(:books).map(&:title).sort
     end
 
-    should "render the grid view by default" do
+    should "render the index view" do
       get :index
-      assert_template "grid"
-    end
-
-    should "render the list view when given a display=list parameter" do
-      get :index, :display => 'list'
-      assert_template "list"
-    end
-
-    should "fallback to the grid view if display is not list" do
-      get :index, :display => :foo
-      assert_template "grid"
+      assert_template "index"
     end
 
     context "searching for a book" do

@@ -15,12 +15,6 @@ class BooksController < ApplicationController
 
   def index
     @books = apply_scopes(Book).includes(:copies).all
-
-    if params[:display] == 'list'
-      render "list"
-    else
-      render "grid"
-    end
   end
 
   def new
