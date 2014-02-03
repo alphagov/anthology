@@ -4,7 +4,7 @@
   border: 1px solid #aaa;
   border-bottom-width: 3px;
   display: inline-block;
-  padding: 0.5rem 1rem;
+  padding: 0.5em 1em;
   font-weight: bold;
   background: #f6f6f6;
   background-image: -webkit-linear-gradient(#fff, #eee);
@@ -12,7 +12,7 @@
   background-image: linear-gradient(to bottom, #fff, #eee);
   color: #333;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1em;
 
   &:hover {
     background-image: linear-gradient(to bottom, #f6f6f6, #e6e6e6);
