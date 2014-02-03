@@ -2,10 +2,19 @@ class BooksController < ApplicationController
   include BooksHelper
 
   before_filter :lookup_book, :only => [:show, :edit, :history, :update]
+
   has_scope :title_search, :as => :q
+  has_scope :available do |controller, scope, value|
+    case value
+    when "true" then scope.available
+    when "false" then scope.on_loan
+    else
+      scope
+    end
+  end
 
   def index
-    @books = apply_scopes(Book).all
+    @books = apply_scopes(Book).includes(:copies).all
 
     if params[:display] == 'list'
       render "list"

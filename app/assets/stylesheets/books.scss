@@ -1,5 +1,6 @@
 ul.books {
-  padding: 0;
+  padding: 1em;
+  margin: 0;
 
   font-size: 0.8em;
   @media (min-width: 640px){
@@ -7,12 +8,15 @@ ul.books {
   }
 
   &.books_grid {
-    text-align: center;
+    text-align: left;
 
-    li { list-style: none; display: inline-block; vertical-align: bottom; margin-bottom: 1em; border-bottom: 6px solid #ddd; padding: 0 0.5em;
-
-      &.available { border-bottom-color: #95d656; }
-      &.unavailable { border-bottom-color: #ddd; }
+    li {
+      list-style: none;
+      display: inline-block;
+      vertical-align: bottom;
+      margin-bottom: 1em;
+      border-bottom: 6px solid #ddd;
+      padding: 0 0.5em;
     }
 
     a { text-decoration: none; display: block; }

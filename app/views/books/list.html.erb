@@ -1,18 +1,20 @@
-<%= render :partial => "display_selection" %>
+<div class="filterable-list">
+  <%= render :partial => "filters" %>
 
-<div class="wrap">
-  <div class="searchable_container">
-    <%= form_tag book_list_path, :method => :get do %>
-      <%= text_field_tag :q, params[:q], :placeholder => "Search titles.." %>
-      <%= submit_tag "Search", :class => "hidden" %>
-    <% end %>
-    <ul class="books books_list resource_list">
-      <% @books.each do |book| %>
-        <li class="<%= book.available? ? "available" : "unavailable" %>"><%= link_to book_path(book) do %>
-          <h2><%= book.title %></h2>
-          <p><%= book.author %></p>
-        <% end %></li>
+  <div class="wrap">
+    <div class="searchable_container">
+      <%= form_tag book_list_path, :method => :get do %>
+        <%= text_field_tag :q, params[:q], :placeholder => "Search titles.." %>
+        <%= submit_tag "Search", :class => "hidden" %>
       <% end %>
-    </ul>
+      <ul class="books books_list resource_list">
+        <% @books.each do |book| %>
+          <li class="<%= book.available? ? "available" : "unavailable" %>"><%= link_to book_path(book) do %>
+            <h2><%= book.title %></h2>
+            <p><%= book.author %></p>
+          <% end %></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>

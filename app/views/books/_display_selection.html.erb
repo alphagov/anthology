@@ -1,7 +1,0 @@
-<div class="display_selection wrap">
-  view as
-  <ul>
-    <li class="<%= 'selected' unless params[:display] %>"><%= link_to "grid", books_path %></li>
-    <li class="<%= 'selected' if params[:display] == 'list' %>"><%= link_to "list", book_list_path %></li>
-  </ul>
-</div>

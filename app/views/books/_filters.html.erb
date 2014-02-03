@@ -1,0 +1,22 @@
+<ul class="filters">
+  <li class="filter">
+    <h3>availability</h3>
+    <ul>
+      <li><%= filter_link "available", :available, "true" %></li>
+      <li><%= filter_link "on loan", :available, "false" %></li>
+    </ul>
+  </li>
+  <li class="filter">
+    <h3>view as</h3>
+    <ul>
+      <li><%= link_to "grid", books_path, :class => ("selected" unless params[:display]) %></li>
+      <li><%= link_to "list", book_list_path, :class => ("selected" if params[:display] == "list") %></li>
+    </ul>
+  </li>
+  <li class="filter search-filter">
+    <%= form_tag "", :method => :get do %>
+      <%= text_field_tag :q, params[:q], :placeholder => "Search titles.." %>
+      <%= button_tag "Search", name: nil %>
+    <% end %>
+  </li>
+</ul>

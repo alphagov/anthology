@@ -1,3 +1,7 @@
-<%= render :partial => "display_selection" %>
+<div class="filterable-list">
+  <%= render :partial => "filters" %>
 
-<%= render :partial => "book_grid", :locals => { :books => @books } %>
+  <div class="results">
+    <%= render :partial => "book_grid", :locals => { :books => @books } %>
+  </div>
+</div>
