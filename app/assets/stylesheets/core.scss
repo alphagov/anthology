@@ -5,7 +5,11 @@ body {
   font-family: "Avenir Light", Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
-  font-size: 100%;
+  font-size: 85%;
+
+  @media (min-width: 825px){
+    font-size: 100%;
+  }
 }
 input, input[type='submit'] {
   font-family: "Avenir Light", Helvetica, Arial, sans-serif;
@@ -13,12 +17,14 @@ input, input[type='submit'] {
 
 .wrap {
   margin: 0 auto;
+  overflow: auto;
+  position: relative;
 
   @media (min-width: 825px){
     width: 600px;
 
     &.two-column {
-      width: 850px;
+      width: 940px;
     }
   }
 
@@ -26,7 +32,7 @@ input, input[type='submit'] {
     margin: 0 1em;
 
     @media (min-width: 825px){
-      width: 425px;
+      width: 450px;
       margin: 0;
 
       &.left { float: left; }

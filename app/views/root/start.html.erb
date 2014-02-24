@@ -32,14 +32,7 @@
       <%= render :partial => "books/copy_grid", :locals => { :copies => @recently_added_copies } %>
       <p style="text-align: center; "><%= link_to "View the whole collection", books_path, :class => "btn" %></p>
     </div>
-
-<!--     <div class="browse">
-      <h2>Browse the library</h2>
-      <%= render :partial => "books/book_grid", :locals => { :books => @books } %>
-    </div> -->
   </div>
-
-  <div class="clear"></div>
 
   <div class="recent-activity">
     <h2>Recent loans</h2>
