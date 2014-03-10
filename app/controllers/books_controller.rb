@@ -22,7 +22,7 @@ class BooksController < ApplicationController
   end
 
   def lookup_isbn
-    isbn = params[:isbn].strip
+    isbn = params[:isbn].strip.gsub(/\-/, "")
     not_found if isbn.blank?
 
     metadata = BookMetadataLookup.find_by_isbn(isbn.to_s)

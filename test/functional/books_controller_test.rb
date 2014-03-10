@@ -76,6 +76,13 @@ class BooksControllerTest < ActionController::TestCase
       get :lookup_isbn, :isbn => "12345"
       assert_response :success
     end
+
+    should "be forgiving of the input" do
+      BookMetadataLookup.expects(:find_by_isbn).with("12345").returns({})
+
+      get :lookup_isbn, :isbn => "123-4-5"
+      assert_response :success
+    end
   end
 
   context "a single book" do
