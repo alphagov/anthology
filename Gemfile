@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby "2.0.0"
 
-gem 'rails', '3.2.18'
+gem 'rails', '4.0.8'
 
 gem 'pg'
 gem 'googlebooks'
@@ -14,7 +14,7 @@ gem 'has_scope'
 
 gem 'rack-ssl-enforcer'
 
-gem 'paper_trail', '~> 2'
+gem 'paper_trail', '~> 3.0.3'
 
 gem 'jquery-rails'
 
@@ -22,16 +22,15 @@ gem 'unicorn'
 gem 'airbrake'
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'sass-rails',   '~> 4.0.3'
+  gem 'uglifier', '~> 2.5.3'
 end
 
 group :test do
-  gem "shoulda-context", '~> 1.0.2'
-  gem 'capybara', '1.1.2'
+  gem "shoulda-context", '~> 1.2.1'
+  gem 'capybara', '~> 2.4.1'
   gem "factory_girl_rails"
   gem "database_cleaner"
   gem "webmock"
-  gem "mocha", "~> 0.13.0", :require => false
+  gem "mocha", "~> 1.1.0", :require => false
 end
