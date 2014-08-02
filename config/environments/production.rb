@@ -66,4 +66,6 @@ Books::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   config.middleware.use Rack::SslEnforcer
+
+  config.eager_load = true
 end
