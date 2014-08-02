@@ -1,6 +1,4 @@
 class Copy < ActiveRecord::Base
-  attr_accessible :book_id, :book_reference, :on_loan
-
   belongs_to :book
   has_many :loans, :dependent => :destroy
   has_many :users, :through => :loans

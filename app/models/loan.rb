@@ -1,6 +1,4 @@
 class Loan < ActiveRecord::Base
-  attr_accessible :user, :user_id, :copy_id, :state, :loan_date, :return_date
-
   belongs_to :copy
   belongs_to :user
 

@@ -22,7 +22,7 @@ class CopiesController < ApplicationController
   end
 
   def create
-    @copy = parent.copies.build(params[:copy])
+    @copy = parent.copies.build(copy_params)
 
     if params[:copy_has_id_number].blank?
       @copy.book_reference = nil
@@ -67,4 +67,7 @@ class CopiesController < ApplicationController
       @copy = Copy.find_by_book_reference(params[:id]) || not_found
     end
 
+    def copy_params
+      params.require(:copy).permit(:book_id, :book_reference, :on_loan)
+    end
 end

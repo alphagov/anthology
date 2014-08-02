@@ -1,8 +1,6 @@
 require 'book_metadata_lookup'
 
 class Book < ActiveRecord::Base
-  attr_accessible :title, :author, :google_id, :openlibrary_id, :isbn
-
   has_paper_trail
 
   cattr_accessor :metadata_lookup
@@ -19,8 +17,8 @@ class Book < ActiveRecord::Base
   belongs_to :created_by, :class_name => "User"
 
   scope :title_search, proc {|q| where("title ILIKE ?", "%#{q}%") }
-  scope :available, joins(:copies).where(copies: { on_loan: false })
-  scope :on_loan, joins(:copies).where(copies: { on_loan: true })
+  scope :available, -> { joins(:copies).where(copies: { on_loan: false }) }
+  scope :on_loan, -> { joins(:copies).where(copies: { on_loan: true }) }
 
   default_scope order("title ASC")
 
