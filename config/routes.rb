@@ -1,5 +1,5 @@
 Books::Application.routes.draw do
-  match "auth/:provider/callback" => "sessions#create"
+  match "auth/:provider/callback" => "sessions#create", via: [:get, :post]
   get "auth/sign_out" => "sessions#sign_out", :as => :sign_out
 
   resources :sessions, :only => :new do
