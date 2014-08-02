@@ -21,10 +21,8 @@ gem 'jquery-rails'
 gem 'unicorn'
 gem 'airbrake'
 
-group :assets do
-  gem 'sass-rails',   '~> 4.0.3'
-  gem 'uglifier', '~> 2.5.3'
-end
+gem 'sass-rails',   '~> 4.0.3'
+gem 'uglifier', '~> 2.5.3'
 
 group :test do
   gem "shoulda-context", '~> 1.2.1'
