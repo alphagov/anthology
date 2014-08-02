@@ -14,7 +14,7 @@ class BooksController < ApplicationController
   end
 
   def index
-    @books = apply_scopes(Book).includes(:copies).all
+    @books = apply_scopes(Book).includes(:copies)
   end
 
   def new

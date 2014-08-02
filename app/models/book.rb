@@ -20,7 +20,7 @@ class Book < ActiveRecord::Base
   scope :available, -> { joins(:copies).where(copies: { on_loan: false }) }
   scope :on_loan, -> { joins(:copies).where(copies: { on_loan: true }) }
 
-  default_scope order("title ASC")
+  default_scope -> { order("title ASC") }
 
   def strip_isbn
     self.isbn = self.isbn.gsub(/\-?\s?/,'')

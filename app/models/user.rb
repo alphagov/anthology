@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_many :loans, :dependent => :destroy
-  has_many :copies, :through => :loans, :conditions => ['loans.state = ?','on_loan']
+  has_many :copies, -> { where('loans.state' => 'on_loan') }, through: :loans
   has_many :books, :through => :copies
 
   validates :github_id, :presence => true, :uniqueness => true

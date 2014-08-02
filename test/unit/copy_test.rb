@@ -8,7 +8,7 @@ class CopyTest < ActiveSupport::TestCase
 
   should "return the book reference as the url parameter" do
     copy = FactoryGirl.create(:copy, :book_reference => "123")
-    assert_equal 123, copy.to_param
+    assert_equal "123", copy.to_param
   end
 
   context "creating a new copy" do

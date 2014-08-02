@@ -40,18 +40,6 @@ class BookTest < ActiveSupport::TestCase
         assert_equal "Lewis Carroll", book.author
       end
 
-      should "allow core attributes to be mass-assigned" do
-        assert_nothing_raised ActiveModel::MassAssignmentSecurity::Error do
-          Book.new(
-            :title => "Nineteen Eighty-Four",
-            :author => "George Orwell",
-            :isbn => "0140817743",
-            :google_id => "google id",
-            :openlibrary_id => "openlibrary id"
-          )
-        end
-      end
-
       should "strip whitespace and dashes from the isbn" do
         book = Book.create!(:isbn => "0 1408-177-43")
         book.reload

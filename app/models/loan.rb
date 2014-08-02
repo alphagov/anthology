@@ -4,10 +4,10 @@ class Loan < ActiveRecord::Base
 
   has_one :book, :through => :copy
 
-  scope :on_loan, where(:state => 'on_loan')
-  scope :returned, where(:state => 'returned')
-  scope :history, where(:state => 'returned').order("loan_date DESC")
-  scope :recently_loaned, order("loan_date DESC")
+  scope :on_loan, -> { where(:state => 'on_loan') }
+  scope :returned, -> { where(:state => 'returned') }
+  scope :history, -> { where(:state => 'returned').order("loan_date DESC") }
+  scope :recently_loaned, -> { order("loan_date DESC") }
 
   validates :user, :presence => true
   validates :copy, :presence => true
