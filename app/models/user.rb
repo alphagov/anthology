@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :github_id, :github_login
-
   has_many :loans, :dependent => :destroy
-  has_many :copies, :through => :loans, :conditions => ['loans.state = ?','on_loan']
+  has_many :copies, -> { where('loans.state' => 'on_loan') }, through: :loans
   has_many :books, :through => :copies
 
   validates :github_id, :presence => true, :uniqueness => true

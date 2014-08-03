@@ -1,15 +1,13 @@
 class Loan < ActiveRecord::Base
-  attr_accessible :user, :user_id, :copy_id, :state, :loan_date, :return_date
-
   belongs_to :copy
   belongs_to :user
 
   has_one :book, :through => :copy
 
-  scope :on_loan, where(:state => 'on_loan')
-  scope :returned, where(:state => 'returned')
-  scope :history, where(:state => 'returned').order("loan_date DESC")
-  scope :recently_loaned, order("loan_date DESC")
+  scope :on_loan, -> { where(:state => 'on_loan') }
+  scope :returned, -> { where(:state => 'returned') }
+  scope :history, -> { where(:state => 'returned').order("loan_date DESC") }
+  scope :recently_loaned, -> { order("loan_date DESC") }
 
   validates :user, :presence => true
   validates :copy, :presence => true

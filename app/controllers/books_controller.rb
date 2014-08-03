@@ -14,7 +14,7 @@ class BooksController < ApplicationController
   end
 
   def index
-    @books = apply_scopes(Book).includes(:copies).all
+    @books = apply_scopes(Book).includes(:copies)
   end
 
   def new
@@ -40,7 +40,7 @@ class BooksController < ApplicationController
   end
 
   def create
-    @book = Book.new(params[:book])
+    @book = Book.new(book_params)
     @book.created_by = current_user
 
     if @book.save
@@ -64,7 +64,7 @@ class BooksController < ApplicationController
   end
 
   def update
-    if @book.update_attributes(params[:book])
+    if @book.update_attributes(book_params)
       flash[:notice] = 'Book updated'
       redirect_to book_path(@book)
     else
@@ -75,5 +75,9 @@ class BooksController < ApplicationController
   private
     def lookup_book
       @book = Book.includes(:copies).find(params[:id]) || not_found
+    end
+
+    def book_params
+      params.require(:book).permit(:title, :author, :google_id, :openlibrary_id, :isbn)
     end
 end

@@ -1,6 +1,4 @@
 class Copy < ActiveRecord::Base
-  attr_accessible :book_id, :book_reference, :on_loan
-
   belongs_to :book
   has_many :loans, :dependent => :destroy
   has_many :users, :through => :loans
@@ -9,10 +7,10 @@ class Copy < ActiveRecord::Base
 
   before_validation :allocate_book_reference, :on => :create, :if => proc {|c| c.book_reference.blank? }
 
-  scope :on_loan, where(:on_loan => true)
-  scope :available, where(:on_loan => false)
-  scope :ordered_by_availability, order("on_loan ASC, book_reference ASC")
-  scope :recently_added, order("created_at DESC")
+  scope :on_loan, -> { where(:on_loan => true) }
+  scope :available, -> { where(:on_loan => false) }
+  scope :ordered_by_availability, -> { order("on_loan ASC, book_reference ASC") }
+  scope :recently_added, -> { order("created_at DESC") }
 
   class NotAvailable < Exception; end
   class NotOnLoan < Exception; end
@@ -61,7 +59,7 @@ class Copy < ActiveRecord::Base
   end
 
   def to_param
-    book_reference
+    book_reference.to_s
   end
 
   def self.next_available_book_reference
