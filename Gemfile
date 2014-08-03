@@ -32,3 +32,7 @@ group :test do
   gem "webmock"
   gem "mocha", "~> 1.1.0", :require => false
 end
+
+group :production do
+  gem 'rails_12factor'
+end
