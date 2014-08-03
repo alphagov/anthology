@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class BookTest < ActiveSupport::TestCase
-
+describe Book do
+  
   context "creating a book" do
     context "given a valid ISBN" do
       setup do

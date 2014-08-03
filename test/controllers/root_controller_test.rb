@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RootControllerTest < ActionController::TestCase
+describe RootController do
 
   setup do
     stub_user_session

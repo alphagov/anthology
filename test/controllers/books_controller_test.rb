@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class BooksControllerTest < ActionController::TestCase
+describe BooksController do
 
   setup do
     stub_user_session

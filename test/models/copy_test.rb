@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class CopyTest < ActiveSupport::TestCase
-
+describe Copy do
+  
   setup do
     @book = FactoryGirl.create(:book)
   end

@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class LoanTest < ActiveSupport::TestCase
-
+describe Loan do
+  
   setup do
     @copy = FactoryGirl.create(:copy)
     @user = FactoryGirl.create(:user)
