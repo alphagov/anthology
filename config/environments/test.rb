@@ -32,6 +32,7 @@ Books::Application.configure do
   config.after_initialize do
     PaperTrail.enabled = false
   end
+  config.minitest_spec_rails.mini_shoulda = true
 
   config.eager_load = false
 end

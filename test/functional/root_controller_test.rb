@@ -3,7 +3,7 @@ require 'test_helper'
 class RootControllerTest < ActionController::TestCase
 
   setup do
-    login_as_stub_user
+    stub_user_session
   end
 
   context "the start page" do

@@ -31,21 +31,24 @@ GEM
       multi_json
     arel (4.0.2)
     builder (3.1.4)
-    capybara (2.4.1)
+    capybara (2.3.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.2.0)
+      capybara (>= 2.0.2, < 2.4.0)
+      json
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.3.0)
     erubis (2.7.0)
     execjs (2.2.1)
-    factory_girl (4.4.0)
+    factory_girl (4.1.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.4.1)
-      factory_girl (~> 4.4.0)
+    factory_girl_rails (4.1.0)
+      factory_girl (~> 4.1.0)
       railties (>= 3.0.0)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
@@ -75,6 +78,9 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.6.0)
     minitest (4.7.5)
+    minitest-spec-rails (4.7.7)
+      minitest (~> 4.7)
+      rails (>= 3.0, < 4.1)
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     multi_json (1.10.1)
@@ -148,7 +154,6 @@ GEM
       sass (~> 3.2.0)
       sprockets (~> 2.8, <= 2.11.0)
       sprockets-rails (~> 2.0)
-    shoulda-context (1.2.1)
     sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -185,14 +190,15 @@ PLATFORMS
 
 DEPENDENCIES
   airbrake
-  capybara (~> 2.4.1)
+  capybara-webkit
   database_cleaner
-  factory_girl_rails
+  factory_girl_rails (= 4.1.0)
   formtastic
   googlebooks
   has_scope
   jquery-rails
-  mocha (~> 1.1.0)
+  minitest-spec-rails
+  mocha
   openlibrary
   opensesame-github
   paper_trail (~> 3.0.3)
@@ -202,7 +208,6 @@ DEPENDENCIES
   rails (= 4.0.8)
   rails_12factor
   sass-rails (~> 4.0.3)
-  shoulda-context (~> 1.2.1)
   uglifier (~> 2.5.3)
   unicorn
   webmock

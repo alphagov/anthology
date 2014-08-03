@@ -1,49 +1,36 @@
-ENV["RAILS_ENV"] = "test"
+ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'webmock/test_unit'
+require "mocha/setup"
+require 'webmock'
 
-require 'fixtures/factories'
-require 'fixtures/mock_book_metadata_lookup'
-
-require 'mocha/setup'
+Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
 
 DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean
-
 WebMock.disable_net_connect!
 
-include Warden::Test::Helpers
-
 class ActiveSupport::TestCase
-  def setup
+  ActiveRecord::Migration.check_pending!
+
+  include FactoryGirl::Syntax::Methods
+
+  include MetadataLookupStubHelper
+  include VersioningHelper
+
+  setup do
     DatabaseCleaner.start
-    Book.metadata_lookup = MockBookMetadataLookup.new # stub the metadata lookup class in tests
+
+    # TODO: Refactor the metadata lookup behaviour so that we don't have to
+    # stub it out before every test.
+    stub_metadata_lookup
   end
 
-  def teardown
+  teardown do
     DatabaseCleaner.clean
   end
+end
 
-  def login_as_stub_user
-    @user = FactoryGirl.create(:user, :name => 'Ian Fleming')
-    request.env['warden'] = stub(:authenticate! => true, :authenticated? => true, :user => @user)
-  end
-
-  # https://github.com/airblade/paper_trail#globally
-  # and https://github.com/airblade/paper_trail/issues/341
-  def with_versioning
-    was_enabled = PaperTrail.enabled?
-    controller_was_enabled = PaperTrail.enabled_for_controller?
-
-    PaperTrail.enabled = true
-    PaperTrail.enabled_for_controller = true
-
-    begin
-      yield
-    ensure
-      PaperTrail.enabled = was_enabled
-      PaperTrail.enabled_for_controller = PaperTrail.enabled_for_controller?
-    end
-  end
+class ActionController::TestCase
+  include UserSessionStubHelper
 end

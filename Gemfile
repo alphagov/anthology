@@ -25,12 +25,12 @@ gem 'sass-rails',   '~> 4.0.3'
 gem 'uglifier', '~> 2.5.3'
 
 group :test do
-  gem "shoulda-context", '~> 1.2.1'
-  gem 'capybara', '~> 2.4.1'
-  gem "factory_girl_rails"
+  gem "minitest-spec-rails"
+  gem "capybara-webkit"
+  gem "factory_girl_rails", '4.1.0'
   gem "database_cleaner"
-  gem "webmock"
-  gem "mocha", "~> 1.1.0", :require => false
+  gem "webmock", require: false
+  gem "mocha", require: false
 end
 
 group :production do

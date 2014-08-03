@@ -3,7 +3,7 @@ require 'test_helper'
 class BooksControllerTest < ActionController::TestCase
 
   setup do
-    login_as_stub_user
+    stub_user_session
   end
 
   context "book list" do
