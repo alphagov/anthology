@@ -1,7 +1,7 @@
 require 'book_metadata_lookup'
 
 class Book < ActiveRecord::Base
-  has_paper_trail
+  has_paper_trail ignore: :updated_at
 
   cattr_accessor :metadata_lookup
 
