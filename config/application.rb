@@ -9,6 +9,8 @@ if defined?(Bundler)
 end
 
 module Books
+  mattr_accessor :permitted_email_hostnames
+
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

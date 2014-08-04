@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
   has_many :books, :through => :copies
 
   validates :provider_uid, :presence => true, :uniqueness => true
+  validate :email_has_permitted_hostname, on: :create
+
+  class CreationFailure < StandardError; end
 
   def current_copies
     copies.includes(:book)
@@ -13,22 +16,50 @@ class User < ActiveRecord::Base
     loans.returned.includes(:copy).includes(:book)
   end
 
-  def self.find_or_create_from_auth_hash(auth_hash)
-    existing_user = self.where(email: auth_hash[:info][:email]).first
-    atts = {
-      name: auth_hash[:info][:name],
-      image_url: auth_hash[:info][:image],
-      provider:  auth_hash[:provider],
-      provider_uid: auth_hash[:uid],
-    }
+  def self.find_or_create_from_auth_hash!(auth_hash)
+    existing_user = where(email: auth_hash[:info][:email]).first
 
     if existing_user.present?
-      existing_user.update_attributes(atts)
+      existing_user.update_attributes(atts_from_auth_hash(auth_hash))
       existing_user
     else
-      self.create!(atts.merge(
-        email: auth_hash[:info][:email]
-      ))
+      user = new(initial_atts_from_auth_hash(auth_hash))
+
+      if user.save
+        return user
+      else
+        raise CreationFailure, user.errors.full_messages.join(", ")
+      end
+    end
+  end
+
+private
+  def self.atts_from_auth_hash(hash)
+    {
+      name: hash[:info][:name],
+      image_url: hash[:info][:image],
+      provider: hash[:provider],
+      provider_uid: hash[:uid],
+    }
+  end
+
+  def self.initial_atts_from_auth_hash(hash)
+    atts_from_auth_hash(hash).merge(
+      email: hash[:info][:email]
+    )
+  end
+
+  def email_has_permitted_hostname
+    if email.blank? || Books.permitted_email_hostnames.empty?
+      return
+    end
+
+    hostname = email.match(/@([A-Za-z0-9\-\.]+)\Z/) {|matches|
+      matches[1]
+    }
+
+    unless Books.permitted_email_hostnames.include?(hostname)
+      errors.add(:email, "must be on a permitted hostname")
     end
   end
 end

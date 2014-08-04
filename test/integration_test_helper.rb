@@ -3,6 +3,7 @@ require 'capybara/rails'
 
 include OmniAuthStubHelper
 prepare_omniauth_for_testing
+set_mock_auth_hash
 
 class ActionDispatch::IntegrationTest
   include OmniAuthStubHelper
