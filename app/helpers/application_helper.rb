@@ -22,7 +22,7 @@ module ApplicationHelper
   end
 
   def use_developer_strategy?
-    (Rails.env.development? || Rails.env.test?) && ENV["GOOGLE_CLIENT_ID"].blank?
+    Rails.env.development? && ENV["GOOGLE_CLIENT_ID"].blank?
   end
 
 end
