@@ -21,12 +21,8 @@ module ApplicationHelper
     ENV['LIBRARY_TITLE'] || "Library"
   end
 
-  def organization_name
-    OpenSesame::Github.organization_name
-  end
-
   def use_developer_strategy?
-    (Rails.env.development? || Rails.env.test?) && ENV["GITHUB_CLIENT_ID"].blank?
+    (Rails.env.development? || Rails.env.test?) && ENV["GOOGLE_CLIENT_ID"].blank?
   end
 
 end
