@@ -4,7 +4,7 @@ class StartPageTest < ActionDispatch::IntegrationTest
 
   context "as a signed in user" do
     setup do
-      sign_in_as_stub_user
+      sign_in_user
     end
 
     should "load the start page" do
@@ -12,12 +12,12 @@ class StartPageTest < ActionDispatch::IntegrationTest
 
       visit '/'
 
-      assert page.has_content?("Welcome, #{stub_user.name}!")
+      assert page.has_content?("Welcome, #{signed_in_user.name}!")
       assert page.has_content?("You have 0 books on loan")
     end
 
     should "update the number of items on loan" do
-      loans = FactoryGirl.create_list(:loan, 5, :user => stub_user)
+      loans = FactoryGirl.create_list(:loan, 5, :user => signed_in_user)
 
       visit '/'
       assert page.has_content?("You have 5 books on loan")
