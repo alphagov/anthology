@@ -1,15 +1,20 @@
 module ApplicationHelper
 
-  def warden
-    request.env['warden']
+  def current_user
+    if session[:user_id].present?
+      @current_user ||= User.where(id: session[:user_id]).first
+    end
+  end
+
+  def user_signed_in?
+    current_user.present?
   end
 
   def authenticate!
-    warden.authenticate!
-  end
-
-  def current_user
-    warden.user
+    unless user_signed_in?
+      redirect_to new_session_path
+      false
+    end
   end
 
   def library_title
