@@ -84,10 +84,14 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         assert page.has_content?("since #{Date.today.strftime("%b %d, %Y")}")
       end
 
-      should "not allow the book to be returned" do
+      should "allow the book to be returned" do
         visit "/copy/123"
+        click_on "Return"
 
-        assert page.has_no_content?("Return")
+        assert_equal "/copy/123", current_path
+        assert page.has_content?("123")
+        assert page.has_content?("Available to borrow")
+
       end
     end
 

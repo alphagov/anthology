@@ -24,11 +24,11 @@ class Copy < ActiveRecord::Base
   end
 
   def on_loan?
-    on_loan
+    on_loan && current_loan.present?
   end
 
   def available?
-    ! on_loan
+    ! on_loan?
   end
 
   def status
