@@ -92,6 +92,10 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         assert page.has_content?("123")
         assert page.has_content?("Available to borrow")
 
+        within ".history" do
+          assert page.has_content?(@another_user.name)
+          assert page.has_content?("returned by #{signed_in_user.name}")
+        end
       end
     end
 

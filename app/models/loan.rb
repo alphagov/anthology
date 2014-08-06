@@ -34,4 +34,8 @@ class Loan < ActiveRecord::Base
   def update_copy_loan_status
     copy.update_loan_status!
   end
+
+  def returned_by_another_user?
+    returned_by.present? && user != returned_by
+  end
 end
