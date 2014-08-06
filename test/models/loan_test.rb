@@ -1,7 +1,7 @@
 require 'test_helper'
 
 describe Loan do
-  
+
   setup do
     @copy = FactoryGirl.create(:copy)
     @user = FactoryGirl.create(:user)
@@ -64,6 +64,14 @@ describe Loan do
       @loan.return
 
       assert ! @loan.return_date.blank?
+    end
+
+    should 'set the returning user when present' do
+      returning_user = create(:user)
+      @loan.return(returning_user)
+
+      @loan.reload
+      assert_equal returning_user, @loan.returned_by
     end
   end
 

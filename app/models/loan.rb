@@ -1,6 +1,7 @@
 class Loan < ActiveRecord::Base
   belongs_to :copy
   belongs_to :user
+  belongs_to :returned_by, class_name: 'User'
 
   has_one :book, :through => :copy
 
@@ -17,11 +18,12 @@ class Loan < ActiveRecord::Base
 
   class NotOnLoan < Exception; end
 
-  def return
+  def return(as_user=nil)
     raise NotOnLoan unless state == "on_loan"
 
     self.state = 'returned'
     self.return_date = Time.now
+    self.returned_by = as_user
     self.save
   end
 
