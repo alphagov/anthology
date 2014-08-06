@@ -1,7 +1,7 @@
 require 'test_helper'
 
 describe Copy do
-  
+
   setup do
     @book = FactoryGirl.create(:book)
   end
@@ -85,28 +85,38 @@ describe Copy do
       @user = @copy_on_loan.current_user
     end
 
+    should 'return the loans attached to the copy' do
+      loan = @copy_on_loan.loans.where(state: 'on_loan').first
+
+      @copy_on_loan.return
+
+      @copy_on_loan.reload
+      loan.reload
+
+      assert_equal 'returned', loan.state
+      assert_equal false, @copy_on_loan.on_loan
+    end
+
     should "not allow a copy not on loan to be returned" do
       copy = FactoryGirl.create(:copy)
 
       assert_raise Copy::NotOnLoan do
-        copy.return(@user)
+        copy.return
       end
     end
 
     should "only try to return current loans" do
       previous_loan = @copy_on_loan.loans.create!(:user => @user, :state => 'returned')
+      previous_loan.expects(:return).never
 
-      assert_nothing_raised do
-        @copy_on_loan.return(@user)
-      end
+      assert @copy_on_loan.return
     end
 
-    should "not allow a copy loaned by someone else to be returned" do
-      another_user = FactoryGirl.create(:user)
+    should 'pass through the returning user when present' do
+      user = create(:user)
+      Loan.any_instance.expects(:return).with(user).returns(true)
 
-      assert_raise Copy::NotLoanedByUser do
-        @copy_on_loan.return(another_user)
-      end
+      assert @copy_on_loan.return(user)
     end
   end
 

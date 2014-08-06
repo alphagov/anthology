@@ -46,4 +46,9 @@ module BooksHelper
       end
     end.join('').html_safe
   end
+
+  def user_or_second_person(resource_user, signed_in_user)
+    return "unknown" unless resource_user.present?
+    resource_user == signed_in_user ? 'you' : resource_user.name
+  end
 end

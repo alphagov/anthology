@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140804171946) do
+ActiveRecord::Schema.define(version: 20140806215556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,11 +38,12 @@ ActiveRecord::Schema.define(version: 20140804171946) do
   create_table "loans", force: true do |t|
     t.integer  "user_id"
     t.integer  "copy_id"
-    t.string   "state",       default: "on_loan"
+    t.string   "state",          default: "on_loan"
     t.datetime "loan_date"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.datetime "return_date"
+    t.integer  "returned_by_id"
   end
 
   create_table "users", force: true do |t|

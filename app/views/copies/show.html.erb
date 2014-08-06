@@ -13,7 +13,12 @@
       <% @previous_loans.each do |loan| %>
       <tr>
         <td><%= loan.loan_date.strftime("%e %B %Y") if loan.loan_date %> - <%= loan.return_date.strftime("%e %B %Y") if loan.return_date %></td>
-        <td><%= link_to loan.user.name, user_path(loan.user) %></td>
+        <td>
+          <%= link_to loan.user.name, user_path(loan.user) %>
+          <% if loan.returned_by_another_user? %>
+            <span class="returned-by">returned by <%= loan.returned_by.name %></span>
+          <% end %>
+        </td>
       </tr>
       <% end %>
     </table>

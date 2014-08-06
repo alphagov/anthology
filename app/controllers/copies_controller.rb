@@ -52,8 +52,6 @@ class CopiesController < ApplicationController
     end
   rescue Copy::NotOnLoan => e
     flash[:alert] = "Copy #{resource.book_reference} is not on loan."
-  rescue Copy::NotLoanedByUser => e
-    flash[:alert] = "Copy #{resource.book_reference} is not on loan to you, so you cannot return it."
   ensure
     redirect_to copy_path(resource)
   end
