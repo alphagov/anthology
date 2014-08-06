@@ -4,7 +4,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
   context "as a signed in user" do
     setup do
-      sign_in_as_stub_user
+      sign_in_user
     end
 
     context "given an available copy exists" do
@@ -46,7 +46,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
     context "given a copy is on loan to the signed in user" do
       setup do
         @copy = FactoryGirl.create(:copy, :book_reference => "123")
-        @copy.borrow(stub_user)
+        @copy.borrow(signed_in_user)
       end
 
       should "render the copy page" do

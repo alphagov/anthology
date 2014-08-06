@@ -4,7 +4,7 @@ class BookActionsTest < ActionDispatch::IntegrationTest
 
   context "as a signed in user" do
     setup do
-      sign_in_as_stub_user
+      sign_in_user
     end
 
     context "given a book exists" do
