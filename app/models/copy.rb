@@ -14,7 +14,6 @@ class Copy < ActiveRecord::Base
 
   class NotAvailable < Exception; end
   class NotOnLoan < Exception; end
-  class NotLoanedByUser < Exception; end
 
   def current_loan
     loans.on_loan.first
@@ -47,11 +46,12 @@ class Copy < ActiveRecord::Base
     loans.create(:user => user)
   end
 
-  def return(user)
+  def return(as_user=nil)
     raise NotOnLoan unless on_loan?
-    raise NotLoanedByUser, user unless current_user == user
 
-    loans.where(:user_id => user.id, :state => 'on_loan').each(&:return)
+    loans.where(:state => 'on_loan').each do |loan|
+      loan.return(as_user)
+    end
   end
 
   def allocate_book_reference
