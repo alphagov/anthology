@@ -3,6 +3,13 @@
 
   <p style="text-align: center;"><%= book_cover_tag @book, :size => "S" %></p>
 
+  <% if @copy.missing? %>
+    <div class="missing">
+      This copy has been reported missing.<br>
+      If you find it, please <%= link_to "mark it as found", missing_copy_path(@copy), method: :delete %>.
+    </div>
+  <% end %>
+
   <ul class="copies">
     <%= render partial: "copy", locals: { copy: @copy, link_to_copy: false } %>
   </ul>

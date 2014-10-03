@@ -55,3 +55,11 @@ fieldset.copy-number {
     padding-right: 0.5em;
   }
 }
+
+.missing {
+  border: 1px solid #ccc;
+  border-left: 12px solid #d2381d;
+  background: #f6f6f6;
+  padding: 16px;
+  line-height: 1.6;
+}

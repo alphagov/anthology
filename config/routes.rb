@@ -16,6 +16,7 @@ Books::Application.routes.draw do
       post :return
 
       put :missing, to: 'copies#set_missing'
+      delete :missing, to: 'copies#unset_missing'
     end
   end
 
