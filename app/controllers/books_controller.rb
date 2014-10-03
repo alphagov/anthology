@@ -8,6 +8,7 @@ class BooksController < ApplicationController
     case value
     when "available" then scope.available
     when "on_loan" then scope.on_loan
+    when "missing" then scope.missing
     else
       scope
     end
