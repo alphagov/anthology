@@ -14,6 +14,8 @@ Books::Application.routes.draw do
     member do
       post :borrow
       post :return
+
+      put :missing, to: 'copies#set_missing'
     end
   end
 

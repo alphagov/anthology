@@ -28,6 +28,10 @@
     <ul>
       <li><%= link_to "See all copies of this book", book_path(@book) %></li>
       <li><%= link_to "Add another copy", new_book_copy_path(@book) %></li>
+
+      <% unless @copy.missing? %>
+        <li><%= link_to "Report this copy as missing", missing_copy_path(@copy), method: :put %></li>
+      <% end %>
     </ul>
   </nav>
 </section>

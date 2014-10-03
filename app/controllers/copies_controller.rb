@@ -56,6 +56,12 @@ class CopiesController < ApplicationController
     redirect_to copy_path(resource)
   end
 
+  def set_missing
+    resource.set_missing
+    flash[:notice] = "Copy ##{resource.book_reference} has been marked as missing"
+    redirect_to copy_path(resource)
+  end
+
   private
     def parent
       @book = Book.find(params[:book_id])
