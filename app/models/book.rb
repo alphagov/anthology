@@ -19,6 +19,7 @@ class Book < ActiveRecord::Base
   scope :title_search, proc {|q| where("title ILIKE ?", "%#{q}%") }
   scope :available, -> { joins(:copies).where(copies: { on_loan: false }) }
   scope :on_loan, -> { joins(:copies).where(copies: { on_loan: true }) }
+  scope :missing, -> { joins(:copies).where(copies: { missing: true }) }
 
   default_scope -> { order("title ASC") }
 

@@ -7,8 +7,10 @@ class Copy < ActiveRecord::Base
 
   before_validation :allocate_book_reference, :on => :create, :if => proc {|c| c.book_reference.blank? }
 
-  scope :on_loan, -> { where(:on_loan => true) }
-  scope :available, -> { where(:on_loan => false) }
+  scope :on_loan, -> { where(on_loan: true) }
+  scope :available, -> { where(on_loan: false) }
+  scope :missing, -> { where(missing: true) }
+
   scope :ordered_by_availability, -> { order("on_loan ASC, book_reference ASC") }
   scope :recently_added, -> { order("created_at DESC") }
 
@@ -35,6 +37,10 @@ class Copy < ActiveRecord::Base
     on_loan? ? :on_loan : :available
   end
 
+  def missing?
+    missing
+  end
+
   def update_loan_status!
     self.on_loan = current_loan.present?
     self.save!
@@ -52,6 +58,14 @@ class Copy < ActiveRecord::Base
     loans.where(:state => 'on_loan').each do |loan|
       loan.return(as_user)
     end
+  end
+
+  def set_missing
+    update_attribute(:missing, true)
+  end
+
+  def unset_missing
+    update_attribute(:missing, false)
   end
 
   def allocate_book_reference
