@@ -156,6 +156,10 @@ ul.copies {
   &.my_copy { background: #e6a3ea;
     h2, .since { color: #793f80; }
   }
+  &.missing {
+    background: #ddd;
+    border-left: 12px solid #d2381d;
+  }
 }
 
 .new-book.formtastic {
