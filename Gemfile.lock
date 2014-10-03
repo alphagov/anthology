@@ -107,7 +107,7 @@ GEM
     openlibrary (1.0.0)
       json
       rest-client
-    paper_trail (3.0.3)
+    paper_trail (3.0.5)
       activerecord (>= 3.0, < 5.0)
       activesupport (>= 3.0, < 5.0)
     pg (0.17.1)
@@ -192,7 +192,7 @@ DEPENDENCIES
   mocha
   omniauth-google-oauth2
   openlibrary
-  paper_trail (~> 3.0.3)
+  paper_trail (~> 3.0.5)
   pg
   possessive
   rack-ssl-enforcer

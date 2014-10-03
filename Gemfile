@@ -15,7 +15,7 @@ gem 'has_scope'
 
 gem 'rack-ssl-enforcer'
 
-gem 'paper_trail', '~> 3.0.3'
+gem 'paper_trail', '~> 3.0.5'
 
 gem 'jquery-rails'
 
