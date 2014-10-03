@@ -4,10 +4,10 @@ class BooksController < ApplicationController
   before_filter :lookup_book, :only => [:show, :edit, :history, :update]
 
   has_scope :title_search, :as => :q
-  has_scope :available do |controller, scope, value|
+  has_scope :availability do |controller, scope, value|
     case value
-    when "true" then scope.available
-    when "false" then scope.on_loan
+    when "available" then scope.available
+    when "on_loan" then scope.on_loan
     else
       scope
     end
