@@ -15,15 +15,10 @@ class ActiveSupport::TestCase
 
   include FactoryGirl::Syntax::Methods
 
-  include MetadataLookupStubHelper
   include VersioningHelper
 
   setup do
     DatabaseCleaner.start
-
-    # TODO: Refactor the metadata lookup behaviour so that we don't have to
-    # stub it out before every test.
-    stub_metadata_lookup
   end
 
   teardown do

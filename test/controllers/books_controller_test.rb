@@ -63,28 +63,6 @@ describe BooksController do
     end
   end
 
-  context "looking up isbns" do
-    should "raise a not found error if isbn is blank" do
-      assert_raise(ActionController::RoutingError) do
-        get :lookup_isbn, :isbn => ''
-      end
-    end
-
-    should "invoke the metadata lookup library for a valid request" do
-      BookMetadataLookup.expects(:find_by_isbn).with("12345").returns({})
-
-      get :lookup_isbn, :isbn => "12345"
-      assert_response :success
-    end
-
-    should "be forgiving of the input" do
-      BookMetadataLookup.expects(:find_by_isbn).with("12345").returns({})
-
-      get :lookup_isbn, :isbn => "123-4-5"
-      assert_response :success
-    end
-  end
-
   context "a single book" do
     setup do
       @book = FactoryGirl.create(:book)

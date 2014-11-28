@@ -1,0 +1,67 @@
+.new-book {
+
+  &.wrap {
+    width: 750px;
+  }
+
+  .isbn-lookup {
+    background: #f6f6f6;
+    border: 1px solid #bbb;
+    padding: 20px;
+
+    p { margin: 0; }
+  }
+
+  form.formtastic {
+    font-size: 14px;
+
+    fieldset {
+      padding: 40px 0 30px;
+      position: relative;
+      border-bottom: 1px solid #eee;
+
+      legend {
+        width: 200px;
+        float: left;
+        font-weight: bold;
+        padding-top: 8px;
+      }
+
+      ol {
+        margin-left: 200px;
+      }
+    }
+
+    .stringish {
+      .label {
+        width: 35%;
+        padding-top: 9px;
+      }
+      input {
+        @include border-box;
+        padding: 6px 8px;
+        font-size: 15px;
+        width: 65%;
+      }
+    }
+
+    .hint {
+      clear: right;
+      padding: 15px 0;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    li#book_isbn_input {
+      margin-bottom: 0;
+    }
+
+    button.isbn-lookup {
+      float: right;
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+  }
+
+}

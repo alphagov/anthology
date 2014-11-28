@@ -22,27 +22,15 @@ class BooksController < ApplicationController
     @book = Book.new
   end
 
-  def lookup_isbn
-    isbn = params[:isbn].strip.gsub(/\-/, "")
-    not_found if isbn.blank?
-
-    metadata = BookMetadataLookup.find_by_isbn(isbn.to_s)
-    existing_book = Book.where(:isbn => isbn.gsub(/\-?\s?/,'')).first
-    isbn_exists = existing_book.present?
-
-    render :json => metadata.merge({
-      :exists => isbn_exists,
-      :creatable => ! isbn_exists,
-      :existing_book => existing_book,
-      :covers => cover_urls(metadata)
-    })
-  rescue BookMetadataLookup::BookNotFound
-    render :json => { }
-  end
-
   def create
     @book = Book.new(book_params)
     @book.created_by = current_user
+
+    if params[:intent] == 'isbn-lookup'
+      assign_metadata_to_book(@book)
+      render action: :new
+      return
+    end
 
     if @book.save
       flash[:notice] = 'Book created'
@@ -73,12 +61,24 @@ class BooksController < ApplicationController
     end
   end
 
-  private
-    def lookup_book
-      @book = Book.includes(:copies).find(params[:id]) || not_found
-    end
+private
+  def lookup_book
+    @book = Book.includes(:copies).find(params[:id]) || not_found
+  end
 
-    def book_params
-      params.require(:book).permit(:title, :author, :google_id, :openlibrary_id, :isbn)
+  def book_params
+    params.require(:book).permit(:title, :author, :google_id, :openlibrary_id, :isbn)
+  end
+
+  def assign_metadata_to_book(book)
+    book.isbn.strip!
+    book.isbn.gsub!(/\-/, "")
+
+    return unless book.isbn.present?
+
+    metadata = BookMetadataLookup.find_by_isbn(book.isbn.to_s)
+    metadata.slice(:title, :author, :google_id, :openlibrary_id).each do |attr, value|
+      book.send("#{attr}=", value)
     end
+  end
 end

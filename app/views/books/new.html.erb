@@ -1,13 +1,24 @@
-<section class="resource wrap">
+<section class="resource wrap new-book">
   <h1>Add a book</h1>
 
-  <%= semantic_form_for @book, :html => {:class => "new-book"} do |f| %>
-    <%= f.input :isbn, :label => "ISBN", :placeholder => "Enter the book's ISBN to search...", :autofocus => "autofocus" %>
+  <%= semantic_form_for @book do |f| %>
+    <%= f.inputs "Find by ISBN" do %>
+      <%= f.input :isbn, label: "ISBN", placeholder: '(optional)' %>
+      <%= f.button "Look up book details", class: 'isbn-lookup', name: 'intent', value: 'isbn-lookup' %>
 
-    <div id="book-placeholder">
-    </div>
+      <p class="hint">We can try to fetch information about the book using its ISBN. You can review the information before the book is created.</p>
+    <% end %>
 
-    <%= f.actions %>
+    <%= f.inputs "Book details" do %>
+      <%= f.input :title %>
+      <%= f.input :author %>
+      <%= f.input :google_id, label: "Google Books ID" %>
+      <%= f.input :openlibrary_id, label: "OpenLibrary ID" %>
+    <% end %>
+
+    <%= f.actions do %>
+      <%= f.action :submit, as: :button, label: 'Create book' %>
+    <% end %>
   <% end %>
 </section>
 

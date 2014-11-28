@@ -3,11 +3,9 @@ require 'book_metadata_lookup'
 class Book < ActiveRecord::Base
   has_paper_trail ignore: :updated_at
 
-  cattr_accessor :metadata_lookup
-
   before_validation :strip_isbn, :if => :isbn_changed?
-  before_create :update_metadata
-  validates :isbn, :presence => :true, :uniqueness => { :case_sensitive => false }
+  validates :isbn, :uniqueness => { case_sensitive: false, allow_blank: true }
+  validates :title, :author, presence: true
 
   after_create :setup_first_copy
 
@@ -25,16 +23,6 @@ class Book < ActiveRecord::Base
 
   def strip_isbn
     self.isbn = self.isbn.gsub(/\-?\s?/,'')
-  end
-
-  def update_metadata
-    book_details = (Book.metadata_lookup || BookMetadataLookup).find_by_isbn(isbn)
-
-    [:title, :author, :google_id, :openlibrary_id].each do |field|
-      self.send("#{field.to_s}=".to_sym, book_details[field]) if book_details and book_details[field]
-    end
-  rescue BookMetadataLookup::BookNotFound
-    nil
   end
 
   def available?
