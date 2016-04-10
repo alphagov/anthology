@@ -19,8 +19,8 @@ gem 'paper_trail', '~> 3.0.5'
 
 gem 'jquery-rails'
 
-gem 'unicorn'
 gem 'airbrake', '~> 4.0.0'
+gem 'puma'
 
 gem 'sass-rails',   '~> 4.0.3'
 gem 'uglifier', '~> 2.5.3'

@@ -1,1 +1,1 @@
-web: bundle exec unicorn -p $PORT
+web: bin/puma -p $PORT
