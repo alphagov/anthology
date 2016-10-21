@@ -42,6 +42,7 @@ GEM
       multi_json
     arel (6.0.3)
     builder (3.2.2)
+    byebug (9.0.6)
     capybara (2.7.0)
       addressable
       mime-types (>= 1.16)
@@ -52,6 +53,7 @@ GEM
     capybara-webkit (1.10.1)
       capybara (>= 2.3.0, < 2.8.0)
       json
+    coderay (1.1.1)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.5.1)
@@ -95,6 +97,7 @@ GEM
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
     metaclass (0.0.4)
+    method_source (0.8.2)
     mime-types (2.99.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
@@ -136,6 +139,13 @@ GEM
       activesupport (>= 3.0, < 5.0)
     pg (0.18.4)
     possessive (1.0.1)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (3.4.0)
+      byebug (~> 9.0)
+      pry (~> 0.10)
     puma (3.4.0)
     rack (1.6.4)
     rack-ssl-enforcer (0.2.9)
@@ -182,6 +192,7 @@ GEM
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
+    slop (3.6.0)
     sprockets (2.12.4)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -228,6 +239,7 @@ DEPENDENCIES
   paper_trail (~> 3.0.5)
   pg
   possessive
+  pry-byebug
   puma
   rack-ssl-enforcer
   rails (= 4.2.6)
@@ -236,5 +248,8 @@ DEPENDENCIES
   uglifier (~> 2.5.3)
   webmock
 
+RUBY VERSION
+   ruby 2.3.0p0
+
 BUNDLED WITH
-   1.11.2
+   1.13.5

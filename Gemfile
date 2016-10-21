@@ -25,6 +25,10 @@ gem 'puma'
 gem 'sass-rails',   '~> 4.0.3'
 gem 'uglifier', '~> 2.5.3'
 
+group :test, :development do
+  gem 'pry-byebug'
+end
+
 group :test do
   gem "minitest-spec-rails"
   gem "capybara-webkit"
