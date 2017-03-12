@@ -2,6 +2,8 @@ Books::Application.routes.draw do
   match "auth/:provider/callback" => "sessions#create", via: [:get, :post]
   get "auth/sign_out" => "sessions#sign_out", :as => :sign_out
 
+  get "library.csv", to: "root#library_csv"
+
   resources :sessions, :only => :new do
     get :failure, :collection => true
   end
