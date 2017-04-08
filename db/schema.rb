@@ -16,48 +16,48 @@ ActiveRecord::Schema.define(version: 20141003152512) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "books", force: true do |t|
+  create_table "books", force: :cascade do |t|
     t.string   "title"
     t.string   "isbn"
     t.string   "author"
     t.string   "google_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "created_by_id"
     t.string   "openlibrary_id"
   end
 
-  create_table "copies", force: true do |t|
+  create_table "copies", force: :cascade do |t|
     t.integer  "book_id"
     t.integer  "book_reference",                 null: false
     t.boolean  "on_loan",        default: false, null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "missing",        default: false
   end
 
-  create_table "loans", force: true do |t|
+  create_table "loans", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "copy_id"
     t.string   "state",          default: "on_loan"
     t.datetime "loan_date"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "return_date"
     t.integer  "returned_by_id"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "email"
     t.string   "provider"
     t.string   "provider_uid"
     t.string   "image_url"
   end
 
-  create_table "versions", force: true do |t|
+  create_table "versions", force: :cascade do |t|
     t.string   "item_type",      null: false
     t.integer  "item_id",        null: false
     t.string   "event",          null: false
