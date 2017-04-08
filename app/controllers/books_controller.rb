@@ -27,8 +27,14 @@ class BooksController < ApplicationController
     @book.created_by = current_user
 
     if params[:intent] == 'isbn-lookup'
-      assign_metadata_to_book(@book)
-      render action: :new
+      begin
+        assign_metadata_to_book(@book)
+        render action: :new
+      rescue BookMetadataLookup::BookNotFound
+        flash.now[:alert] = "Couldn't find book with isbn #{@book.isbn}"
+        render action: :new
+      end
+
       return
     end
 
