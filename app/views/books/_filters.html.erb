@@ -3,6 +3,9 @@
     <h3>availability</h3>
     <ul>
       <li><%= filter_link "available", :availability, "available" %></li>
+      <% Shelf.all.each do |shelf| %>
+        <li><%= filter_link "- #{shelf}", :availability, "shelf_#{shelf.id}" %></li>
+      <% end %>
       <li><%= filter_link "on loan", :availability, "on_loan" %></li>
       <li><%= filter_link "missing", :availability, "missing" %></li>
     </ul>

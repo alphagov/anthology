@@ -7,6 +7,7 @@ class BooksController < ApplicationController
   has_scope :availability do |controller, scope, value|
     case value
     when "available" then scope.available
+    when /^shelf_[0-9]+$/ then scope.shelf(value.split('_')[1])
     when "on_loan" then scope.on_loan
     when "missing" then scope.missing
     else

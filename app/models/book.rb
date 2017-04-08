@@ -18,6 +18,7 @@ class Book < ActiveRecord::Base
   scope :available, -> { joins(:copies).where(copies: { on_loan: false }) }
   scope :on_loan, -> { joins(:copies).where(copies: { on_loan: true }) }
   scope :missing, -> { joins(:copies).where(copies: { missing: true }) }
+  scope :shelf, ->(shelf_id) { joins(:copies).where(copies: { on_loan: false, shelf_id: shelf_id }) }
 
   default_scope -> { order("title ASC") }
 
