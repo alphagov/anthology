@@ -17,9 +17,21 @@
   <% if @previous_loans.any? %>
     <h3>Loan history</h3>
     <table class="history">
+      <thead>
+        <tr>
+        <th>From</th>
+        <th>Until</th>
+        <th>Duration</th>
+        <th>Returned to</th>
+        <th>by</th>
+      </thead>
+
       <% @previous_loans.each do |loan| %>
       <tr>
-        <td><%= loan.loan_date.strftime("%e %B %Y") if loan.loan_date %> - <%= loan.return_date.strftime("%e %B %Y") if loan.return_date %></td>
+        <td><%= loan.loan_date.strftime("%e %B %Y") if loan.loan_date %></td>
+        <td><%= loan.return_date.strftime("%e %B %Y") if loan.return_date %></td>
+        <td><%= distance_of_time_in_words(loan.duration) if loan.duration %></td>
+        <td><%= loan.returned_to_shelf if loan.returned_to_shelf %></td>
         <td>
           <%= link_to loan.user.name, user_path(loan.user) %>
           <% if loan.returned_by_another_user? %>

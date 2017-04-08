@@ -120,6 +120,18 @@ describe Copy do
     end
   end
 
+  context "shelves" do
+    should "be able to set the shelf" do
+      copy = FactoryGirl.create(:copy)
+      copy.update_attributes(shelf_id: 1)
+
+      copy.reload
+
+      assert_equal 1, copy.shelf_id
+    end
+  end
+
+
   context "recently added copies" do
     should "return newest copies first" do
       # delete first auto-generated copy of book

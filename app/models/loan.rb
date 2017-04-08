@@ -2,6 +2,7 @@ class Loan < ActiveRecord::Base
   belongs_to :copy
   belongs_to :user
   belongs_to :returned_by, class_name: 'User'
+  belongs_to :returned_to_shelf, class_name: 'Shelf'
 
   has_one :book, :through => :copy
 
@@ -18,12 +19,13 @@ class Loan < ActiveRecord::Base
 
   class NotOnLoan < Exception; end
 
-  def return(as_user=nil)
+  def return(as_user=nil, to_shelf=nil)
     raise NotOnLoan unless state == "on_loan"
 
     self.state = 'returned'
     self.return_date = Time.now
     self.returned_by = as_user
+    self.returned_to_shelf = to_shelf
     self.save
   end
 
@@ -37,5 +39,11 @@ class Loan < ActiveRecord::Base
 
   def returned_by_another_user?
     returned_by.present? && user != returned_by
+  end
+
+  def duration
+    if loan_date && return_date
+      return_date - loan_date
+    end
   end
 end

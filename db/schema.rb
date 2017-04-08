@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141003152512) do
+ActiveRecord::Schema.define(version: 20170408104943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,17 +34,25 @@ ActiveRecord::Schema.define(version: 20141003152512) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "missing",        default: false
+    t.integer  "shelf_id"
   end
 
   create_table "loans", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "copy_id"
-    t.string   "state",          default: "on_loan"
+    t.string   "state",                default: "on_loan"
     t.datetime "loan_date"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "return_date"
     t.integer  "returned_by_id"
+    t.integer  "returned_to_shelf_id"
+  end
+
+  create_table "shelves", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: :cascade do |t|

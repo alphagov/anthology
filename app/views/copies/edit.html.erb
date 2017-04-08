@@ -1,0 +1,27 @@
+<section class="resource wrap edit-copy">
+  <h1><%= @book.title %></h1>
+
+  <div class="copy-display">
+    <div class="cover"><%= book_cover_tag @book, :size => "S" %></div>
+
+    <dl class='copy-number'>
+      <dt>Copy number</dt>
+      <dd><%= @copy.book_reference %></dd>
+    </dl>
+  </div>
+
+  <%= semantic_form_for [@copy] do |f| %>
+    <h3>Which shelf is this book on?</h3>
+
+    <fieldset class="shelf">
+      <label>
+        <%= f.input :shelf,  :as => :select,      :collection => Shelf.all, include_blank: "unknown" %>
+      </label>
+    </fieldset>
+
+    <%= f.actions do %>
+      <%= f.submit "Set shelf" %>
+    <% end %>
+  <% end %>
+</section>
+

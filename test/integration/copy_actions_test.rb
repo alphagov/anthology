@@ -41,11 +41,36 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         visit "/copy/123"
         assert page.has_link?("See all copies of this book", :href => "/books/#{@copy.book.id}")
       end
+
+      context "given a shelf exists" do
+        setup do
+          @shelf = FactoryGirl.create(:shelf, :name => "Third floor")
+        end
+
+        should "allow shelf to be set" do
+          visit "/copy/123"
+          within ".shelf" do
+            click_link "set"
+          end
+
+          assert_equal "/copy/123/edit", current_path
+
+          select "Third floor", from: "Shelf"
+          click_on "Set shelf"
+
+          assert_equal "/copy/123", current_path
+          within ".shelf" do
+            assert page.has_content?("Third floor")
+          end
+        end
+      end
     end # given an available copy exists
 
     context "given a copy is on loan to the signed in user" do
       setup do
         @copy = FactoryGirl.create(:copy, :book_reference => "123")
+        @shelf1 = FactoryGirl.create(:shelf, :name => "Third floor")
+        @shelf2 = FactoryGirl.create(:shelf, :name => "Sixth floor")
         @copy.borrow(signed_in_user)
       end
 
@@ -60,11 +85,16 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
       should "allow the book to be returned" do
         visit "/copy/123"
+        select "Sixth floor", from: "Return to"
         click_on "Return"
 
         assert_equal "/copy/123", current_path
         assert page.has_content?("123")
         assert page.has_content?("Available to borrow")
+        save_and_open_page
+        within ".shelf" do
+          assert page.has_content?("Sixth floor")
+        end
       end
     end
 

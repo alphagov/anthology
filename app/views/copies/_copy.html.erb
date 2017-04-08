@@ -7,7 +7,16 @@
   <% if copy.on_loan? %>
     <p>
       On loan to <%= user_or_second_person copy.current_user, current_user %>
-      <%= link_to "Return", return_copy_path(copy), :class => 'btn', :method => :post %>
+
+      <%= semantic_form_for [:return, copy], method: :post do |f| %>
+        <ul>
+          <%= f.input :shelf,  :as => :select,      :collection => Shelf.all, include_blank: "unknown", label: "Return to" %>
+
+          <li><%= f.submit "Return" %></li>
+        </ul>
+
+      <% end %>
+
       <span class="since">since <%= copy.current_loan.loan_date.strftime("%b %d, %Y") %></span>
     </p>
   <% elsif copy.missing? %>
@@ -17,6 +26,13 @@
   <% elsif copy.available? %>
     <p>
       Available to borrow
+      <span class='shelf'>
+      <% if copy.shelf.present? %>
+        (<%= copy.shelf.to_s %> - <%= link_to "edit", edit_copy_path(copy) %>)
+      <% else %>
+        (shelf unknown - <%= link_to "set", edit_copy_path(copy) %>)
+      <% end %>
+      </span>
       <%= link_to "Borrow", borrow_copy_path(copy), :class => 'btn', :method => :post %>
     </p>
   <% end %>

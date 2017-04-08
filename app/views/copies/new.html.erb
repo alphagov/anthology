@@ -22,6 +22,12 @@
       </label>
     </fieldset>
 
+    <fieldset class="shelf">
+      <label for="shelf">
+        <%= f.input :shelf,  :as => :select,      :collection => Shelf.all, include_blank: "unknown" %>
+      </label>
+    </fieldset>
+
     <%= f.actions do %>
       <%= f.submit "Add this copy" %>
     <% end %>
