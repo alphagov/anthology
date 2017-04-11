@@ -10,6 +10,11 @@ class CopiesController < ApplicationController
     @copy = parent.copies.build
   end
 
+  def edit
+    @copy = Copy.find_by_book_reference(params[:id])
+    @book = @copy.book
+  end
+
   def lookup
     @copy = Copy.find_by_book_reference(params[:book_reference])
 
@@ -36,6 +41,16 @@ class CopiesController < ApplicationController
     end
   end
 
+  def update
+    @copy = Copy.find_by_book_reference(params[:id])
+    if @copy.update_attributes(params.require(:copy).permit(:shelf_id))
+      flash[:notice] = 'Shelf updated'
+      redirect_to copy_path(@copy)
+    else
+      render :action => :edit
+    end
+  end
+
   def borrow
     if resource.borrow(current_user)
       flash[:notice] = "Copy #{resource.book_reference} is now on loan to you."
@@ -47,8 +62,13 @@ class CopiesController < ApplicationController
   end
 
   def return
-    if resource.return(current_user)
-      flash[:notice] = "Copy #{resource.book_reference} has now been returned. Thanks!"
+    if resource.return(current_user, shelf)
+      msg = "Copy #{resource.book_reference} has now been returned"
+      if shelf
+        msg << " to #{shelf}"
+      end
+      msg << ". Thanks!"
+      flash[:notice] = msg
     end
   rescue Copy::NotOnLoan => e
     flash[:alert] = "Copy #{resource.book_reference} is not on loan."
@@ -69,6 +89,11 @@ class CopiesController < ApplicationController
   end
 
   private
+    def shelf
+      shelf_id = params.require(:copy).fetch(:shelf_id, nil)
+      shelf_id && Shelf.find_by_id(shelf_id)
+    end
+
     def parent
       @book = Book.find(params[:book_id])
     end
@@ -78,6 +103,6 @@ class CopiesController < ApplicationController
     end
 
     def copy_params
-      params.require(:copy).permit(:book_id, :book_reference, :on_loan)
+      params.require(:copy).permit(:book_id, :book_reference, :on_loan, :shelf_id)
     end
 end

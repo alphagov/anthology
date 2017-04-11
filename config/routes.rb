@@ -29,8 +29,10 @@ Books::Application.routes.draw do
       get :history
     end
 
-    resources :copies, :only => [:new, :create]
+    resources :copies
   end
+
+  resources :copies, :only => [:edit, :update]
 
   resources :user, :only => :show
 

@@ -1,11 +1,49 @@
-.new-copy {
+.new-copy, .edit-copy {
   .formtastic .actions {
     padding: 1em 0 0 0;
+  }
+
+  .formtastic {
+    display: block;
   }
 
   .formtastic .inline-errors {
     float: none;
     margin: 0;
+  }
+}
+
+.edit-copy .copy-display {
+  height: 200px;
+  line-height: 200px;
+  vertical-align: middle;
+
+  .cover {
+    display: inline-block;
+    line-height: normal;
+    vertical-align: middle;
+  }
+
+  dl.copy-number {
+    display: inline-block;
+    margin: 0 0 0 2em;
+    vertical-align: middle;
+    line-height: normal;
+
+    dt {
+      display: inline-block;
+      font-weight: normal;
+      line-height: normal;
+    vertical-align: middle;
+    }
+
+    dd {
+      display: inline-block;
+      font-weight: bold;
+      font-size: 300%;
+    line-height: normal;
+    vertical-align: middle;
+    }
   }
 }
 
@@ -41,6 +79,18 @@ fieldset.copy-number {
       padding: 0.35em;
       font-size: 1.2em;
     }
+  }
+}
+
+fieldset.shelf {
+  display: block;
+  margin: 1.5em 0 0 0;
+  padding: 1em;
+  background: #eee;
+  border-bottom: 1px solid #ccc;
+
+  li.input {
+    margin-bottom: 0;
   }
 }
 

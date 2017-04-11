@@ -2,6 +2,7 @@ class Copy < ActiveRecord::Base
   belongs_to :book
   has_many :loans, :dependent => :destroy
   has_many :users, :through => :loans
+  belongs_to :shelf
 
   validates :book_reference, :presence => true, :uniqueness => { :case_sensitive => false }
 
@@ -52,12 +53,15 @@ class Copy < ActiveRecord::Base
     loans.create(:user => user)
   end
 
-  def return(as_user=nil)
+  def return(as_user=nil, to_shelf=nil)
     raise NotOnLoan unless on_loan?
 
     loans.where(:state => 'on_loan').each do |loan|
-      loan.return(as_user)
+      loan.return(as_user, to_shelf)
     end
+
+    self.shelf = to_shelf
+    self.save!
   end
 
   def set_missing

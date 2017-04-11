@@ -73,6 +73,14 @@ describe Loan do
       @loan.reload
       assert_equal returning_user, @loan.returned_by
     end
+
+    should 'set the returning shelf when present' do
+      shelf = create(:shelf)
+      @loan.return(nil, shelf)
+
+      @loan.reload
+      assert_equal shelf, @loan.returned_to_shelf
+    end
   end
 
 end

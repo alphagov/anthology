@@ -25,6 +25,10 @@ The app is configured with a collection of environment variables:
 * `GITHUB_ORG` - organisation username to restrict access
 * `REQUEST_IP` - IP address to provide as the requester in calls to the Google Books API (required for Heroku)
 * `RAILS_SECRET_TOKEN`
+* `DB_USERNAME`
+* `DB_PASSWORD`
+* `DB_HOST`
+* `DB_PORT`
 
 If you're using Airbrake or Errbit, you can set the following environment variables:
 

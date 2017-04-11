@@ -7,6 +7,7 @@ class BooksController < ApplicationController
   has_scope :availability do |controller, scope, value|
     case value
     when "available" then scope.available
+    when /^shelf_[0-9]+$/ then scope.shelf(value.split('_')[1])
     when "on_loan" then scope.on_loan
     when "missing" then scope.missing
     else
@@ -27,8 +28,14 @@ class BooksController < ApplicationController
     @book.created_by = current_user
 
     if params[:intent] == 'isbn-lookup'
-      assign_metadata_to_book(@book)
-      render action: :new
+      begin
+        assign_metadata_to_book(@book)
+        render action: :new
+      rescue BookMetadataLookup::BookNotFound
+        flash.now[:alert] = "Couldn't find book with isbn #{@book.isbn}"
+        render action: :new
+      end
+
       return
     end
 

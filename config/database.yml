@@ -18,14 +18,16 @@ development:
   database: books_development
   min_messages: warning
   pool: 5
-  username: books
-  password:
+  username: <%= ENV.fetch('DB_USERNAME', 'books') %>
+  password: <%= ENV.fetch('DB_PASSWORD', '') %>
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
-  #host: localhost
-  #port: 5432
+  <% if ENV.has_key?('DB_HOST') %>
+  host: <%= ENV.fetch('DB_HOST', '') %>
+  port: <%= ENV.fetch('DB_PORT', '') %>
+  <% end %>
 
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public
@@ -45,13 +47,21 @@ test:
   database: books_test
   min_messages: warning
   pool: 5
-  username: books
-  password:
+  username: <%= ENV.fetch('DB_USERNAME', 'books') %>
+  password: <%= ENV.fetch('DB_PASSWORD', '') %>
+  <% if ENV.has_key?('DB_HOST') %>
+  host: <%= ENV.fetch('DB_HOST', '') %>
+  port: <%= ENV.fetch('DB_PORT', '') %>
+  <% end %>
 
 production:
   adapter: postgresql
   encoding: unicode
   database: books_production
   pool: 5
-  username: books
-  password:
+  username: <%= ENV.fetch('DB_USERNAME', 'books') %>
+  password: <%= ENV.fetch('DB_PASSWORD', '') %>
+  <% if ENV.has_key?('DB_HOST') %>
+  host: <%= ENV.fetch('DB_HOST', '') %>
+  port: <%= ENV.fetch('DB_PORT', '') %>
+  <% end %>
