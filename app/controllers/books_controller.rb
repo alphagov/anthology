@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   include BooksHelper
 
-  before_filter :lookup_book, :only => [:show, :edit, :history, :update]
+  before_action :lookup_book, :only => [:show, :edit, :history, :update]
 
   has_scope :title_search, :as => :q
   has_scope :availability do |controller, scope, value|
