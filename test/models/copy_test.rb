@@ -114,7 +114,7 @@ describe Copy do
 
     should 'pass through the returning user when present' do
       user = create(:user)
-      Loan.any_instance.expects(:return).with(user).returns(true)
+      Loan.any_instance.expects(:return).with(user, shelf=nil).returns(true)
 
       assert @copy_on_loan.return(user)
     end
