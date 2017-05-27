@@ -33,12 +33,12 @@ describe BooksController do
 
     context "searching for a book" do
       should "return results for a title search" do
-        get :index, :q => "Harry"
+        get :index, params: { :q => "Harry" }
         assert_equal "Harry Potter and the Chamber of Secrets", assigns(:books).first.title
       end
 
       should "not return results when there are no matches" do
-        get :index, :q => "Lord Voldermort"
+        get :index, params: { :q => "Lord Voldermort" }
         assert_equal 0, assigns(:books).length
       end
     end
@@ -69,12 +69,12 @@ describe BooksController do
     end
 
     should "return a successful response" do
-      get :show, :id => @book.id
+      get :show, params: { :id => @book.id }
       assert response.success?
     end
 
     should "load the book details" do
-      get :show, :id => @book.id
+      get :show, params: { :id => @book.id }
 
       assert_equal @book.id, assigns(:book).id
       assert_equal @book.title, assigns(:book).title
@@ -82,7 +82,7 @@ describe BooksController do
     end
 
     should "render the show template" do
-      get :show, :id => @book.id
+      get :show, params: { :id => @book.id }
 
       assert_template "books/show"
     end

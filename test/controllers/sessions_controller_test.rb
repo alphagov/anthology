@@ -17,7 +17,7 @@ describe SessionsController do
           .with(auth_hash)
           .returns(user)
 
-      post :create, provider: :google
+      post :create, params: { provider: :google }
 
       assert_equal user.id, @controller.session[:user_id]
       assert_redirected_to root_path
@@ -28,7 +28,7 @@ describe SessionsController do
           .with(auth_hash)
           .raises(User::CreationFailure.new('something bad'))
 
-      post :create, provider: :google
+      post :create, params: { provider: :google }
 
       assert_redirected_to new_session_path
       assert_match /Could not sign you in/, @controller.flash[:alert]
