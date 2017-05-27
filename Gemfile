@@ -31,6 +31,7 @@ end
 group :test do
   gem "minitest-spec-rails"
   gem "capybara"
+  gem "rails-controller-testing"
   gem "factory_girl_rails", '4.1.0'
   gem "database_cleaner"
   gem "webmock", require: false
