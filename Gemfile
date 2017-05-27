@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby "~> 2.3.0"
+ruby "~> 2.4.1"
 
-gem 'rails', '4.2.6'
+gem 'rails', '5.0.3'
 
 gem 'pg'
 gem 'googlebooks'
@@ -15,15 +15,14 @@ gem 'has_scope'
 
 gem 'rack-ssl-enforcer'
 
-gem 'paper_trail', '~> 3.0.5'
+gem 'paper_trail', '~> 7.0.2'
 
 gem 'jquery-rails'
 
-gem 'airbrake', '~> 4.0.0'
 gem 'puma'
 
-gem 'sass-rails',   '~> 4.0.3'
-gem 'uglifier', '~> 2.5.3'
+gem 'sass-rails',   '~> 5.0.6'
+gem 'uglifier', '~> 3.2.0'
 
 group :test, :development do
   gem 'pry-byebug'
@@ -32,6 +31,7 @@ end
 group :test do
   gem "minitest-spec-rails"
   gem "capybara"
+  gem "rails-controller-testing"
   gem "factory_girl_rails", '4.1.0'
   gem "database_cleaner"
   gem "webmock", require: false
