@@ -40,9 +40,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
-    airbrake (4.0.0)
-      builder
-      multi_json
     arel (7.1.4)
     builder (3.2.3)
     byebug (9.0.6)
@@ -226,7 +223,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake (~> 4.0.0)
   capybara
   database_cleaner
   factory_girl_rails (= 4.1.0)

@@ -19,7 +19,6 @@ gem 'paper_trail', '~> 7.0.2'
 
 gem 'jquery-rails'
 
-gem 'airbrake', '~> 4.0.0'
 gem 'puma'
 
 gem 'sass-rails',   '~> 5.0.6'
