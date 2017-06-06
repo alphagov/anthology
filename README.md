@@ -11,7 +11,7 @@ An easier way to keep track of the books on your office bookshelf.
 ## Getting started
 
     bundle install
-    bundle exec unicorn -p 5000
+    bundle exec puma -p 5000
 
 If you're in the development or test environments, OmniAuth's developer strategy is available, and selected by default. This allows you to authenticate without using GitHub by providing details for a stub user. If configuration for GitHub is present, Anthology will default to using authentication with GitHub instead.
 
@@ -20,23 +20,17 @@ If you're in the development or test environments, OmniAuth's developer strategy
 The app is configured with a collection of environment variables:
 
 * `LIBRARY_TITLE` - name of the library, displayed throughout the app
-* `GITHUB_CLIENT_ID`
-* `GITHUB_CLIENT_SECRET`
-* `GITHUB_ORG` - organisation username to restrict access
+* `GOOGLE_CLIENT_ID`
+* `GOOGLE_CLIENT_SECRET`
 * `REQUEST_IP` - IP address to provide as the requester in calls to the Google Books API (required for Heroku)
 * `RAILS_SECRET_TOKEN`
 * `DB_USERNAME`
 * `DB_PASSWORD`
 * `DB_HOST`
 * `DB_PORT`
+* `PERMITTED_EMAIL_HOSTNAMES` - the hostname(s) that are allowed to log in to the app
 
-If you're using Airbrake or Errbit, you can set the following environment variables:
-
-* `AIRBRAKE_API_KEY`
-* `AIRBRAKE_HOST`
-
-
-## CI setup
+## CI setup
 
 CI runs using Travis.
 
