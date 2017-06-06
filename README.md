@@ -35,6 +35,11 @@ If you're using Airbrake or Errbit, you can set the following environment variab
 * `AIRBRAKE_API_KEY`
 * `AIRBRAKE_HOST`
 
+
+## CI setup
+
+CI runs using Travis.
+
 ## Licence
 
 Anthology is released under the [MIT Licence](http://www.opensource.org/licenses/MIT).
