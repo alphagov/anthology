@@ -13,8 +13,6 @@ gem "formtastic"
 gem "possessive"
 gem 'has_scope'
 
-gem 'rack-ssl-enforcer'
-
 gem 'paper_trail', '~> 7.0.2'
 
 gem 'jquery-rails'
@@ -36,8 +34,4 @@ group :test do
   gem "database_cleaner"
   gem "webmock", require: false
   gem "mocha", require: false
-end
-
-group :production do
-  gem 'rails_12factor'
 end
