@@ -1,0 +1,6 @@
+---
+applications:
+- name: gds-library
+  memory: 256M
+  buildpack: ruby_buildpack
+  instances: 2
