@@ -1,4 +1,4 @@
-# Anthology [![Build Status](https://travis-ci.org/JordanHatch/anthology.png?branch=master)](https://travis-ci.org/JordanHatch/anthology)
+# Anthology [![Build Status](https://travis-ci.org/issyl0/anthology.png?branch=master)](https://travis-ci.org/issyl0/anthology)
 
 An easier way to keep track of the books on your office bookshelf.
 
