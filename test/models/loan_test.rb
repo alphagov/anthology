@@ -75,7 +75,7 @@ describe Loan do
     end
 
     should 'set the returning shelf when present' do
-      shelf = create(:shelf)
+      shelf = Shelf.first
       @loan.return(nil, shelf)
 
       @loan.reload
