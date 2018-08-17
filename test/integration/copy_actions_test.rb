@@ -43,10 +43,6 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
       end
 
       context "given a shelf exists" do
-        setup do
-          @shelf = FactoryGirl.create(:shelf, :name => "Third floor")
-        end
-
         should "allow shelf to be set" do
           visit "/copy/123"
           within ".shelf" do
@@ -69,8 +65,6 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
     context "given a copy is on loan to the signed in user" do
       setup do
         @copy = FactoryGirl.create(:copy, :book_reference => "123")
-        @shelf1 = FactoryGirl.create(:shelf, :name => "Third floor")
-        @shelf2 = FactoryGirl.create(:shelf, :name => "Sixth floor")
         @copy.borrow(signed_in_user)
       end
 
