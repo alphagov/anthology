@@ -16,7 +16,7 @@ class BookActionsTest < ActionDispatch::IntegrationTest
         visit "/books/#{@book.id}"
 
         within ".cover" do
-          assert page.has_selector?("img[src='http://books.google.co.uk/books?id=mock-google-id&printsec=frontcover&img=1&zoom=1&edge=none&source=gbs_api']")
+          assert page.has_selector?("img[src='https://books.google.co.uk/books?id=mock-google-id&printsec=frontcover&img=1&zoom=1&edge=none&source=gbs_api']")
         end
 
         within ".title" do

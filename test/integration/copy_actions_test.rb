@@ -85,7 +85,6 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         assert_equal "/copy/123", current_path
         assert page.has_content?("123")
         assert page.has_content?("Available to borrow")
-        save_and_open_page
         within ".shelf" do
           assert page.has_content?("Sixth floor")
         end
