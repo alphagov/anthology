@@ -7,7 +7,7 @@ gem 'pg'
 gem 'googlebooks'
 gem 'openlibrary'
 
-gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2', '~> 0.6.0'
 
 gem "formtastic"
 gem "possessive"
