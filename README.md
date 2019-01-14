@@ -32,11 +32,9 @@ this is not set.
 * `DB_PORT` - _(optional)_
 
 ### Setting up the Google Client ID and Google Client Secret
-To get a working `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`, you will need to log in to the Google API console and
-choose the option to create an "OAuth Client ID". This should have the `Google+ API` and `Contacts API` permissions
-enabled.
-
-The "authorised redirect URI" to use is `<address-where-site-will-be-hosted>/auth/google/callback`
+To set up the Google authentication, you will need to get a `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` by visiting the [Google API console](https://code.google.com/apis/console/)
+and choosing the option to create an "OAuth Client ID". You should select 'Web application' as the application type and enter `<site-address>/auth/google/callback` as the "authorised
+redirect URI". No additional OAuth 2.0 scopes need to be added.
 
 ## CI setup
 
