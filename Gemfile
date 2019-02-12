@@ -30,7 +30,7 @@ group :test do
   gem "minitest-spec-rails"
   gem "capybara"
   gem "rails-controller-testing"
-  gem "factory_girl_rails", '4.1.0'
+  gem "factory_bot_rails", '5.0.1'
   gem "database_cleaner"
   gem "webmock", require: false
   gem "mocha", require: false

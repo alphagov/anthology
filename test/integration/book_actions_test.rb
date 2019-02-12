@@ -9,7 +9,7 @@ class BookActionsTest < ActionDispatch::IntegrationTest
 
     context "given a book exists" do
       setup do
-        @book = FactoryGirl.create(:book, :title => "The Wind in the Willows", :author => "Kenneth Grahame", :google_id => "mock-google-id")
+        @book = FactoryBot.create(:book, :title => "The Wind in the Willows", :author => "Kenneth Grahame", :google_id => "mock-google-id")
       end
 
       should "see the book details" do
@@ -38,7 +38,7 @@ class BookActionsTest < ActionDispatch::IntegrationTest
 
       should "see the book history for a book with changes" do
         with_versioning do
-          PaperTrail.whodunnit = FactoryGirl.create(:user, :name => "Mr Toad").id.to_s
+          PaperTrail.whodunnit = FactoryBot.create(:user, :name => "Mr Toad").id.to_s
           @book.update_attributes!(:title => "Goodnight Mister Tom")
 
           visit "/books/#{@book.id}"

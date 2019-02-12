@@ -13,7 +13,7 @@ WebMock.disable_net_connect!
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
 
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
 
   include VersioningHelper
 

@@ -9,9 +9,9 @@ describe BooksController do
   context "book list" do
     setup do
       @books = [
-        FactoryGirl.create(:book, :title => "Harry Potter and the Chamber of Secrets"),
-        FactoryGirl.create(:book, :title => "The Hobbit"),
-        FactoryGirl.create(:book, :title => "Nineteen Eighty-Four")
+        FactoryBot.create(:book, :title => "Harry Potter and the Chamber of Secrets"),
+        FactoryBot.create(:book, :title => "The Hobbit"),
+        FactoryBot.create(:book, :title => "Nineteen Eighty-Four")
       ]
     end
 
@@ -65,7 +65,7 @@ describe BooksController do
 
   context "a single book" do
     setup do
-      @book = FactoryGirl.create(:book)
+      @book = FactoryBot.create(:book)
     end
 
     should "return a successful response" do

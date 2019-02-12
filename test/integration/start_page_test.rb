@@ -8,7 +8,7 @@ class StartPageTest < ActionDispatch::IntegrationTest
     end
 
     should "load the start page" do
-      books = FactoryGirl.create_list(:book, 8)
+      books = FactoryBot.create_list(:book, 8)
 
       visit '/'
 
@@ -17,14 +17,14 @@ class StartPageTest < ActionDispatch::IntegrationTest
     end
 
     should "update the number of items on loan" do
-      loans = FactoryGirl.create_list(:loan, 5, :user => signed_in_user)
+      loans = FactoryBot.create_list(:loan, 5, :user => signed_in_user)
 
       visit '/'
       assert page.has_content?("You have 5 books on loan")
     end
 
     should "allow the user to look up a valid copy by id" do
-      @copy = FactoryGirl.create(:copy, :book_reference => "123")
+      @copy = FactoryBot.create(:copy, :book_reference => "123")
 
       visit '/'
 
@@ -49,9 +49,9 @@ class StartPageTest < ActionDispatch::IntegrationTest
     end
 
     should "display recently added copies added to the library" do
-      @book = FactoryGirl.create(:book, :title => "The Lion, the Witch and the Wardrobe")
-      @older_copies = FactoryGirl.create_list(:copy, 10)
-      @copy = FactoryGirl.create(:copy, :book_reference => "123", :book => @book)
+      @book = FactoryBot.create(:book, :title => "The Lion, the Witch and the Wardrobe")
+      @older_copies = FactoryBot.create_list(:copy, 10)
+      @copy = FactoryBot.create(:copy, :book_reference => "123", :book => @book)
 
       visit '/'
       within '.recently-added' do
@@ -63,7 +63,7 @@ class StartPageTest < ActionDispatch::IntegrationTest
     end
 
     should "display recent loans from the library" do
-      copies_on_loan = FactoryGirl.create_list(:copy_on_loan, 5)
+      copies_on_loan = FactoryBot.create_list(:copy_on_loan, 5)
 
       visit '/'
       within '.recent-activity ul' do

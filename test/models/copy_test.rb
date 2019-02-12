@@ -3,11 +3,11 @@ require 'test_helper'
 describe Copy do
 
   setup do
-    @book = FactoryGirl.create(:book)
+    @book = FactoryBot.create(:book)
   end
 
   should "return the book reference as the url parameter" do
-    copy = FactoryGirl.create(:copy, :book_reference => "123")
+    copy = FactoryBot.create(:copy, :book_reference => "123")
     assert_equal "123", copy.to_param
   end
 
@@ -45,11 +45,11 @@ describe Copy do
 
   context "borrowing a book" do
     setup do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
     end
 
     should "not allow a book already on loan to be borrowed" do
-      copy = FactoryGirl.create(:copy_on_loan)
+      copy = FactoryBot.create(:copy_on_loan)
 
       assert_raise Copy::NotAvailable do
         copy.borrow(@user)
@@ -57,14 +57,14 @@ describe Copy do
     end
 
     should "create a new loan" do
-      copy = FactoryGirl.create(:copy)
+      copy = FactoryBot.create(:copy)
       copy.borrow(@user)
 
       assert_equal 1, copy.loans.count
     end
 
     should "find the current loan" do
-      copy = FactoryGirl.create(:copy)
+      copy = FactoryBot.create(:copy)
       copy.borrow(@user)
 
       assert_equal copy.current_loan, copy.loans.first
@@ -72,7 +72,7 @@ describe Copy do
     end
 
     should "find the current user" do
-      copy = FactoryGirl.create(:copy)
+      copy = FactoryBot.create(:copy)
       copy.borrow(@user)
 
       assert_equal @user.id, copy.current_user.id
@@ -81,7 +81,7 @@ describe Copy do
 
   context "returning a copy" do
     setup do
-      @copy_on_loan = FactoryGirl.create(:copy_on_loan)
+      @copy_on_loan = FactoryBot.create(:copy_on_loan)
       @user = @copy_on_loan.current_user
     end
 
@@ -98,7 +98,7 @@ describe Copy do
     end
 
     should "not allow a copy not on loan to be returned" do
-      copy = FactoryGirl.create(:copy)
+      copy = FactoryBot.create(:copy)
 
       assert_raise Copy::NotOnLoan do
         copy.return
@@ -122,7 +122,7 @@ describe Copy do
 
   context "shelves" do
     should "be able to set the shelf" do
-      copy = FactoryGirl.create(:copy)
+      copy = FactoryBot.create(:copy)
       copy.update_attributes(shelf_id: 1)
 
       copy.reload
@@ -138,9 +138,9 @@ describe Copy do
       @book.copies.delete_all
 
       copies = [
-        FactoryGirl.create(:copy, :book_reference => 101, :book => @book),
-        FactoryGirl.create(:copy, :book_reference => 201, :book => @book),
-        FactoryGirl.create(:copy, :book_reference => 301, :book => @book)
+        FactoryBot.create(:copy, :book_reference => 101, :book => @book),
+        FactoryBot.create(:copy, :book_reference => 201, :book => @book),
+        FactoryBot.create(:copy, :book_reference => 301, :book => @book)
       ]
       assert_equal 301, Copy.recently_added.first.book_reference
       assert_equal 101, Copy.recently_added.last.book_reference

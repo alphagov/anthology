@@ -9,7 +9,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
     context "given an available copy exists" do
       setup do
-        @copy = FactoryGirl.create(:copy, :book_reference => "123")
+        @copy = FactoryBot.create(:copy, :book_reference => "123")
       end
 
       should "render the copy page" do
@@ -64,7 +64,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
     context "given a copy is on loan to the signed in user" do
       setup do
-        @copy = FactoryGirl.create(:copy, :book_reference => "123")
+        @copy = FactoryBot.create(:copy, :book_reference => "123")
         @copy.borrow(signed_in_user)
       end
 
@@ -93,8 +93,8 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
     context "given a copy is on loan to another user" do
       setup do
-        @another_user = FactoryGirl.create(:user, :name => "O'Brien")
-        @copy = FactoryGirl.create(:copy, :book_reference => "123")
+        @another_user = FactoryBot.create(:user, :name => "O'Brien")
+        @copy = FactoryBot.create(:copy, :book_reference => "123")
         @copy.borrow(@another_user)
       end
 
@@ -124,15 +124,15 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
     context "given a copy which has been borrowed multiple times" do
       setup do
-        @copy = FactoryGirl.create(:copy, :book_reference => "53")
+        @copy = FactoryBot.create(:copy, :book_reference => "53")
 
-        @user1 = FactoryGirl.create(:user, :name => "Julia")
-        @user2 = FactoryGirl.create(:user, :name => "Emmanuel Goldstein")
+        @user1 = FactoryBot.create(:user, :name => "Julia")
+        @user2 = FactoryBot.create(:user, :name => "Emmanuel Goldstein")
 
         @loans = [
-          FactoryGirl.create(:loan, :copy => @copy, :state => :returned, :user_id => @user1.id, :loan_date => Date.parse("1 January 2012").beginning_of_day, :return_date => Date.parse("15 January 2012").beginning_of_day),
-          FactoryGirl.create(:loan, :copy => @copy, :state => :returned, :user_id => @user2.id, :loan_date => Date.parse("5 April 2012").beginning_of_day, :return_date => Date.parse("1 May 2012").beginning_of_day),
-          FactoryGirl.create(:loan, :copy => @copy, :state => :returned, :user_id => @user1.id, :loan_date => Date.parse("17 June 2012").beginning_of_day, :return_date => Date.parse("10 July 2012").beginning_of_day)
+          FactoryBot.create(:loan, :copy => @copy, :state => :returned, :user_id => @user1.id, :loan_date => Date.parse("1 January 2012").beginning_of_day, :return_date => Date.parse("15 January 2012").beginning_of_day),
+          FactoryBot.create(:loan, :copy => @copy, :state => :returned, :user_id => @user2.id, :loan_date => Date.parse("5 April 2012").beginning_of_day, :return_date => Date.parse("1 May 2012").beginning_of_day),
+          FactoryBot.create(:loan, :copy => @copy, :state => :returned, :user_id => @user1.id, :loan_date => Date.parse("17 June 2012").beginning_of_day, :return_date => Date.parse("10 July 2012").beginning_of_day)
         ]
       end
 

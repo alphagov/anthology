@@ -1,12 +1,12 @@
-FactoryGirl.define do  
+FactoryBot.define do
   factory :copy do
     book
 
     factory :copy_on_loan do
-      on_loan true
+      on_loan { true }
 
       after(:create) do |copy, e|
-        FactoryGirl.create(:loan, :copy => copy)
+        FactoryBot.create(:loan, :copy => copy)
       end
     end
   end

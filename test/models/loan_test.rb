@@ -3,8 +3,8 @@ require 'test_helper'
 describe Loan do
 
   setup do
-    @copy = FactoryGirl.create(:copy)
-    @user = FactoryGirl.create(:user)
+    @copy = FactoryBot.create(:copy)
+    @user = FactoryBot.create(:user)
   end
 
   context "creating a new loan" do
