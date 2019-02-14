@@ -13,7 +13,7 @@ gem "formtastic"
 gem "possessive"
 gem 'has_scope'
 
-gem 'paper_trail', '~> 7.0.2'
+gem 'paper_trail', '~> 10.2'
 
 gem 'jquery-rails'
 
