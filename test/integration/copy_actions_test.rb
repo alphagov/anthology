@@ -51,12 +51,12 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
           assert_equal "/copy/123/edit", current_path
 
-          select "Third floor", from: "Shelf"
+          select "6th floor", from: "Shelf"
           click_on "Set shelf"
 
           assert_equal "/copy/123", current_path
           within ".shelf" do
-            assert page.has_content?("Third floor")
+            assert page.has_content?("6th floor")
           end
         end
       end
@@ -79,14 +79,14 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
       should "allow the book to be returned" do
         visit "/copy/123"
-        select "Sixth floor", from: "Return to"
+        select "7th floor", from: "Return to"
         click_on "Return"
 
         assert_equal "/copy/123", current_path
         assert page.has_content?("123")
         assert page.has_content?("Available to borrow")
         within ".shelf" do
-          assert page.has_content?("Sixth floor")
+          assert page.has_content?("7th floor")
         end
       end
     end
