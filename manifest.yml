@@ -2,5 +2,6 @@
 applications:
 - name: gds-library
   memory: 256M
-  buildpack: ruby_buildpack
+  buildpacks:
+    - https://github.com/cloudfoundry/ruby-buildpack/releases/download/v1.7.32/ruby-buildpack-cflinuxfs2-v1.7.32.zip
   instances: 2
