@@ -2,6 +2,7 @@
 applications:
 - name: gds-library
   memory: 256M
+  stack: cflinuxfs3
   buildpacks:
-    - https://github.com/cloudfoundry/ruby-buildpack/releases/download/v1.7.32/ruby-buildpack-cflinuxfs2-v1.7.32.zip
+    - https://github.com/cloudfoundry/ruby-buildpack/releases/download/v1.7.32/ruby-buildpack-cflinuxfs3-v1.7.32.zip
   instances: 2
