@@ -15,7 +15,7 @@ describe RootController do
     should "be a successful request" do
       get :start
 
-      assert response.success?
+      assert response.successful?
     end
 
     should "load eight books to display to the user" do

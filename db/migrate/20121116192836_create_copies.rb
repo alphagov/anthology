@@ -1,4 +1,4 @@
-class CreateCopies < ActiveRecord::Migration
+class CreateCopies < ActiveRecord::Migration[5.2]
   def up
     create_table :copies do |t|
       t.integer :book_id

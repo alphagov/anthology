@@ -1,4 +1,4 @@
-class AddObjectChangesToVersions < ActiveRecord::Migration
+class AddObjectChangesToVersions < ActiveRecord::Migration[5.2]
   def change
     add_column :versions, :object_changes, :text
   end

@@ -17,7 +17,7 @@ describe BooksController do
 
     should "return a successful response" do
       get :index
-      assert response.success?
+      assert response.successful?
     end
 
     should "initialize a list of books" do
@@ -52,7 +52,7 @@ describe BooksController do
 
     should "return a successful response" do
       get :new
-      assert response.success?
+      assert response.successful?
     end
 
     should "assign an new book object" do
@@ -70,7 +70,7 @@ describe BooksController do
 
     should "return a successful response" do
       get :show, params: { :id => @book.id }
-      assert response.success?
+      assert response.successful?
     end
 
     should "load the book details" do
