@@ -10,14 +10,14 @@ describe Book do
     end
 
     should "create an initial copy upon creation" do
-      book = FactoryGirl.create(:book)
+      book = FactoryBot.create(:book)
 
       assert_equal 1, book.copies.count
     end
 
     should "set the creating user" do
-      user = FactoryGirl.create(:user)
-      book = FactoryGirl.create(:book, :created_by => user)
+      user = FactoryBot.create(:user)
+      book = FactoryBot.create(:book, :created_by => user)
 
       assert_equal user.id, book.created_by.id
     end
@@ -26,7 +26,7 @@ describe Book do
   context "editing a book" do
     context "changing the ISBN" do
       setup do
-        @book = FactoryGirl.create(:book)
+        @book = FactoryBot.create(:book)
       end
 
       should "persist the new isbn" do

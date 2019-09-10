@@ -1,4 +1,4 @@
-class ChangeBookReferenceToInteger < ActiveRecord::Migration
+class ChangeBookReferenceToInteger < ActiveRecord::Migration[5.2]
   def up
     connection.execute(%q{
       alter table copies

@@ -9,15 +9,15 @@ describe BooksController do
   context "book list" do
     setup do
       @books = [
-        FactoryGirl.create(:book, :title => "Harry Potter and the Chamber of Secrets"),
-        FactoryGirl.create(:book, :title => "The Hobbit"),
-        FactoryGirl.create(:book, :title => "Nineteen Eighty-Four")
+        FactoryBot.create(:book, :title => "Harry Potter and the Chamber of Secrets"),
+        FactoryBot.create(:book, :title => "The Hobbit"),
+        FactoryBot.create(:book, :title => "Nineteen Eighty-Four")
       ]
     end
 
     should "return a successful response" do
       get :index
-      assert response.success?
+      assert response.successful?
     end
 
     should "initialize a list of books" do
@@ -52,7 +52,7 @@ describe BooksController do
 
     should "return a successful response" do
       get :new
-      assert response.success?
+      assert response.successful?
     end
 
     should "assign an new book object" do
@@ -65,12 +65,12 @@ describe BooksController do
 
   context "a single book" do
     setup do
-      @book = FactoryGirl.create(:book)
+      @book = FactoryBot.create(:book)
     end
 
     should "return a successful response" do
       get :show, params: { :id => @book.id }
-      assert response.success?
+      assert response.successful?
     end
 
     should "load the book details" do

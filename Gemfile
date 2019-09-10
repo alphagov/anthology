@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby "2.6.1"
 
-gem 'rails', '5.0.7.2'
+gem 'rails', '~> 5.2.2'
 
 gem 'pg'
 gem 'googlebooks'
@@ -13,7 +13,7 @@ gem "formtastic"
 gem "possessive"
 gem 'has_scope'
 
-gem 'paper_trail', '~> 7.0.2'
+gem 'paper_trail', '~> 10.2'
 
 gem 'jquery-rails'
 
@@ -30,7 +30,7 @@ group :test do
   gem "minitest-spec-rails"
   gem "capybara"
   gem "rails-controller-testing"
-  gem "factory_girl_rails", '4.1.0'
+  gem "factory_bot_rails", '5.0.1'
   gem "database_cleaner"
   gem "webmock", require: false
   gem "mocha", require: false
