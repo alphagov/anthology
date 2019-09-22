@@ -1,5 +1,6 @@
-class CopiesController < ApplicationController
+# frozen_string_literal: true
 
+class CopiesController < ApplicationController
   def show
     @copy = resource
     @book = @copy.book
@@ -29,15 +30,13 @@ class CopiesController < ApplicationController
   def create
     @copy = parent.copies.build(copy_params)
 
-    if params[:copy_has_id_number].blank?
-      @copy.book_reference = nil
-    end
+    @copy.book_reference = nil if params[:copy_has_id_number].blank?
 
     if @copy.save
       flash[:notice] = "Copy #{@copy.book_reference} has been added to the library."
       redirect_to book_path(@copy.book)
     else
-      render :action => :new
+      render action: :new
     end
   end
 
@@ -47,15 +46,13 @@ class CopiesController < ApplicationController
       flash[:notice] = 'Shelf updated'
       redirect_to copy_path(@copy)
     else
-      render :action => :edit
+      render action: :edit
     end
   end
 
   def borrow
-    if resource.borrow(current_user)
-      flash[:notice] = "Copy #{resource.book_reference} is now on loan to you."
-    end
-  rescue Copy::NotAvailable => e
+    flash[:notice] = "Copy #{resource.book_reference} is now on loan to you." if resource.borrow(current_user)
+  rescue Copy::NotAvailable
     flash[:alert] = "Copy #{resource.book_reference} is already on loan to #{resource.current_user.name}."
   ensure
     redirect_to copy_path(resource)
@@ -64,13 +61,11 @@ class CopiesController < ApplicationController
   def return
     if resource.return(current_user, shelf)
       msg = "Copy #{resource.book_reference} has now been returned"
-      if shelf
-        msg << " to #{shelf}"
-      end
-      msg << ". Thanks!"
+      msg << " to #{shelf}" if shelf
+      msg << '. Thanks!'
       flash[:notice] = msg
     end
-  rescue Copy::NotOnLoan => e
+  rescue Copy::NotOnLoan
     flash[:alert] = "Copy #{resource.book_reference} is not on loan."
   ensure
     redirect_to copy_path(resource)
@@ -88,21 +83,22 @@ class CopiesController < ApplicationController
     redirect_to copy_path(resource)
   end
 
-  private
-    def shelf
-      shelf_id = params.require(:copy).fetch(:shelf_id, nil)
-      shelf_id && Shelf.find_by_id(shelf_id)
-    end
+private
 
-    def parent
-      @book = Book.find(params[:book_id])
-    end
+  def shelf
+    shelf_id = params.require(:copy).fetch(:shelf_id, nil)
+    shelf_id && Shelf.find_by_id(shelf_id)
+  end
 
-    def resource
-      @copy = Copy.find_by_book_reference(params[:id]) || not_found
-    end
+  def parent
+    @book = Book.find(params[:book_id])
+  end
 
-    def copy_params
-      params.require(:copy).permit(:book_id, :book_reference, :on_loan, :shelf_id)
-    end
+  def resource
+    @copy = Copy.find_by_book_reference(params[:id]) || not_found
+  end
+
+  def copy_params
+    params.require(:copy).permit(:book_id, :book_reference, :on_loan, :shelf_id)
+  end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OmniAuthStubHelper
   # suitable for integration tests
   def prepare_omniauth_for_testing
@@ -7,7 +9,7 @@ module OmniAuthStubHelper
 
   def sign_in_user
     visit new_session_path
-    click_on "Sign in with Google"
+    click_on 'Sign in with Google'
   end
 
   def signed_in_user
@@ -24,8 +26,8 @@ module OmniAuthStubHelper
       provider: 'google',
       uid: '12345',
       info: {
-        name: "Stub User",
-        email: "stub.user@example.org"
+        name: 'Stub User',
+        email: 'stub.user@example.org'
       }
     }
   end

@@ -1,57 +1,58 @@
+# frozen_string_literal: true
+
 require 'integration_test_helper'
 
 class StartPageTest < ActionDispatch::IntegrationTest
-
-  context "as a signed in user" do
+  context 'as a signed in user' do
     setup do
       sign_in_user
     end
 
-    should "load the start page" do
-      books = FactoryBot.create_list(:book, 8)
+    should 'load the start page' do
+      FactoryBot.create_list(:book, 8)
 
       visit '/'
 
       assert page.has_content?("Welcome, #{signed_in_user.name}!")
-      assert page.has_content?("You have 0 books on loan")
+      assert page.has_content?('You have 0 books on loan')
     end
 
-    should "update the number of items on loan" do
-      loans = FactoryBot.create_list(:loan, 5, :user => signed_in_user)
+    should 'update the number of items on loan' do
+      FactoryBot.create_list(:loan, 5, user: signed_in_user)
 
       visit '/'
-      assert page.has_content?("You have 5 books on loan")
+      assert page.has_content?('You have 5 books on loan')
     end
 
-    should "allow the user to look up a valid copy by id" do
-      @copy = FactoryBot.create(:copy, :book_reference => "123")
+    should 'allow the user to look up a valid copy by id' do
+      @copy = FactoryBot.create(:copy, book_reference: '123')
 
       visit '/'
 
-      within ".copy-lookup" do
-        fill_in 'book_reference', :with => "123"
-        click_on "Go"
+      within '.copy-lookup' do
+        fill_in 'book_reference', with: '123'
+        click_on 'Go'
       end
 
-      assert "/copy/123", current_path
+      assert '/copy/123', current_path
     end
 
-    should "show an error when a user attempts to look up an invalid copy id" do
+    should 'show an error when a user attempts to look up an invalid copy id' do
       visit '/'
 
-      within ".copy-lookup" do
-        fill_in 'book_reference', :with => "999"
-        click_on "Go"
+      within '.copy-lookup' do
+        fill_in 'book_reference', with: '999'
+        click_on 'Go'
       end
 
-      assert "/", current_path
+      assert '/', current_path
       assert page.has_content?("Copy 999 couldn't be found")
     end
 
-    should "display recently added copies added to the library" do
-      @book = FactoryBot.create(:book, :title => "The Lion, the Witch and the Wardrobe")
+    should 'display recently added copies added to the library' do
+      @book = FactoryBot.create(:book, title: 'The Lion, the Witch and the Wardrobe')
       @older_copies = FactoryBot.create_list(:copy, 10)
-      @copy = FactoryBot.create(:copy, :book_reference => "123", :book => @book)
+      @copy = FactoryBot.create(:copy, book_reference: '123', book: @book)
 
       visit '/'
       within '.recently-added' do
@@ -62,13 +63,13 @@ class StartPageTest < ActionDispatch::IntegrationTest
       end
     end
 
-    should "display recent loans from the library" do
+    should 'display recent loans from the library' do
       copies_on_loan = FactoryBot.create_list(:copy_on_loan, 5)
 
       visit '/'
       within '.recent-activity ul' do
         copies_on_loan.reverse.each_with_index do |copy, i|
-          within "li:nth-of-type(#{i+1})" do
+          within "li:nth-of-type(#{i + 1})" do
             assert page.has_content?("#{copy.current_user.name} borrowed ##{copy.book_reference}: #{copy.book.title}")
             assert page.has_selector?("a[href='/user/#{copy.current_user.id}']")
             assert page.has_selector?("a[href='/copy/#{copy.book_reference}']")
@@ -76,7 +77,7 @@ class StartPageTest < ActionDispatch::IntegrationTest
         end
       end
 
-      assert page.has_content?("Recent loans")
+      assert page.has_content?('Recent loans')
     end
   end
 end

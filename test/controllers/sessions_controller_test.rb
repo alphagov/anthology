@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 describe SessionsController do
-
   describe 'POST create' do
-    let(:auth_hash) {
+    let(:auth_hash) do
       { 'uid' => '12345' }
-    }
+    end
     let(:user) { create(:user) }
 
     setup do
@@ -31,9 +32,8 @@ describe SessionsController do
       post :create, params: { provider: :google }
 
       assert_redirected_to new_session_path
-      assert_match /Could not sign you in/, @controller.flash[:alert]
-      assert_match /something bad$/, @controller.flash[:alert]
+      assert_match(/Could not sign you in/, @controller.flash[:alert])
+      assert_match(/something bad$/, @controller.flash[:alert])
     end
   end
-
 end

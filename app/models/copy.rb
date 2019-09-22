@@ -1,29 +1,31 @@
+# frozen_string_literal: true
+
 class Copy < ActiveRecord::Base
   belongs_to :book
-  has_many :loans, :dependent => :destroy
-  has_many :users, :through => :loans
+  has_many :loans, dependent: :destroy
+  has_many :users, through: :loans
   belongs_to :shelf
 
-  validates :book_reference, :presence => true, :uniqueness => { :case_sensitive => false }
+  validates :book_reference, presence: true, uniqueness: { case_sensitive: false }
 
-  before_validation :allocate_book_reference, :on => :create, :if => proc {|c| c.book_reference.blank? }
+  before_validation :allocate_book_reference, on: :create, if: proc { |c| c.book_reference.blank? }
 
   scope :on_loan, -> { where(on_loan: true) }
   scope :available, -> { where(on_loan: false) }
   scope :missing, -> { where(missing: true) }
 
-  scope :ordered_by_availability, -> { order("on_loan ASC, book_reference ASC") }
-  scope :recently_added, -> { order("created_at DESC") }
+  scope :ordered_by_availability, -> { order('on_loan ASC, book_reference ASC') }
+  scope :recently_added, -> { order('created_at DESC') }
 
-  class NotAvailable < Exception; end
-  class NotOnLoan < Exception; end
+  class NotAvailable < RuntimeError; end
+  class NotOnLoan < RuntimeError; end
 
   def current_loan
     loans.on_loan.first
   end
 
   def current_user
-    current_loan.user if current_loan
+    current_loan&.user
   end
 
   def on_loan?
@@ -31,7 +33,7 @@ class Copy < ActiveRecord::Base
   end
 
   def available?
-    ! on_loan?
+    !on_loan?
   end
 
   def status
@@ -44,24 +46,24 @@ class Copy < ActiveRecord::Base
 
   def update_loan_status!
     self.on_loan = current_loan.present?
-    self.save!
+    save!
   end
 
   def borrow(user)
     raise NotAvailable unless available?
 
-    loans.create(:user => user)
+    loans.create(user: user)
   end
 
-  def return(as_user=nil, to_shelf=nil)
+  def return(as_user = nil, to_shelf = nil)
     raise NotOnLoan unless on_loan?
 
-    loans.where(:state => 'on_loan').each do |loan|
+    loans.where(state: 'on_loan').each do |loan|
       loan.return(as_user, to_shelf)
     end
 
     self.shelf = to_shelf
-    self.save!
+    save!
   end
 
   def set_missing
@@ -81,6 +83,6 @@ class Copy < ActiveRecord::Base
   end
 
   def self.next_available_book_reference
-    (Copy.order("book_reference desc nulls last").first || Copy.new).book_reference.to_i + 1
+    (Copy.order('book_reference desc nulls last').first || Copy.new).book_reference.to_i + 1
   end
 end

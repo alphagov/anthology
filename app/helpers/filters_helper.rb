@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module FiltersHelper
   def filter_link(text, filter, value)
     selected = current_scopes[filter] == value
-    selected_class = selected ? "selected" : ""
+    selected_class = selected ? 'selected' : ''
 
     options = current_scopes.merge(filter => value)
 

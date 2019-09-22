@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class CreateCopies < ActiveRecord::Migration[5.2]
   def up
     create_table :copies do |t|
       t.integer :book_id
-      t.integer :book_reference, :null => false
-      t.boolean :on_loan, :default => false, :null => false
+      t.integer :book_reference, null: false
+      t.boolean :on_loan, default: false, null: false
       t.timestamps
     end
 

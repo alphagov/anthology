@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   skip_before_action :authenticate!
   skip_before_action :verify_authenticity_token, only: :create
@@ -29,12 +31,13 @@ class SessionsController < ApplicationController
   end
 
   def failure
-    flash[:alert] = "Please sign in to access the library."
+    flash[:alert] = 'Please sign in to access the library.'
     redirect_to new_session_path
   end
 
 private
-  def fail_and_redirect(message="There was a problem signing you in.")
+
+  def fail_and_redirect(message = 'There was a problem signing you in.')
     flash[:alert] = message
     redirect_to new_session_path
   end

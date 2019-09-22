@@ -1,9 +1,11 @@
-class User < ActiveRecord::Base
-  has_many :loans, :dependent => :destroy
-  has_many :copies, -> { where('loans.state' => 'on_loan') }, through: :loans
-  has_many :books, :through => :copies
+# frozen_string_literal: true
 
-  validates :provider_uid, :presence => true, :uniqueness => true
+class User < ActiveRecord::Base
+  has_many :loans, dependent: :destroy
+  has_many :copies, -> { where('loans.state' => 'on_loan') }, through: :loans
+  has_many :books, through: :copies
+
+  validates :provider_uid, presence: true, uniqueness: true
   validate :email_has_permitted_hostname, on: :create
 
   class CreationFailure < StandardError; end
@@ -28,18 +30,17 @@ class User < ActiveRecord::Base
       if user.save
         return user
       else
-        raise CreationFailure, user.errors.full_messages.join(", ")
+        raise CreationFailure, user.errors.full_messages.join(', ')
       end
     end
   end
 
-private
   def self.atts_from_auth_hash(hash)
     {
       name: hash[:info][:name],
       image_url: hash[:info][:image],
       provider: hash[:provider],
-      provider_uid: hash[:uid],
+      provider_uid: hash[:uid]
     }
   end
 
@@ -50,16 +51,12 @@ private
   end
 
   def email_has_permitted_hostname
-    if email.blank? || Books.permitted_email_hostnames.empty?
-      return
-    end
+    return if email.blank? || Books.permitted_email_hostnames.empty?
 
-    hostname = email.match(/@([A-Za-z0-9\-\.]+)\Z/) {|matches|
+    hostname = email.match(/@([A-Za-z0-9\-\.]+)\Z/) do |matches|
       matches[1]
-    }
-
-    unless Books.permitted_email_hostnames.include?(hostname)
-      errors.add(:email, "must be on a permitted hostname")
     end
+
+    errors.add(:email, 'must be on a permitted hostname') unless Books.permitted_email_hostnames.include?(hostname)
   end
 end

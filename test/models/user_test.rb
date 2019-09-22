@@ -1,18 +1,19 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 describe User do
-
-  let(:auth_hash) {
+  let(:auth_hash) do
     {
       provider: 'google',
       uid: '12345',
       info: {
         name: 'Stub User',
         email: 'stub.user@example.org',
-        image: 'https://example.org/image.jpg',
+        image: 'https://example.org/image.jpg'
       }
     }
-  }
+  end
 
   it 'can be created from an auth hash' do
     user = User.find_or_create_from_auth_hash!(auth_hash)
@@ -52,7 +53,7 @@ describe User do
 
     user = build(:user, email: 'stub.user@foo.org')
     refute user.valid?
-    assert user.errors.has_key?(:email)
+    assert user.errors.key?(:email)
 
     user = build(:user, email: 'stub.user@example.org')
     assert user.valid?
@@ -69,7 +70,7 @@ describe User do
 
     user = build(:user, email: 'stub.user@bar.org')
     refute user.valid?
-    assert user.errors.has_key?(:email)
+    assert user.errors.key?(:email)
   end
 
   it 'only enforces the email hostname restriction on create' do
@@ -82,5 +83,4 @@ describe User do
     user.reload
     assert user.valid?
   end
-
 end

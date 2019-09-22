@@ -1,58 +1,59 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 describe Loan do
-
   setup do
     @copy = FactoryBot.create(:copy)
     @user = FactoryBot.create(:user)
   end
 
-  context "creating a new loan" do
-    should "require a user" do
-      loan = @copy.loans.build(:user => nil)
+  context 'creating a new loan' do
+    should 'require a user' do
+      loan = @copy.loans.build(user: nil)
 
       assert !loan.valid?
     end
 
     should "set the state to 'on_loan' by default" do
-      loan = @copy.loans.create!(:user => @user)
+      loan = @copy.loans.create!(user: @user)
 
-      assert_equal "on_loan", loan.state
+      assert_equal 'on_loan', loan.state
     end
 
-    should "set the loan date by default" do
-      loan = @copy.loans.create!(:user => @user)
+    should 'set the loan date by default' do
+      loan = @copy.loans.create!(user: @user)
 
-      assert ! loan.loan_date.blank?
+      assert !loan.loan_date.blank?
     end
 
-    should "set the copy on_loan attribute to true" do
-      loan = @copy.loans.create!(:user => @user)
+    should 'set the copy on_loan attribute to true' do
+      @copy.loans.create!(user: @user)
       @copy.reload
 
       assert @copy.on_loan?
     end
   end
 
-  context "returning a loan" do
+  context 'returning a loan' do
     setup do
-      @loan = @copy.loans.create!(:user => @user)
+      @loan = @copy.loans.create!(user: @user)
     end
 
-    should "update the state to returned" do
+    should 'update the state to returned' do
       @loan.return
 
-      assert_equal "returned", @loan.state
+      assert_equal 'returned', @loan.state
     end
 
-    should "set the copy on_loan attribute to false" do
+    should 'set the copy on_loan attribute to false' do
       @loan.return
       @copy.reload
 
-      assert ! @copy.on_loan?
+      assert !@copy.on_loan?
     end
 
-    should "raise an exception if already returned" do
+    should 'raise an exception if already returned' do
       @loan.return
 
       assert_raises Loan::NotOnLoan do
@@ -60,10 +61,10 @@ describe Loan do
       end
     end
 
-    should "set the return date for the loan" do
+    should 'set the return date for the loan' do
       @loan.return
 
-      assert ! @loan.return_date.blank?
+      assert !@loan.return_date.blank?
     end
 
     should 'set the returning user when present' do
@@ -82,5 +83,4 @@ describe Loan do
       assert_equal shelf, @loan.returned_to_shelf
     end
   end
-
 end

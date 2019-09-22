@@ -1,7 +1,9 @@
-hostnames = ENV["PERMITTED_EMAIL_HOSTNAMES"]
+# frozen_string_literal: true
 
-if hostnames.present?
-  Books.permitted_email_hostnames = hostnames.split(",")
-else
-  Books.permitted_email_hostnames = []
-end
+hostnames = ENV['PERMITTED_EMAIL_HOSTNAMES']
+
+Books.permitted_email_hostnames = if hostnames.present?
+                                    hostnames.split(',')
+                                  else
+                                    []
+                                  end

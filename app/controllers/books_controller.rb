@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 class BooksController < ApplicationController
   include BooksHelper
 
-  before_action :lookup_book, :only => [:show, :edit, :history, :update]
+  before_action :lookup_book, only: %i[show edit history update]
 
-  has_scope :title_search, :as => :q
-  has_scope :availability do |controller, scope, value|
+  has_scope :title_search, as: :q
+  has_scope :availability do |_controller, scope, value|
     case value
-    when "available" then scope.available
+    when 'available' then scope.available
     when /^shelf_[0-9]+$/ then scope.shelf(value.split('_')[1])
-    when "on_loan" then scope.on_loan
-    when "missing" then scope.missing
+    when 'on_loan' then scope.on_loan
+    when 'missing' then scope.missing
     else
       scope
     end
@@ -43,7 +45,7 @@ class BooksController < ApplicationController
       flash[:notice] = 'Book created'
       redirect_to book_path(@book)
     else
-      render :action => :new
+      render action: :new
     end
   end
 
@@ -64,11 +66,12 @@ class BooksController < ApplicationController
       flash[:notice] = 'Book updated'
       redirect_to book_path(@book)
     else
-      render :action => :edit
+      render action: :edit
     end
   end
 
 private
+
   def lookup_book
     @book = Book.includes(:copies).find(params[:id]) || not_found
   end
@@ -79,7 +82,7 @@ private
 
   def assign_metadata_to_book(book)
     book.isbn.strip!
-    book.isbn.gsub!(/\-/, "")
+    book.isbn.gsub!(/\-/, '')
 
     return unless book.isbn.present?
 
