@@ -1,7 +1,7 @@
 language: ruby
 rvm:
   - 2.6.1
-services: postgres
+services: postgresql
 before_script:
   - rm config/database.yml
   - cp config/database.travis.yml config/database.yml
