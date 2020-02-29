@@ -1,4 +1,4 @@
-# Anthology [![Build Status](https://travis-ci.org/issyl0/anthology.png?branch=master)](https://travis-ci.org/issyl0/anthology)
+# Anthology
 
 An easier way to keep track of the books on your office bookshelf.
 
@@ -38,7 +38,7 @@ redirect URI". No additional OAuth 2.0 scopes need to be added.
 
 ## CI setup
 
-CI runs using Travis.
+CI runs using GitHub Actions
 
 ## Licence
 

@@ -1,5 +1,0 @@
-test:
-  adapter: postgresql
-  database: books_test
-  min_messages: warning
-  username: postgres
