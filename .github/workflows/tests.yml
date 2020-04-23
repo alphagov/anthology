@@ -21,8 +21,7 @@ jobs:
         ruby-version: 2.6.5
 
     - name: Install PostgreSQL 11 client
-      run: |
-        sudo apt-get -yqq install libpq-dev
+      run: sudo apt-get -yqq install libpq-dev
 
     - name: Build App
       env:
@@ -31,7 +30,6 @@ jobs:
         RAILS_ENV: test
         DB_USERNAME: postgres
       run: |
-        gem install bundler
         bundle install --jobs 4 --retry 3
         bundle exec rake db:create
         bundle exec rake db:migrate
