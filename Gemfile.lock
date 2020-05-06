@@ -111,6 +111,9 @@ GEM
       thor (>= 0.14, < 2.0)
     json (2.3.0)
     jwt (2.2.1)
+    listen (3.2.1)
+      rb-fsevent (~> 0.10, >= 0.10.3)
+      rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.5.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -266,6 +269,7 @@ DEPENDENCIES
   googlebooks
   has_scope
   jquery-rails
+  listen
   minitest-spec-rails
   mocha
   omniauth-google-oauth2 (~> 0.6.0)

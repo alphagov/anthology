@@ -23,6 +23,7 @@ gem 'sass-rails', '~> 5.0.6'
 gem 'uglifier', '~> 4.2'
 
 group :test, :development do
+  gem 'listen'
   gem 'pry-byebug'
 end
 
