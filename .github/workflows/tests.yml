@@ -29,9 +29,7 @@ jobs:
         DB_USERNAME: postgres
       run: |
         bundle install --jobs 4 --retry 3
-        bundle exec rake db:create
-        bundle exec rake db:migrate
-        bundle exec rake update_shelf_numbers_for_wcb
+        bundle exec rake db:setup
 
     - name: Run Tests
       env:
