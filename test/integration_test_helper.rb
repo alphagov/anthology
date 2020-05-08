@@ -1,5 +1,5 @@
 require_relative "test_helper"
-require 'capybara/rails'
+require "capybara/rails"
 
 include OmniAuthStubHelper
 prepare_omniauth_for_testing

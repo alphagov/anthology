@@ -1,28 +1,27 @@
-require 'csv'
+require "csv"
 
 class RootController < ApplicationController
-
   def start
     @books = Book.limit(8)
     @recently_added_copies = Copy.recently_added.limit(3)
-    @recent_loans = Loan.recently_loaned.includes([:book, :copy]).limit(5)
+    @recent_loans = Loan.recently_loaned.includes(%i[book copy]).limit(5)
 
     # start.html.erb
   end
 
-  CSV_HEADINGS = %w(id title author isbn number_of_copies on_loan_copies).freeze
+  CSV_HEADINGS = %w[id title author isbn number_of_copies on_loan_copies].freeze
   def library_csv
     data = CSV.generate do |csv|
       csv << CSV_HEADINGS
       Book.all.each do |b|
         book = []
         book = [
-          b['id'],
-          b['title'],
-          b['author'],
-          b['isbn'],
+          b["id"],
+          b["title"],
+          b["author"],
+          b["isbn"],
           b.copies.count,
-          number_of_copies_on_loan(b)
+          number_of_copies_on_loan(b),
         ]
         csv << book
       end
@@ -31,6 +30,7 @@ class RootController < ApplicationController
   end
 
 private
+
   def number_of_copies_on_loan(b)
     loan_count = 0
     b.copies.each do |c|
@@ -39,5 +39,4 @@ private
 
     "#{loan_count}/#{b.copies.count}"
   end
-
 end

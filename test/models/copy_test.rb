@@ -1,20 +1,19 @@
-require 'test_helper'
+require "test_helper"
 
 describe Copy do
-
   setup do
     @book = FactoryBot.create(:book)
   end
 
   should "return the book reference as the url parameter" do
-    copy = FactoryBot.create(:copy, :book_reference => "123")
+    copy = FactoryBot.create(:copy, book_reference: "123")
     assert_equal "123", copy.to_param
   end
 
   context "creating a new copy" do
     should "increment the book reference" do
       first_copy = @book.copies.first # already created on book creation
-      second_copy = @book.copies.create!(:book_reference => 2)
+      second_copy = @book.copies.create!(book_reference: 2)
       third_copy = @book.copies.create!
 
       assert_equal 1, first_copy.book_reference.to_i
@@ -23,11 +22,11 @@ describe Copy do
     end
 
     should "not allow duplicate book references" do
-      first_copy = @book.copies.create!(:book_reference => 30)
-      second_copy = @book.copies.build(:book_reference => 30)
+      first_copy = @book.copies.create!(book_reference: 30)
+      second_copy = @book.copies.build(book_reference: 30)
 
       assert_equal 30, first_copy.book_reference.to_i
-      assert ! second_copy.valid?
+      assert_not second_copy.valid?
     end
 
     should "set on_loan to false by default" do
@@ -85,15 +84,15 @@ describe Copy do
       @user = @copy_on_loan.current_user
     end
 
-    should 'return the loans attached to the copy' do
-      loan = @copy_on_loan.loans.where(state: 'on_loan').first
+    should "return the loans attached to the copy" do
+      loan = @copy_on_loan.loans.where(state: "on_loan").first
 
       @copy_on_loan.return
 
       @copy_on_loan.reload
       loan.reload
 
-      assert_equal 'returned', loan.state
+      assert_equal "returned", loan.state
       assert_equal false, @copy_on_loan.on_loan
     end
 
@@ -106,15 +105,15 @@ describe Copy do
     end
 
     should "only try to return current loans" do
-      previous_loan = @copy_on_loan.loans.create!(:user => @user, :state => 'returned')
+      previous_loan = @copy_on_loan.loans.create!(user: @user, state: "returned")
       previous_loan.expects(:return).never
 
       assert @copy_on_loan.return
     end
 
-    should 'pass through the returning user when present' do
+    should "pass through the returning user when present" do
       user = create(:user)
-      Loan.any_instance.expects(:return).with(user, shelf=nil).returns(true)
+      Loan.any_instance.expects(:return).with(user, shelf = nil).returns(true)
 
       assert @copy_on_loan.return(user)
     end
@@ -131,20 +130,18 @@ describe Copy do
     end
   end
 
-
   context "recently added copies" do
     should "return newest copies first" do
       # delete first auto-generated copy of book
       @book.copies.delete_all
 
       copies = [
-        FactoryBot.create(:copy, :book_reference => 101, :book => @book),
-        FactoryBot.create(:copy, :book_reference => 201, :book => @book),
-        FactoryBot.create(:copy, :book_reference => 301, :book => @book)
+        FactoryBot.create(:copy, book_reference: 101, book: @book),
+        FactoryBot.create(:copy, book_reference: 201, book: @book),
+        FactoryBot.create(:copy, book_reference: 301, book: @book),
       ]
       assert_equal 301, Copy.recently_added.first.book_reference
       assert_equal 101, Copy.recently_added.last.book_reference
     end
   end
-
 end

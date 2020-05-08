@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    unless auth_hash.present?
+    if auth_hash.blank?
       fail_and_redirect
       return
     end
@@ -34,12 +34,13 @@ class SessionsController < ApplicationController
   end
 
 private
-  def fail_and_redirect(message="There was a problem signing you in.")
+
+  def fail_and_redirect(message = "There was a problem signing you in.")
     flash[:alert] = message
     redirect_to new_session_path
   end
 
   def auth_hash
-    request.env['omniauth.auth']
+    request.env["omniauth.auth"]
   end
 end

@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   def current_user
     if session[:user_id].present?
       @current_user ||= User.where(id: session[:user_id]).first
@@ -18,11 +17,10 @@ module ApplicationHelper
   end
 
   def library_title
-    ENV['LIBRARY_TITLE'] || "Library"
+    ENV["LIBRARY_TITLE"] || "Library"
   end
 
   def use_developer_strategy?
     Rails.env.development? && ENV["GOOGLE_CLIENT_ID"].blank?
   end
-
 end

@@ -3,7 +3,7 @@ FactoryBot.define do
     user
     copy
     state { "on_loan" }
-    loan_date { Time.now }
+    loan_date { Time.zone.now }
     return_date { nil }
   end
 end

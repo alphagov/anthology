@@ -1,39 +1,39 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 ruby "2.6.5"
 
-gem 'rails', '~> 6.0'
+gem "rails", "~> 6.0"
 
-gem 'pg'
-gem 'googlebooks'
-gem 'openlibrary'
+gem "googlebooks"
+gem "openlibrary"
+gem "pg"
 
-gem 'omniauth-google-oauth2', '~> 0.6.0'
+gem "omniauth-google-oauth2", "~> 0.6.0"
 
 gem "formtastic"
+gem "has_scope"
 gem "possessive"
-gem 'has_scope'
 
-gem 'paper_trail', '~> 10.2'
+gem "paper_trail", "~> 10.2"
 
-gem 'jquery-rails'
+gem "jquery-rails"
 
-gem 'puma'
+gem "puma"
 
-gem 'sass-rails', '~> 5.0.6'
-gem 'uglifier', '~> 4.2'
+gem "sass-rails", "~> 5.0.6"
+gem "uglifier", "~> 4.2"
 
 group :test, :development do
-  gem 'listen'
-  gem 'rubocop-govuk', '3.8.0'
-  gem 'pry-byebug'
+  gem "listen"
+  gem "pry-byebug"
+  gem "rubocop-govuk", "3.8.0"
 end
 
 group :test do
-  gem "minitest-spec-rails"
   gem "capybara"
-  gem "rails-controller-testing"
-  gem "factory_bot_rails"
   gem "database_cleaner"
-  gem "webmock", require: false
+  gem "factory_bot_rails"
+  gem "minitest-spec-rails"
   gem "mocha", require: false
+  gem "rails-controller-testing"
+  gem "webmock", require: false
 end

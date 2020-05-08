@@ -4,9 +4,10 @@ class ApplicationController < ActionController::Base
   before_action :authenticate!, :set_paper_trail_whodunnit
 
 private
+
   include ApplicationHelper
 
   def not_found
-    raise ActionController::RoutingError.new('Not Found')
+    raise ActionController::RoutingError.new("Not Found")
   end
 end

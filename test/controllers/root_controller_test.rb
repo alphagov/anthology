@@ -1,7 +1,6 @@
-require 'test_helper'
+require "test_helper"
 
 describe RootController do
-
   setup do
     stub_user_session
   end
@@ -38,5 +37,4 @@ describe RootController do
       assert_template "start"
     end
   end
-
 end
