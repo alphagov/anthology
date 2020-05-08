@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 class Loan < ApplicationRecord
   belongs_to :copy
   belongs_to :user
@@ -44,7 +44,7 @@ class Loan < ApplicationRecord
 
   def duration
     if loan_date && return_date
-      return_date - loan_date
+      T.must(return_date) - loan_date
     end
   end
 end
