@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 require "book_metadata_lookup"
 
 class Book < ApplicationRecord
@@ -24,7 +24,7 @@ class Book < ApplicationRecord
   default_scope -> { order("title ASC") }
 
   def strip_isbn
-    self.isbn = isbn.gsub(/\-?\s?/, "")
+    self.isbn = T.must(isbn).gsub(/\-?\s?/, "")
   end
 
   def available?
