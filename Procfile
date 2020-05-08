@@ -1,1 +1,1 @@
-web: bundle exec rails db:migrate && bundle exec puma -p $PORT
+web: rake db:migrate && bin/rails server
