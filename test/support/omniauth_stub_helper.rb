@@ -1,3 +1,4 @@
+# typed: false
 module OmniAuthStubHelper
   # suitable for integration tests
   def prepare_omniauth_for_testing

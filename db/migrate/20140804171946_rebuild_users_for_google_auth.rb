@@ -1,3 +1,4 @@
+# typed: true
 class RebuildUsersForGoogleAuth < ActiveRecord::Migration[5.2]
   class User < ActiveRecord::Base
   end

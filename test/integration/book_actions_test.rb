@@ -1,3 +1,4 @@
+# typed: false
 require "integration_test_helper"
 
 class BookActionsTest < ActionDispatch::IntegrationTest

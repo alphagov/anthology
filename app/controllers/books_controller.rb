@@ -1,3 +1,4 @@
+# typed: false
 class BooksController < ApplicationController
   include BooksHelper
 

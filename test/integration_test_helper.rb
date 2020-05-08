@@ -1,3 +1,4 @@
+# typed: strict
 require_relative "test_helper"
 require "capybara/rails"
 

@@ -1,3 +1,4 @@
+# typed: false
 require "integration_test_helper"
 
 class CopyActionsTest < ActionDispatch::IntegrationTest

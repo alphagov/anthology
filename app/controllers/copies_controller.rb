@@ -1,3 +1,4 @@
+# typed: false
 class CopiesController < ApplicationController
   def show
     @copy = resource

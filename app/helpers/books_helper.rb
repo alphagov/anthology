@@ -1,3 +1,4 @@
+# typed: false
 module BooksHelper
   def book_cover_tag(book, options = {})
     size = options[:size] || "S"

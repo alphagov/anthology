@@ -1,3 +1,4 @@
+# typed: false
 class User < ApplicationRecord
   has_many :loans, dependent: :destroy
   has_many :copies, -> { where("loans.state" => "on_loan") }, through: :loans

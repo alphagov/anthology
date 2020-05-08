@@ -1,3 +1,4 @@
+# typed: true
 class Shelf < ApplicationRecord
   has_many :books, dependent: :destroy
 
