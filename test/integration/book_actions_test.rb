@@ -39,7 +39,7 @@ class BookActionsTest < ActionDispatch::IntegrationTest
       should "see the book history for a book with changes" do
         with_versioning do
           PaperTrail.request.whodunnit = FactoryBot.create(:user, :name => "Mr Toad").id.to_s
-          @book.update_attributes!(:title => "Goodnight Mister Tom")
+          @book.update!(:title => "Goodnight Mister Tom")
 
           visit "/books/#{@book.id}"
           click_on "See revision history"

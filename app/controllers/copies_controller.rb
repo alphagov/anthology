@@ -43,7 +43,7 @@ class CopiesController < ApplicationController
 
   def update
     @copy = Copy.find_by_book_reference(params[:id])
-    if @copy.update_attributes(params.require(:copy).permit(:shelf_id))
+    if @copy.update(params.require(:copy).permit(:shelf_id))
       flash[:notice] = 'Shelf updated'
       redirect_to copy_path(@copy)
     else

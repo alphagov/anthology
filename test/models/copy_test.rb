@@ -123,7 +123,7 @@ describe Copy do
   context "shelves" do
     should "be able to set the shelf" do
       copy = FactoryBot.create(:copy)
-      copy.update_attributes(shelf_id: 1)
+      copy.update(shelf_id: 1)
 
       copy.reload
 

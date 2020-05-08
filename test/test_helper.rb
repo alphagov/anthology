@@ -8,6 +8,7 @@ Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
 
 DatabaseCleaner.strategy = :transaction
 DatabaseCleaner.clean
+
 WebMock.disable_net_connect!
 
 class ActiveSupport::TestCase
