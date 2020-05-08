@@ -1,9 +1,9 @@
-class User < ActiveRecord::Base
-  has_many :loans, :dependent => :destroy
-  has_many :copies, -> { where('loans.state' => 'on_loan') }, through: :loans
-  has_many :books, :through => :copies
+class User < ApplicationRecord
+  has_many :loans, dependent: :destroy
+  has_many :copies, -> { where("loans.state" => "on_loan") }, through: :loans
+  has_many :books, through: :copies
 
-  validates :provider_uid, :presence => true, :uniqueness => true
+  validates :provider_uid, presence: true, uniqueness: true
   validate :email_has_permitted_hostname, on: :create
 
   class CreationFailure < StandardError; end
@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_or_create_from_auth_hash!(auth_hash)
-    existing_user = where(email: auth_hash[:info][:email]).first
+    existing_user = find_by(email: auth_hash[:info][:email])
 
     if existing_user.present?
       existing_user.update(atts_from_auth_hash(auth_hash))
@@ -26,14 +26,13 @@ class User < ActiveRecord::Base
       user = new(initial_atts_from_auth_hash(auth_hash))
 
       if user.save
-        return user
+        user
       else
         raise CreationFailure, user.errors.full_messages.join(", ")
       end
     end
   end
 
-private
   def self.atts_from_auth_hash(hash)
     {
       name: hash[:info][:name],
@@ -45,7 +44,7 @@ private
 
   def self.initial_atts_from_auth_hash(hash)
     atts_from_auth_hash(hash).merge(
-      email: hash[:info][:email]
+      email: hash[:info][:email],
     )
   end
 
@@ -54,7 +53,7 @@ private
       return
     end
 
-    hostname = email.match(/@([A-Za-z0-9\-\.]+)\Z/) {|matches|
+    hostname = email.match(/@([A-Za-z0-9\-\.]+)\Z/) { |matches|
       matches[1]
     }
 

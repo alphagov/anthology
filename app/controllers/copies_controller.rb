@@ -1,5 +1,4 @@
 class CopiesController < ApplicationController
-
   def show
     @copy = resource
     @book = @copy.book
@@ -11,12 +10,12 @@ class CopiesController < ApplicationController
   end
 
   def edit
-    @copy = Copy.find_by_book_reference(params[:id])
+    @copy = Copy.find_by(book_reference: params[:id])
     @book = @copy.book
   end
 
   def lookup
-    @copy = Copy.find_by_book_reference(params[:book_reference])
+    @copy = Copy.find_by(book_reference: params[:book_reference])
 
     if @copy
       redirect_to copy_path(@copy)
@@ -37,17 +36,17 @@ class CopiesController < ApplicationController
       flash[:notice] = "Copy #{@copy.book_reference} has been added to the library."
       redirect_to book_path(@copy.book)
     else
-      render :action => :new
+      render action: :new
     end
   end
 
   def update
-    @copy = Copy.find_by_book_reference(params[:id])
+    @copy = Copy.find_by(book_reference: params[:id])
     if @copy.update(params.require(:copy).permit(:shelf_id))
-      flash[:notice] = 'Shelf updated'
+      flash[:notice] = "Shelf updated"
       redirect_to copy_path(@copy)
     else
-      render :action => :edit
+      render action: :edit
     end
   end
 
@@ -55,7 +54,7 @@ class CopiesController < ApplicationController
     if resource.borrow(current_user)
       flash[:notice] = "Copy #{resource.book_reference} is now on loan to you."
     end
-  rescue Copy::NotAvailable => e
+  rescue Copy::NotAvailable
     flash[:alert] = "Copy #{resource.book_reference} is already on loan to #{resource.current_user.name}."
   ensure
     redirect_to copy_path(resource)
@@ -70,7 +69,7 @@ class CopiesController < ApplicationController
       msg << ". Thanks!"
       flash[:notice] = msg
     end
-  rescue Copy::NotOnLoan => e
+  rescue Copy::NotOnLoan
     flash[:alert] = "Copy #{resource.book_reference} is not on loan."
   ensure
     redirect_to copy_path(resource)
@@ -88,21 +87,22 @@ class CopiesController < ApplicationController
     redirect_to copy_path(resource)
   end
 
-  private
-    def shelf
-      shelf_id = params.require(:copy).fetch(:shelf_id, nil)
-      shelf_id && Shelf.find_by_id(shelf_id)
-    end
+private
 
-    def parent
-      @book = Book.find(params[:book_id])
-    end
+  def shelf
+    shelf_id = params.require(:copy).fetch(:shelf_id, nil)
+    shelf_id && Shelf.find_by(id: shelf_id)
+  end
 
-    def resource
-      @copy = Copy.find_by_book_reference(params[:id]) || not_found
-    end
+  def parent
+    @book = Book.find(params[:book_id])
+  end
 
-    def copy_params
-      params.require(:copy).permit(:book_id, :book_reference, :on_loan, :shelf_id)
-    end
+  def resource
+    @copy = Copy.find_by(book_reference: params[:id]) || not_found
+  end
+
+  def copy_params
+    params.require(:copy).permit(:book_id, :book_reference, :on_loan, :shelf_id)
+  end
 end

@@ -1,0 +1,18 @@
+inherit_gem:
+  rubocop-govuk:
+    - config/default.yml
+    - config/rails.yml
+
+inherit_mode:
+  merge:
+    - Exclude
+
+Metrics/BlockLength:
+  Exclude:
+    - config/routes.rb
+
+Rails/OutputSafety:
+  Enabled: false
+
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false

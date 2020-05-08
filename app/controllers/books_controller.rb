@@ -1,13 +1,13 @@
 class BooksController < ApplicationController
   include BooksHelper
 
-  before_action :lookup_book, :only => [:show, :edit, :history, :update]
+  before_action :lookup_book, only: %i[show edit history update]
 
-  has_scope :title_search, :as => :q
-  has_scope :availability do |controller, scope, value|
+  has_scope :title_search, as: :q
+  has_scope :availability do |_controller, scope, value|
     case value
     when "available" then scope.available
-    when /^shelf_[0-9]+$/ then scope.shelf(value.split('_')[1])
+    when /^shelf_[0-9]+$/ then scope.shelf(value.split("_")[1])
     when "on_loan" then scope.on_loan
     when "missing" then scope.missing
     else
@@ -27,7 +27,7 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
     @book.created_by = current_user
 
-    if params[:intent] == 'isbn-lookup'
+    if params[:intent] == "isbn-lookup"
       begin
         assign_metadata_to_book(@book)
         render action: :new
@@ -40,10 +40,10 @@ class BooksController < ApplicationController
     end
 
     if @book.save
-      flash[:notice] = 'Book created'
+      flash[:notice] = "Book created"
       redirect_to book_path(@book)
     else
-      render :action => :new
+      render action: :new
     end
   end
 
@@ -60,15 +60,16 @@ class BooksController < ApplicationController
   end
 
   def update
-    if @book.update_attributes(book_params)
-      flash[:notice] = 'Book updated'
+    if @book.update(book_params)
+      flash[:notice] = "Book updated"
       redirect_to book_path(@book)
     else
-      render :action => :edit
+      render action: :edit
     end
   end
 
 private
+
   def lookup_book
     @book = Book.includes(:copies).find(params[:id]) || not_found
   end
@@ -81,9 +82,9 @@ private
     book.isbn.strip!
     book.isbn.gsub!(/\-/, "")
 
-    return unless book.isbn.present?
+    return if book.isbn.blank?
 
-    metadata = BookMetadataLookup.find_by_isbn(book.isbn.to_s)
+    metadata = BookMetadataLookup.find_by(isbn: book.isbn.to_s)
     metadata.slice(:title, :author, :google_id, :openlibrary_id).each do |attr, value|
       book.send("#{attr}=", value)
     end

@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Books::Application.config.secret_key_base = ENV['RAILS_SECRET_TOKEN'] || 'generate a new secret token to replace this token in production'
+Books::Application.config.secret_key_base = ENV["RAILS_SECRET_TOKEN"] || "generate a new secret token to replace this token in production"

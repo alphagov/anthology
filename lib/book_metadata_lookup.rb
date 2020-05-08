@@ -1,39 +1,38 @@
 class BookMetadataLookup
-  class BookNotFound < Exception; end
-  class InvalidResponse < Exception; end
+  class BookNotFound < RuntimeError; end
+  class InvalidResponse < RuntimeError; end
 
   def self.find_by_isbn(isbn)
     format_response({
-      :google => GoogleBooks.search("isbn:#{isbn}", { }, ENV['REQUEST_IP']).first,
-      :openlibrary => Openlibrary::Data.find_by_isbn(isbn)
+      google: GoogleBooks.search("isbn:#{isbn}", {}, ENV["REQUEST_IP"]).first,
+      openlibrary: Openlibrary::Data.find_by(isbn: isbn),
     })
   end
 
-  private
-    def self.json_request(uri)
-      response = Net::HTTP.get URI.parse(uri)
-      JSON.parse(response)
+  def self.json_request(uri)
+    response = Net::HTTP.get URI.parse(uri)
+    JSON.parse(response)
+  end
+
+  def self.format_response(sources)
+    metadata = {}
+
+    if sources[:google]
+      metadata[:google_id] = sources[:google].id
+      metadata[:title] ||= sources[:google].title
+      metadata[:author] ||= sources[:google].authors
     end
 
-    def self.format_response(sources)
-      metadata = { }
-
-      if sources[:google]
-        metadata[:google_id] = sources[:google].id
-        metadata[:title] ||= sources[:google].title
-        metadata[:author] ||= sources[:google].authors
-      end
-
-      if sources[:openlibrary]
-        metadata[:openlibrary_id] = sources[:openlibrary].identifiers["openlibrary"].first
-        metadata[:title] ||= sources[:openlibrary].title
-        metadata[:author] ||= sources[:openlibrary].authors
-      end
-
-      if metadata.empty?
-        raise BookNotFound, sources.inspect
-      end
-
-      { :google_id => nil, :openlibrary_id => nil }.merge(metadata)
+    if sources[:openlibrary]
+      metadata[:openlibrary_id] = sources[:openlibrary].identifiers["openlibrary"].first
+      metadata[:title] ||= sources[:openlibrary].title
+      metadata[:author] ||= sources[:openlibrary].authors
     end
+
+    if metadata.empty?
+      raise BookNotFound, sources.inspect
+    end
+
+    { google_id: nil, openlibrary_id: nil }.merge(metadata)
+  end
 end

@@ -1,7 +1,6 @@
-require 'integration_test_helper'
+require "integration_test_helper"
 
 class CopyActionsTest < ActionDispatch::IntegrationTest
-
   context "as a signed in user" do
     setup do
       sign_in_user
@@ -9,7 +8,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
     context "given an available copy exists" do
       setup do
-        @copy = FactoryBot.create(:copy, :book_reference => "123")
+        @copy = FactoryBot.create(:copy, book_reference: "123")
       end
 
       should "render the copy page" do
@@ -28,7 +27,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         assert_equal "/copy/123", current_path
         assert page.has_content?("123")
         assert page.has_content?("On loan to you")
-        assert page.has_content?("since #{Date.today.strftime("%b %d, %Y")}")
+        assert page.has_content?("since #{Time.zone.today.strftime('%b %d, %Y')}")
       end
 
       should "not display the loan history section if no previous loans" do
@@ -39,7 +38,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
       should "link to the book page" do
         visit "/copy/123"
-        assert page.has_link?("See all copies of this book", :href => "/books/#{@copy.book.id}")
+        assert page.has_link?("See all copies of this book", href: "/books/#{@copy.book.id}")
       end
 
       context "given a shelf exists" do
@@ -60,11 +59,11 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
           end
         end
       end
-    end # given an available copy exists
+    end
 
     context "given a copy is on loan to the signed in user" do
       setup do
-        @copy = FactoryBot.create(:copy, :book_reference => "123")
+        @copy = FactoryBot.create(:copy, book_reference: "123")
         @copy.borrow(signed_in_user)
       end
 
@@ -93,8 +92,8 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
     context "given a copy is on loan to another user" do
       setup do
-        @another_user = FactoryBot.create(:user, :name => "O'Brien")
-        @copy = FactoryBot.create(:copy, :book_reference => "123")
+        @another_user = FactoryBot.create(:user, name: "O'Brien")
+        @copy = FactoryBot.create(:copy, book_reference: "123")
         @copy.borrow(@another_user)
       end
 
@@ -104,7 +103,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         assert page.has_content?("123")
         assert page.has_content?(@copy.book.title)
         assert page.has_content?("On loan to O'Brien")
-        assert page.has_content?("since #{Date.today.strftime("%b %d, %Y")}")
+        assert page.has_content?("since #{Time.zone.today.strftime('%b %d, %Y')}")
       end
 
       should "allow the book to be returned" do
@@ -124,38 +123,38 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
     context "given a copy which has been borrowed multiple times" do
       setup do
-        @copy = FactoryBot.create(:copy, :book_reference => "53")
+        @copy = FactoryBot.create(:copy, book_reference: "53")
 
-        @user1 = FactoryBot.create(:user, :name => "Julia")
-        @user2 = FactoryBot.create(:user, :name => "Emmanuel Goldstein")
+        @user1 = FactoryBot.create(:user, name: "Julia")
+        @user2 = FactoryBot.create(:user, name: "Emmanuel Goldstein")
 
         @loans = [
-          FactoryBot.create(:loan, :copy => @copy, :state => :returned, :user_id => @user1.id, :loan_date => Date.parse("1 January 2012").beginning_of_day, :return_date => Date.parse("15 January 2012").beginning_of_day),
-          FactoryBot.create(:loan, :copy => @copy, :state => :returned, :user_id => @user2.id, :loan_date => Date.parse("5 April 2012").beginning_of_day, :return_date => Date.parse("1 May 2012").beginning_of_day),
-          FactoryBot.create(:loan, :copy => @copy, :state => :returned, :user_id => @user1.id, :loan_date => Date.parse("17 June 2012").beginning_of_day, :return_date => Date.parse("10 July 2012").beginning_of_day)
+          FactoryBot.create(:loan, copy: @copy, state: :returned, user_id: @user1.id, loan_date: Date.parse("1 January 2012").beginning_of_day, return_date: Date.parse("15 January 2012").beginning_of_day),
+          FactoryBot.create(:loan, copy: @copy, state: :returned, user_id: @user2.id, loan_date: Date.parse("5 April 2012").beginning_of_day, return_date: Date.parse("1 May 2012").beginning_of_day),
+          FactoryBot.create(:loan, copy: @copy, state: :returned, user_id: @user1.id, loan_date: Date.parse("17 June 2012").beginning_of_day, return_date: Date.parse("10 July 2012").beginning_of_day),
         ]
       end
 
       should "display a list of previous loans" do
         visit "/copy/53"
 
-        assert page.has_selector?("h3", :text => "Loan history")
+        assert page.has_selector?("h3", text: "Loan history")
 
-        rows = page.all('table.history tr').map {|r| r.all('th, td').map(&:text).map(&:strip) }
+        rows = page.all("table.history tr").map { |r| r.all("th, td").map(&:text).map(&:strip) }
         assert_equal [
-          [ "From", "Until", "Duration", "Returned to", "by" ],
-          [ "17 June 2012", "10 July 2012", "23 days", "", "Julia" ],
-          [ "5 April 2012", "1 May 2012", "26 days", "", "Emmanuel Goldstein" ],
-          [ "1 January 2012", "15 January 2012", "14 days", "", "Julia" ]
+          ["From", "Until", "Duration", "Returned to", "by"],
+          ["17 June 2012", "10 July 2012", "23 days", "", "Julia"],
+          ["5 April 2012", "1 May 2012", "26 days", "", "Emmanuel Goldstein"],
+          ["1 January 2012", "15 January 2012", "14 days", "", "Julia"],
         ], rows
       end
 
       should "link the name previous loaning user to their profile" do
         visit "/copy/53"
 
-        assert page.has_link?("Julia", :href => "/user/#{@user1.id}")
-        assert page.has_link?("Emmanuel Goldstein", :href => "/user/#{@user2.id}")
+        assert page.has_link?("Julia", href: "/user/#{@user1.id}")
+        assert page.has_link?("Emmanuel Goldstein", href: "/user/#{@user2.id}")
       end
     end
-  end # as signed in user
+  end
 end

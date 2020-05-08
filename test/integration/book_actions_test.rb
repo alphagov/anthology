@@ -1,7 +1,6 @@
-require 'integration_test_helper'
+require "integration_test_helper"
 
 class BookActionsTest < ActionDispatch::IntegrationTest
-
   context "as a signed in user" do
     setup do
       sign_in_user
@@ -9,7 +8,7 @@ class BookActionsTest < ActionDispatch::IntegrationTest
 
     context "given a book exists" do
       setup do
-        @book = FactoryBot.create(:book, :title => "The Wind in the Willows", :author => "Kenneth Grahame", :google_id => "mock-google-id")
+        @book = FactoryBot.create(:book, title: "The Wind in the Willows", author: "Kenneth Grahame", google_id: "mock-google-id")
       end
 
       should "see the book details" do
@@ -30,25 +29,25 @@ class BookActionsTest < ActionDispatch::IntegrationTest
 
         assert page.has_content?("1 copy")
         within ".copies li" do
-          assert page.has_link?("#1", :href => "/copy/1")
+          assert page.has_link?("#1", href: "/copy/1")
           assert page.has_content?("Available to borrow")
-          assert page.has_link?("Borrow", :href => "/copy/1/borrow")
+          assert page.has_link?("Borrow", href: "/copy/1/borrow")
         end
       end
 
       should "see the book history for a book with changes" do
         with_versioning do
-          PaperTrail.request.whodunnit = FactoryBot.create(:user, :name => "Mr Toad").id.to_s
-          @book.update!(:title => "Goodnight Mister Tom")
+          PaperTrail.request.whodunnit = FactoryBot.create(:user, name: "Mr Toad").id.to_s
+          @book.update!(title: "Goodnight Mister Tom")
 
           visit "/books/#{@book.id}"
           click_on "See revision history"
 
           assert page.has_content?(@book.title)
 
-          rows = page.all('table.history tr').map {|r| r.all('td').map(&:text).map(&:strip) }
+          rows = page.all("table.history tr").map { |r| r.all("td").map(&:text).map(&:strip) }
           assert_equal [
-            [ "Mr Toad", "less than a minute ago", "Title: Goodnight Mister Tom" ],
+            ["Mr Toad", "less than a minute ago", "Title: Goodnight Mister Tom"],
           ], rows
         end
       end
@@ -62,5 +61,4 @@ class BookActionsTest < ActionDispatch::IntegrationTest
       end
     end
   end
-
 end
