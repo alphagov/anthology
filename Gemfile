@@ -3,22 +3,16 @@ ruby "2.6.5"
 
 gem "rails", "~> 6.0"
 
-gem "googlebooks"
-gem "openlibrary"
-gem "pg"
-
-gem "omniauth-google-oauth2", "~> 0.6.0"
-
 gem "formtastic"
+gem "googlebooks"
 gem "has_scope"
-gem "possessive"
-
-gem "paper_trail", "~> 10.2"
-
 gem "jquery-rails"
-
+gem "omniauth-google-oauth2", "~> 0.6.0"
+gem "openlibrary"
+gem "paper_trail", "~> 10.2"
+gem "pg"
+gem "possessive"
 gem "puma"
-
 gem "sass-rails", "~> 5.0.6"
 gem "uglifier", "~> 4.2"
 
