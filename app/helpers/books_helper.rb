@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 module BooksHelper
   def book_cover_tag(book, options = {})
     size = options[:size] || "S"
@@ -36,7 +36,7 @@ module BooksHelper
     if user_id.blank?
       "Unknown user"
     else
-      User.where(id: user_id).first.name || "Unknown user"
+      T.must(User.where(id: user_id).first).name || "Unknown user"
     end
   end
 
