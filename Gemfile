@@ -24,6 +24,7 @@ gem 'uglifier', '~> 4.2'
 
 group :test, :development do
   gem 'listen'
+  gem 'rubocop-govuk', '3.8.0'
   gem 'pry-byebug'
 end
 
