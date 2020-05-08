@@ -3,9 +3,7 @@ class SessionsController < ApplicationController
   skip_before_action :authenticate!
   skip_before_action :verify_authenticity_token, only: :create
 
-  def new
-    # new.html.erb
-  end
+  def new; end
 
   def create
     if auth_hash.blank?
