@@ -1,4 +1,4 @@
-# typed: false
+# typed: true
 class CopiesController < ApplicationController
   def show
     @copy = resource
@@ -12,7 +12,7 @@ class CopiesController < ApplicationController
 
   def edit
     @copy = Copy.find_by(book_reference: params[:id])
-    @book = @copy.book
+    @book = T.must(@copy).book
   end
 
   def lookup
@@ -43,7 +43,7 @@ class CopiesController < ApplicationController
 
   def update
     @copy = Copy.find_by(book_reference: params[:id])
-    if @copy.update(params.require(:copy).permit(:shelf_id))
+    if T.must(@copy).update(params.require(:copy).permit(:shelf_id))
       flash[:notice] = "Shelf updated"
       redirect_to copy_path(@copy)
     else
