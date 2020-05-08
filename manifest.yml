@@ -4,5 +4,5 @@ applications:
   memory: 256M
   stack: cflinuxfs3
   buildpacks:
-    - https://github.com/cloudfoundry/ruby-buildpack/releases/download/v1.7.32/ruby-buildpack-cflinuxfs3-v1.7.32.zip
+    - ruby_buildpack
   instances: 2
