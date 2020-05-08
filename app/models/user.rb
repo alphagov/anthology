@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
     existing_user = where(email: auth_hash[:info][:email]).first
 
     if existing_user.present?
-      existing_user.update_attributes(atts_from_auth_hash(auth_hash))
+      existing_user.update(atts_from_auth_hash(auth_hash))
       existing_user
     else
       user = new(initial_atts_from_auth_hash(auth_hash))
