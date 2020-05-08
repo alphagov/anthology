@@ -1,3 +1,4 @@
+# typed: true
 require "csv"
 
 class RootController < ApplicationController
@@ -5,8 +6,6 @@ class RootController < ApplicationController
     @books = Book.limit(8)
     @recently_added_copies = Copy.recently_added.limit(3)
     @recent_loans = Loan.recently_loaned.includes(%i[book copy]).limit(5)
-
-    # start.html.erb
   end
 
   CSV_HEADINGS = %w[id title author isbn number_of_copies on_loan_copies].freeze

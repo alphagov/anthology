@@ -1,3 +1,4 @@
+# typed: true
 class CreateCopies < ActiveRecord::Migration[5.2]
   def up
     create_table :copies do |t|

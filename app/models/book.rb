@@ -1,3 +1,4 @@
+# typed: false
 require "book_metadata_lookup"
 
 class Book < ApplicationRecord

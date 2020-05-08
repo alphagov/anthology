@@ -1,3 +1,4 @@
+# typed: true
 class ChangeBookReferenceToInteger < ActiveRecord::Migration[5.2]
   def up
     connection.execute(%q{

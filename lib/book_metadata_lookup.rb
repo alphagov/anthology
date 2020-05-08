@@ -1,3 +1,4 @@
+# typed: true
 class BookMetadataLookup
   class BookNotFound < RuntimeError; end
   class InvalidResponse < RuntimeError; end
@@ -5,7 +6,7 @@ class BookMetadataLookup
   def self.find_by_isbn(isbn)
     format_response({
       google: GoogleBooks.search("isbn:#{isbn}", {}, ENV["REQUEST_IP"]).first,
-      openlibrary: Openlibrary::Data.find_by(isbn: isbn),
+      openlibrary: Openlibrary::Data.find_by_isbn(isbn: isbn), # rubocop:disable Rails/DynamicFindBy
     })
   end
 

@@ -1,3 +1,4 @@
+# typed: false
 FactoryBot.define do
   factory :book do
     sequence(:title) { |n| "Alice's Adventures in Wonderland ##{n}" }

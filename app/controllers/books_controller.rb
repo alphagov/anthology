@@ -1,3 +1,4 @@
+# typed: true
 class BooksController < ApplicationController
   include BooksHelper
 
@@ -71,7 +72,7 @@ class BooksController < ApplicationController
 private
 
   def lookup_book
-    @book = Book.includes(:copies).find(params[:id]) || not_found
+    @book = Book.includes(:copies).find(params[:id])
   end
 
   def book_params
@@ -84,7 +85,7 @@ private
 
     return if book.isbn.blank?
 
-    metadata = BookMetadataLookup.find_by(isbn: book.isbn.to_s)
+    metadata = BookMetadataLookup.find_by_isbn(isbn: book.isbn.to_s) # rubocop:disable Rails/DynamicFindBy
     metadata.slice(:title, :author, :google_id, :openlibrary_id).each do |attr, value|
       book.send("#{attr}=", value)
     end

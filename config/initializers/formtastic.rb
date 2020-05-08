@@ -1,3 +1,4 @@
+# typed: strong
 # encoding: utf-8
 
 # Set the default text field size when input is a string. Default is nil.

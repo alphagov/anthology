@@ -1,3 +1,4 @@
+# typed: false
 class CreateVersions < ActiveRecord::Migration[5.2]
   def self.up
     create_table :versions do |t|

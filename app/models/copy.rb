@@ -1,3 +1,4 @@
+# typed: true
 class Copy < ApplicationRecord
   belongs_to :book
   has_many :loans, dependent: :destroy
