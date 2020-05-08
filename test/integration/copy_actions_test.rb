@@ -27,7 +27,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         assert_equal "/copy/123", current_path
         assert page.has_content?("123")
         assert page.has_content?("On loan to you")
-        assert page.has_content?("since #{Date.today.strftime('%b %d, %Y')}")
+        assert page.has_content?("since #{Time.zone.today.strftime('%b %d, %Y')}")
       end
 
       should "not display the loan history section if no previous loans" do
@@ -59,7 +59,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
           end
         end
       end
-    end # given an available copy exists
+    end
 
     context "given a copy is on loan to the signed in user" do
       setup do
@@ -103,7 +103,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         assert page.has_content?("123")
         assert page.has_content?(@copy.book.title)
         assert page.has_content?("On loan to O'Brien")
-        assert page.has_content?("since #{Date.today.strftime('%b %d, %Y')}")
+        assert page.has_content?("since #{Time.zone.today.strftime('%b %d, %Y')}")
       end
 
       should "allow the book to be returned" do
@@ -156,5 +156,5 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         assert page.has_link?("Emmanuel Goldstein", href: "/user/#{@user2.id}")
       end
     end
-  end # as signed in user
+  end
 end

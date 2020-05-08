@@ -26,7 +26,7 @@ describe Loan do
     end
 
     should "set the copy on_loan attribute to true" do
-      loan = @copy.loans.create!(user: @user)
+      @copy.loans.create!(user: @user)
       @copy.reload
 
       assert @copy.on_loan?

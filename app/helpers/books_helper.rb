@@ -44,7 +44,7 @@ module BooksHelper
       content_tag :li do
         (key.capitalize + ": " + content_tag(:code) { new_value.to_s }).html_safe
       end
-    end.join("").html_safe
+    end.join("").html_safe # rubocop:disable Style/MethodCalledOnDoEndBlock
   end
 
   def user_or_second_person(resource_user, signed_in_user)

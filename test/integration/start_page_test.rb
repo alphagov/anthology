@@ -7,7 +7,7 @@ class StartPageTest < ActionDispatch::IntegrationTest
     end
 
     should "load the start page" do
-      books = FactoryBot.create_list(:book, 8)
+      FactoryBot.create_list(:book, 8)
 
       visit "/"
 
@@ -16,14 +16,14 @@ class StartPageTest < ActionDispatch::IntegrationTest
     end
 
     should "update the number of items on loan" do
-      loans = FactoryBot.create_list(:loan, 5, user: signed_in_user)
+      FactoryBot.create_list(:loan, 5, user: signed_in_user)
 
       visit "/"
       assert page.has_content?("You have 5 books on loan")
     end
 
     should "allow the user to look up a valid copy by id" do
-      @copy = FactoryBot.create(:copy, book_reference: "123")
+      FactoryBot.create(:copy, book_reference: "123")
 
       visit "/"
 

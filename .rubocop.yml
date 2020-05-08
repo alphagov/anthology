@@ -10,3 +10,9 @@ inherit_mode:
 Metrics/BlockLength:
   Exclude:
     - config/routes.rb
+
+Rails/OutputSafety:
+  Enabled: false
+
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false

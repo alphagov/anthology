@@ -30,8 +30,8 @@ describe SessionsController do
       post :create, params: { provider: :google }
 
       assert_redirected_to new_session_path
-      assert_match /Could not sign you in/, @controller.flash[:alert]
-      assert_match /something bad$/, @controller.flash[:alert]
+      assert_match(/Could not sign you in/, @controller.flash[:alert])
+      assert_match(/something bad$/, @controller.flash[:alert])
     end
   end
 end

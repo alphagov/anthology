@@ -113,7 +113,7 @@ describe Copy do
 
     should "pass through the returning user when present" do
       user = create(:user)
-      Loan.any_instance.expects(:return).with(user, shelf = nil).returns(true)
+      Loan.any_instance.expects(:return).with(user, nil).returns(true)
 
       assert @copy_on_loan.return(user)
     end
@@ -135,11 +135,9 @@ describe Copy do
       # delete first auto-generated copy of book
       @book.copies.delete_all
 
-      copies = [
-        FactoryBot.create(:copy, book_reference: 101, book: @book),
-        FactoryBot.create(:copy, book_reference: 201, book: @book),
-        FactoryBot.create(:copy, book_reference: 301, book: @book),
-      ]
+      FactoryBot.create(:copy, book_reference: 101, book: @book)
+      FactoryBot.create(:copy, book_reference: 201, book: @book)
+      FactoryBot.create(:copy, book_reference: 301, book: @book)
       assert_equal 301, Copy.recently_added.first.book_reference
       assert_equal 101, Copy.recently_added.last.book_reference
     end

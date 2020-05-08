@@ -17,7 +17,7 @@ class User < ApplicationRecord
   end
 
   def self.find_or_create_from_auth_hash!(auth_hash)
-    existing_user = where(email: auth_hash[:info][:email]).first
+    existing_user = find_by(email: auth_hash[:info][:email])
 
     if existing_user.present?
       existing_user.update(atts_from_auth_hash(auth_hash))
@@ -32,8 +32,6 @@ class User < ApplicationRecord
       end
     end
   end
-
-private
 
   def self.atts_from_auth_hash(hash)
     {

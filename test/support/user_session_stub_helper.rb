@@ -4,6 +4,6 @@ module UserSessionStubHelper
   end
 
   def stub_user
-    @user ||= create(:user)
+    @stub_user ||= create(:user)
   end
 end

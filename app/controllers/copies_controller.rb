@@ -54,7 +54,7 @@ class CopiesController < ApplicationController
     if resource.borrow(current_user)
       flash[:notice] = "Copy #{resource.book_reference} is now on loan to you."
     end
-  rescue Copy::NotAvailable => e
+  rescue Copy::NotAvailable
     flash[:alert] = "Copy #{resource.book_reference} is already on loan to #{resource.current_user.name}."
   ensure
     redirect_to copy_path(resource)
@@ -69,7 +69,7 @@ class CopiesController < ApplicationController
       msg << ". Thanks!"
       flash[:notice] = msg
     end
-  rescue Copy::NotOnLoan => e
+  rescue Copy::NotOnLoan
     flash[:alert] = "Copy #{resource.book_reference} is not on loan."
   ensure
     redirect_to copy_path(resource)

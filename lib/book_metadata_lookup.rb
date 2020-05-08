@@ -9,8 +9,6 @@ class BookMetadataLookup
     })
   end
 
-private
-
   def self.json_request(uri)
     response = Net::HTTP.get URI.parse(uri)
     JSON.parse(response)

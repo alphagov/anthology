@@ -14,7 +14,6 @@ class RootController < ApplicationController
     data = CSV.generate do |csv|
       csv << CSV_HEADINGS
       Book.all.each do |b|
-        book = []
         book = [
           b["id"],
           b["title"],
@@ -31,12 +30,12 @@ class RootController < ApplicationController
 
 private
 
-  def number_of_copies_on_loan(b)
+  def number_of_copies_on_loan(book)
     loan_count = 0
-    b.copies.each do |c|
-      loan_count += 1 if c.on_loan?
+    book.copies.each do |copy|
+      loan_count += 1 if copy.on_loan?
     end
 
-    "#{loan_count}/#{b.copies.count}"
+    "#{loan_count}/#{book.copies.count}"
   end
 end
