@@ -7,6 +7,6 @@ task :delete_book, [:id] => :environment do |_task, args|
     exit
   end
 
-  Book.find(book_id).destroy
+  Book.find(book_id).destroy!
   puts "Deleted book #{book_id}"
 end

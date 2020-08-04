@@ -2,9 +2,9 @@ require "test_helper"
 
 describe SessionsController do
   describe "POST create" do
-    let(:auth_hash) {
+    let(:auth_hash) do
       { "uid" => "12345" }
-    }
+    end
     let(:user) { create(:user) }
 
     setup do

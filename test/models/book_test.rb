@@ -29,14 +29,14 @@ describe Book do
       end
 
       should "persist the new isbn" do
-        @book.update(isbn: "0140817743")
+        @book.update!(isbn: "0140817743")
         @book.reload
 
         assert_equal "0140817743", @book.isbn
       end
 
       should "strip whitespace and dashes from the isbn" do
-        @book.update(isbn: "0 1408-177-43")
+        @book.update!(isbn: "0 1408-177-43")
         @book.reload
 
         assert_equal "0140817743", @book.isbn

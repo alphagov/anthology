@@ -31,7 +31,7 @@ class Book < ApplicationRecord
   end
 
   def setup_first_copy
-    copy = copies.create
+    copy = copies.create!
     copy
   end
 end
