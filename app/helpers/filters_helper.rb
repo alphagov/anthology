@@ -1,4 +1,3 @@
-# typed: false
 module FiltersHelper
   def filter_link(text, filter, value)
     selected = current_scopes[filter] == value

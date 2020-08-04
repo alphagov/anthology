@@ -14,13 +14,7 @@ gem "pg"
 gem "possessive"
 gem "puma"
 gem "sass-rails", "~> 5.0.6"
-gem "sorbet-rails"
-gem "sorbet-runtime"
 gem "uglifier", "~> 4.2"
-
-group :development do
-  gem "sorbet"
-end
 
 group :test, :development do
   gem "listen"

@@ -1,4 +1,3 @@
-# typed: false
 Rails.application.routes.draw do
   match "auth/:provider/callback" => "sessions#create", via: %i[get post]
   get "auth/sign_out" => "sessions#sign_out", :as => :sign_out

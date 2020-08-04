@@ -1,4 +1,3 @@
-# typed: true
 class User < ApplicationRecord
   has_many :loans, dependent: :destroy
   has_many :copies, -> { where("loans.state" => "on_loan") }, through: :loans
@@ -54,7 +53,7 @@ class User < ApplicationRecord
       return
     end
 
-    hostname = T.must(email).match(/@([A-Za-z0-9\-\.]+)\Z/) { |matches|
+    hostname = email.match(/@([A-Za-z0-9\-\.]+)\Z/) { |matches|
       matches[1]
     }
 

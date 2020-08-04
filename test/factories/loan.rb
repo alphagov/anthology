@@ -1,4 +1,3 @@
-# typed: false
 FactoryBot.define do
   factory :loan do
     user
