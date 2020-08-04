@@ -1,4 +1,3 @@
-# typed: false
 require "integration_test_helper"
 
 class StartPageTest < ActionDispatch::IntegrationTest

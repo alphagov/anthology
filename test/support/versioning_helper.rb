@@ -1,4 +1,3 @@
-# typed: true
 module VersioningHelper
   def with_versioning
     was_enabled = PaperTrail.enabled?

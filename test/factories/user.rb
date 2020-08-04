@@ -1,4 +1,3 @@
-# typed: false
 FactoryBot.define do
   factory :user do
     name { "Winston Smith-Churchill" }

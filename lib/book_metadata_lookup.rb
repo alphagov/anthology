@@ -1,4 +1,3 @@
-# typed: true
 class BookMetadataLookup
   class BookNotFound < RuntimeError; end
   class InvalidResponse < RuntimeError; end

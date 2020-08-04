@@ -1,4 +1,3 @@
-# typed: false
 require "test_helper"
 
 describe Copy do
