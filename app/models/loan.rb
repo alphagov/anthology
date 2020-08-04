@@ -26,7 +26,7 @@ class Loan < ApplicationRecord
     self.return_date = Time.zone.now
     self.returned_by = as_user
     self.returned_to_shelf = to_shelf
-    save
+    save!
   end
 
   def set_loan_date

@@ -20,7 +20,7 @@ class User < ApplicationRecord
     existing_user = find_by(email: auth_hash[:info][:email])
 
     if existing_user.present?
-      existing_user.update(atts_from_auth_hash(auth_hash))
+      existing_user.update!(atts_from_auth_hash(auth_hash))
       existing_user
     else
       user = new(initial_atts_from_auth_hash(auth_hash))
@@ -53,9 +53,9 @@ class User < ApplicationRecord
       return
     end
 
-    hostname = email.match(/@([A-Za-z0-9\-\.]+)\Z/) { |matches|
+    hostname = email.match(/@([A-Za-z0-9\-\.]+)\Z/) do |matches|
       matches[1]
-    }
+    end
 
     unless Books.permitted_email_hostnames.include?(hostname)
       errors.add(:email, "must be on a permitted hostname")

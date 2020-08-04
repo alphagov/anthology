@@ -1,25 +1,25 @@
 source "https://rubygems.org"
-ruby "2.6.5"
+ruby "2.6.6"
 
-gem "rails", "~> 6.0"
+gem "rails", "6.0.3.2"
 
 gem "formtastic"
 gem "googlebooks"
 gem "has_scope"
 gem "jquery-rails"
-gem "omniauth-google-oauth2", "~> 0.6.0"
+gem "omniauth-google-oauth2"
 gem "openlibrary"
-gem "paper_trail", "~> 10.2"
+gem "paper_trail"
 gem "pg"
 gem "possessive"
 gem "puma"
-gem "sass-rails", "~> 5.0.6"
-gem "uglifier", "~> 4.2"
+gem "sass-rails"
+gem "uglifier"
 
 group :test, :development do
   gem "listen"
   gem "pry-byebug"
-  gem "rubocop-govuk", "3.8.0"
+  gem "rubocop-govuk"
 end
 
 group :test do

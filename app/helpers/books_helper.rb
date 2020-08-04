@@ -6,9 +6,9 @@ module BooksHelper
     if book.google_id
       image_tag "https://books.google.co.uk/books?id=#{book.google_id}&printsec=frontcover&img=1&zoom=#{zoom}&edge=none&source=gbs_api", alt: "#{book.title} by #{book.author}", title: "#{book.title} by #{book.author}"
     else
-      content_tag :div, class: "placeholder_book" do
+      tag.div class: "placeholder_book" do
         concat(book.title)
-        concat(content_tag(:span, book.author, rel: "author"))
+        concat(tag.span(book.author, rel: "author"))
       end
     end
   end
@@ -40,11 +40,11 @@ module BooksHelper
   end
 
   def formatted_version_changes(version)
-    version.changeset.map do |key, (_old_value, new_value)|
-      content_tag :li do
-        (key.capitalize + ": " + content_tag(:code) { new_value.to_s }).html_safe
+    version.changeset.map { |key, (_old_value, new_value)|
+      tag.li do
+        (key.capitalize + ": " + tag.code { new_value.to_s }).html_safe
       end
-    end.join("").html_safe # rubocop:disable Style/MethodCalledOnDoEndBlock
+    }.join("").html_safe
   end
 
   def user_or_second_person(resource_user, signed_in_user)

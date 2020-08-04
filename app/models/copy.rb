@@ -50,7 +50,7 @@ class Copy < ApplicationRecord
   def borrow(user)
     raise NotAvailable unless available?
 
-    loans.create(user: user)
+    loans.create!(user: user)
   end
 
   def return(as_user = nil, to_shelf = nil)
@@ -65,11 +65,11 @@ class Copy < ApplicationRecord
   end
 
   def set_missing
-    update_attribute(:missing, true)
+    update(missing: true)
   end
 
   def unset_missing
-    update_attribute(:missing, false)
+    update(missing: false)
   end
 
   def allocate_book_reference
