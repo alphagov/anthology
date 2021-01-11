@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 ruby "2.6.6"
 
-gem "rails", "6.1.0"
+gem "rails", "6.1.1"
 
 gem "formtastic"
 gem "googlebooks"
