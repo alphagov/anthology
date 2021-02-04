@@ -24,7 +24,7 @@ end
 
 group :test do
   gem "capybara"
-  gem "database_cleaner"
+  gem "database_cleaner-active_record"
   gem "factory_bot_rails"
   gem "minitest-spec-rails"
   gem "mocha", require: false
