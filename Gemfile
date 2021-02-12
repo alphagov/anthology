@@ -19,6 +19,7 @@ group :test, :development do
   gem "listen"
   gem "pry-byebug"
   gem "rubocop-govuk"
+  gem "spring"
 end
 
 group :test do
