@@ -14,7 +14,6 @@ gem "pg"
 gem "possessive"
 gem "puma"
 gem "sass-rails"
-gem "uglifier"
 
 group :test, :development do
   gem "listen"
