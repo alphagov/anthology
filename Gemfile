@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-ruby "2.6.6"
+ruby "2.7.2"
 
 gem "rails", "6.1.1"
 
@@ -14,7 +14,6 @@ gem "pg"
 gem "possessive"
 gem "puma"
 gem "sass-rails"
-gem "uglifier"
 
 group :test, :development do
   gem "listen"
