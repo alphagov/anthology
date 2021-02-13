@@ -1,5 +1,5 @@
 class Shelf < ApplicationRecord
-  has_many :books, dependent: :destroy
+  has_many :books
 
   def to_s
     name
