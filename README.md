@@ -25,7 +25,6 @@ this is not set.
 * `GOOGLE_CLIENT_SECRET`
 * `RAILS_SECRET_TOKEN`
 * `PERMITTED_EMAIL_HOSTNAMES` - the hostname(s) that are allowed to log in to the app
-* `REQUEST_IP` - _(required for Heroku only)_ IP address to provide as the requester in calls to the Google Books API
 * `DB_USERNAME` - _(optional)_ Defaults to "books" if this is not set.
 * `DB_PASSWORD` - _(optional)_
 * `DB_HOST` - _(optional)_

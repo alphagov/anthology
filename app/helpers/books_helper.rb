@@ -13,15 +13,6 @@ module BooksHelper
     end
   end
 
-  def cover_urls(book, size = "S")
-    response = {}
-
-    response[:google] = "https://books.google.co.uk/books?id=#{book[:google_id]}&printsec=frontcover&img=1&zoom=#{cover_sizes[size]}&edge=none&source=gbs_api" if book[:google_id]
-    response[:openlibrary] = "https://covers.openlibrary.org/b/olid/#{book[:openlibrary_id]}-M.jpg" if book[:openlibrary_id]
-
-    response
-  end
-
   def cover_sizes
     {
       "S" => 1,

@@ -1,17 +1,11 @@
 class BookMetadataLookup
   class BookNotFound < RuntimeError; end
-  class InvalidResponse < RuntimeError; end
 
   def self.find_by_isbn(isbn)
     format_response({
       google: GoogleBooks.search("isbn:#{isbn}", {}, ENV["REQUEST_IP"]).first,
       openlibrary: Openlibrary::Data.find_by_isbn(isbn: isbn),
     })
-  end
-
-  def self.json_request(uri)
-    response = Net::HTTP.get URI.parse(uri)
-    JSON.parse(response)
   end
 
   def self.format_response(sources)
