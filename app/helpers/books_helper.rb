@@ -3,7 +3,7 @@ module BooksHelper
     size = options[:size] || "S"
     zoom = cover_sizes[size]
 
-    if book.google_id
+    if book.google_id.present?
       image_tag "https://books.google.co.uk/books?id=#{book.google_id}&printsec=frontcover&img=1&zoom=#{zoom}&edge=none&source=gbs_api", alt: "#{book.title} by #{book.author}", title: "#{book.title} by #{book.author}"
     else
       tag.div class: "placeholder_book" do
