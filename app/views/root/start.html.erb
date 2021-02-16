@@ -7,20 +7,22 @@
   <div class="book-lookup column left">
     <div class="start-form copy-lookup">
       <h2>Find a copy</h2>
-      <%= form_tag lookup_copy_index_path, :method => :post do %>
+      <%= form_with url: lookup_copy_index_path, method: :post do |form| %>
         <p>
-          <%= text_field_tag :book_reference, nil, :placeholder => "Enter a copy ID..." %>
-          <%= submit_tag "Go", :class => "btn" %>
+          <%= form.label :book_reference, "Search for a book by copy ID", hidden: true %>
+          <%= form.text_field :book_reference, placeholder: "Enter a copy ID..." %>
+          <%= form.submit "Go", class: "btn" %>
         </p>
       <% end %>
     </div>
 
     <div class="start-form title-lookup">
       <h2>Search books by title</h2>
-      <%= form_tag book_list_path, :method => :get do %>
+      <%= form_with url: book_list_path, method: :get do |form| %>
         <p>
-          <%= text_field_tag :q, params[:q], :placeholder => "Search titles.." %>
-          <%= submit_tag "Go", :class => "btn" %>
+          <%= form.label :q, "Search for a book by title", hidden: true %>
+          <%= form.text_field :q, placeholder: "Search titles..." %>
+          <%= form.submit "Go", class: "btn" %>
         </p>
       <% end %>
     </div>
