@@ -3,8 +3,8 @@ class BookMetadataLookup
 
   def self.find_by_isbn(isbn)
     format_response({
-      google: GoogleBooks.search("isbn:#{isbn}", {}, ENV["REQUEST_IP"]).first,
-      openlibrary: Openlibrary::Data.find_by_isbn(isbn: isbn),
+      google: GoogleBooks.search("isbn:#{isbn}").first,
+      openlibrary: Openlibrary::Data.find_by_isbn(isbn),
     })
   end
 

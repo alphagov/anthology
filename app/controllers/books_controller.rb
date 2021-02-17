@@ -84,7 +84,7 @@ private
 
     return if book.isbn.blank?
 
-    metadata = BookMetadataLookup.find_by_isbn(isbn: book.isbn.to_s)
+    metadata = BookMetadataLookup.find_by_isbn(book.isbn.to_s)
     metadata.slice(:title, :author, :google_id, :openlibrary_id).each do |attr, value|
       book.send("#{attr}=", value)
     end
