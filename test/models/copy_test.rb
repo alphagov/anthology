@@ -50,7 +50,7 @@ describe Copy do
     should "not allow a book already on loan to be borrowed" do
       copy = FactoryBot.create(:copy_on_loan)
 
-      assert_raise Copy::NotAvailable do
+      assert_raises Copy::NotAvailable do
         copy.borrow(@user)
       end
     end
@@ -99,7 +99,7 @@ describe Copy do
     should "not allow a copy not on loan to be returned" do
       copy = FactoryBot.create(:copy)
 
-      assert_raise Copy::NotOnLoan do
+      assert_raises Copy::NotOnLoan do
         copy.return
       end
     end
