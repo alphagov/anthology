@@ -2,10 +2,26 @@ require "test_helper"
 
 describe Book do
   context "creating a book" do
-    should "reject a blank ISBN" do
-      book = Book.new(isbn: "")
+    should "require an author" do
+      book = Book.new
 
       assert_not book.valid?
+      assert_equal ["can't be blank"], book.errors[:author]
+    end
+
+    should "require a title" do
+      book = Book.new
+
+      assert_not book.valid?
+      assert_equal ["can't be blank"], book.errors[:title]
+    end
+
+    should "require a unqiue ISBN number" do
+      Book.create!(title: "The Sign of the Four", author: "Conan Doyle", isbn: "abc 123")
+      book_two = Book.new(title: "A Study in Scarlet", author: "Conan Doyle", isbn: "ABC-123")
+
+      assert_not book_two.valid?
+      assert_equal ["has already been taken"], book_two.errors[:isbn]
     end
 
     should "create an initial copy upon creation" do
