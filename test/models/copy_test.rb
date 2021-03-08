@@ -16,16 +16,16 @@ describe Copy do
       second_copy = @book.copies.create!(book_reference: 2)
       third_copy = @book.copies.create!
 
-      assert_equal 1, first_copy.book_reference.to_i
-      assert_equal 2, second_copy.book_reference.to_i
-      assert_equal 3, third_copy.book_reference.to_i
+      assert_equal 1, first_copy.book_reference
+      assert_equal 2, second_copy.book_reference
+      assert_equal 3, third_copy.book_reference
     end
 
     should "not allow duplicate book references" do
       first_copy = @book.copies.create!(book_reference: 30)
       second_copy = @book.copies.build(book_reference: 30)
 
-      assert_equal 30, first_copy.book_reference.to_i
+      assert_equal 30, first_copy.book_reference
       assert_not second_copy.valid?
     end
 
