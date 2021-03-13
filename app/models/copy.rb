@@ -4,7 +4,7 @@ class Copy < ApplicationRecord
   has_many :users, through: :loans
   belongs_to :shelf
 
-  validates :book_reference, presence: true, uniqueness: { case_sensitive: false }
+  validates :book_reference, presence: true, uniqueness: true
 
   before_validation :allocate_book_reference, on: :create, if: proc { |c| c.book_reference.blank? }
 

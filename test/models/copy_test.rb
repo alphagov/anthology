@@ -16,16 +16,16 @@ describe Copy do
       second_copy = @book.copies.create!(book_reference: 2)
       third_copy = @book.copies.create!
 
-      assert_equal 1, first_copy.book_reference.to_i
-      assert_equal 2, second_copy.book_reference.to_i
-      assert_equal 3, third_copy.book_reference.to_i
+      assert_equal 1, first_copy.book_reference
+      assert_equal 2, second_copy.book_reference
+      assert_equal 3, third_copy.book_reference
     end
 
     should "not allow duplicate book references" do
       first_copy = @book.copies.create!(book_reference: 30)
       second_copy = @book.copies.build(book_reference: 30)
 
-      assert_equal 30, first_copy.book_reference.to_i
+      assert_equal 30, first_copy.book_reference
       assert_not second_copy.valid?
     end
 
@@ -50,7 +50,7 @@ describe Copy do
     should "not allow a book already on loan to be borrowed" do
       copy = FactoryBot.create(:copy_on_loan)
 
-      assert_raise Copy::NotAvailable do
+      assert_raises Copy::NotAvailable do
         copy.borrow(@user)
       end
     end
@@ -99,7 +99,7 @@ describe Copy do
     should "not allow a copy not on loan to be returned" do
       copy = FactoryBot.create(:copy)
 
-      assert_raise Copy::NotOnLoan do
+      assert_raises Copy::NotOnLoan do
         copy.return
       end
     end
@@ -113,9 +113,19 @@ describe Copy do
 
     should "pass through the returning user when present" do
       user = create(:user)
-      Loan.any_instance.expects(:return).with(user, nil).returns(true)
+      Loan.any_instance.expects(:return).with(user, nil)
 
       assert @copy_on_loan.return(user)
+    end
+
+    should "return the copy to the specified shelf" do
+      user = create(:user)
+      shelf = Shelf.first
+
+      Loan.any_instance.expects(:return).with(user, shelf)
+
+      @copy_on_loan.return(user, shelf)
+      assert shelf, @copy_on_loan.shelf
     end
   end
 

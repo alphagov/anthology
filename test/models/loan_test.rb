@@ -11,6 +11,14 @@ describe Loan do
       loan = @copy.loans.build(user: nil)
 
       assert_not loan.valid?
+      assert ["can't be blank"], loan.errors[:user]
+    end
+
+    should "require a copy" do
+      loan = FactoryBot.build(:loan, copy: nil, user: @user)
+
+      assert_not loan.valid?
+      assert ["can't be blank"], loan.errors[:copy]
     end
 
     should "set the state to 'on_loan' by default" do
@@ -20,9 +28,11 @@ describe Loan do
     end
 
     should "set the loan date by default" do
-      loan = @copy.loans.create!(user: @user)
+      travel_to Time.zone.local(2021, 2, 1, 15, 44) do
+        @loan = @copy.loans.create!(user: @user)
+      end
 
-      assert_not loan.loan_date.blank?
+      assert_equal Time.zone.local(2021, 2, 1, 15, 44), @loan.loan_date
     end
 
     should "set the copy on_loan attribute to true" do
@@ -60,9 +70,11 @@ describe Loan do
     end
 
     should "set the return date for the loan" do
-      @loan.return
+      travel_to Time.zone.local(2021, 3, 3, 12, 59) do
+        @loan.return
+      end
 
-      assert_not @loan.return_date.blank?
+      assert_equal Time.zone.local(2021, 3, 3, 12, 59), @loan.return_date
     end
 
     should "set the returning user when present" do
@@ -73,12 +85,35 @@ describe Loan do
       assert_equal returning_user, @loan.returned_by
     end
 
+    should "returned_by_another_user? is true if returned by a different user" do
+      returning_user = create(:user)
+      @loan.return(returning_user)
+      @loan.reload
+
+      assert @loan.returned_by_another_user?
+    end
+
+    should "returned_by_another_user? is false if returned by the same user" do
+      returning_user = @loan.user
+      @loan.return(returning_user)
+      @loan.reload
+
+      assert_not @loan.returned_by_another_user?
+    end
+
     should "set the returning shelf when present" do
       shelf = Shelf.first
       @loan.return(nil, shelf)
 
       @loan.reload
       assert_equal shelf, @loan.returned_to_shelf
+    end
+
+    should "measure the loan duration" do
+      @loan.loan_date = Time.zone.local(2021, 1, 1)
+      @loan.return_date = Time.zone.local(2021, 2, 1, 12, 0)
+
+      assert_equal 2_721_600.0, @loan.duration
     end
   end
 end
