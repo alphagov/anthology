@@ -13,6 +13,28 @@ describe User do
     }
   end
 
+  it "#current_copies only returns the copies on loan" do
+    user = FactoryBot.create(:user)
+    loaned_copy = FactoryBot.create(:copy)
+    returned_copy = FactoryBot.create(:copy)
+
+    FactoryBot.create(:loan, user_id: user.id, copy: loaned_copy, state: :on_loan)
+    FactoryBot.create(:loan, user_id: user.id, copy: returned_copy, state: :returned)
+
+    assert_equal [loaned_copy], user.current_copies
+  end
+
+  it "#previous_loans returns loans not longer on_loan" do
+    user = FactoryBot.create(:user)
+    loaned_copy = FactoryBot.create(:copy)
+    returned_copy = FactoryBot.create(:copy)
+
+    FactoryBot.create(:loan, user_id: user.id, copy: loaned_copy, state: :on_loan)
+    returned_loan = FactoryBot.create(:loan, user_id: user.id, copy: returned_copy, state: :returned)
+
+    assert_equal [returned_loan], user.previous_loans
+  end
+
   it "can be created from an auth hash" do
     user = User.find_or_create_from_auth_hash!(auth_hash)
 
@@ -37,6 +59,14 @@ describe User do
 
     existing_user.reload
     assert_equal "Stub User", existing_user.name
+  end
+
+  it "raises CreationFailure if a new user fails to save" do
+    User.any_instance.stubs(:save).returns(false)
+
+    assert_raises User::CreationFailure do
+      User.find_or_create_from_auth_hash!(auth_hash)
+    end
   end
 
   it "does not restrict user emails to a hostname by default" do
