@@ -8,7 +8,8 @@
     <h1>Sign in</h1>
 
     <p>Sign in with your Google account to access <%= library_title %>.</p>
-
-    <p><%= link_to "Sign in with Google", "/auth/google", :class => 'btn' %></p>
+    <%= form_with url: "/auth/google", method: :post do |form| %>
+      <%= form.submit "Sign in with Google", class: "btn" %>
+    <% end %>
   <% end %>
 </section>
