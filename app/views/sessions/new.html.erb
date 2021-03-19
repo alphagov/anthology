@@ -3,7 +3,9 @@
     <h1>Sign in</h1>
 
     <p>You can sign in by providing a stub user in the development environment.</p>
-    <p><%= link_to "Sign in (development)", "/auth/developer", :class => 'btn' %></p>
+    <%= form_with url: "/auth/developer", method: :post do |form| %>
+      <%= form.submit "Sign in (development)", class: "btn" %>
+    <% end %>
   <% else %>
     <h1>Sign in</h1>
 
