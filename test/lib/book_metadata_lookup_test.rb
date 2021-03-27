@@ -51,7 +51,7 @@ class BookMetadataLookupTest < ActiveSupport::TestCase
         google_id: nil,
         openlibrary_id: "OL27310496M",
         title: "Learning Javascript",
-        author: [{ "url" => "http://openlibrary.org/authors/OL1434387A/Ethan_Brown", "name" => "Ethan Brown" }],
+        author: "Ethan Brown",
       }
 
       assert_equal expected_result, BookMetadataLookup.format_response(sources)
@@ -68,6 +68,23 @@ class BookMetadataLookupTest < ActiveSupport::TestCase
       }
 
       assert_equal expected_result, BookMetadataLookup.format_response(sources)
+    end
+  end
+
+  context ".format_openlibrary_authors" do
+    should "get the name of a single author" do
+      author = [{ "url" => "http://openlibrary.org/authors/OL1/Ethan_Brown", "name" => "Ethan Brown" }]
+
+      assert_equal "Ethan Brown", BookMetadataLookup.format_openlibrary_authors(author)
+    end
+
+    should "get the names of multiple authors" do
+      authors = [
+        { "url" => "http://openlibrary.org/authors/OL1/Agatha_Henderson", "name" => "Agatha Henderson" },
+        { "url" => "http://openlibrary.org/authors/OL2/Jane_E._Reed", "name" => "Jane E. Reed" },
+        { "url" => "http://openlibrary.org/authors/OL3/Paul_M._Davis", "name" => "Paul M. Davis" },
+      ]
+      assert_equal "Agatha Henderson, Jane E. Reed, Paul M. Davis", BookMetadataLookup.format_openlibrary_authors(authors)
     end
   end
 end

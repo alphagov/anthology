@@ -20,7 +20,7 @@ class BookMetadataLookup
     if sources[:openlibrary]
       metadata[:openlibrary_id] = sources[:openlibrary].identifiers["openlibrary"].first
       metadata[:title] ||= sources[:openlibrary].title
-      metadata[:author] ||= sources[:openlibrary].authors
+      metadata[:author] ||= format_openlibrary_authors(sources[:openlibrary].authors)
     end
 
     if metadata.empty?
@@ -28,5 +28,13 @@ class BookMetadataLookup
     end
 
     { google_id: nil, openlibrary_id: nil }.merge(metadata)
+  end
+
+  def self.format_openlibrary_authors(authors)
+    # Authors from openlibrary are in this format:
+    # [{ "url" => "open library URL", "name" => "Author Name" }]
+    # This method parses them to match the Google format: "First Author, Second Author"
+    names = authors.map { |x| x["name"] }
+    names.join(", ")
   end
 end
