@@ -16,3 +16,6 @@ Rails/OutputSafety:
 
 Rails/UniqueValidationWithoutIndex:
   Enabled: false
+
+Style/WordArray:
+  Enabled: false
