@@ -16,7 +16,7 @@ describe Book do
       assert_equal ["can't be blank"], book.errors[:title]
     end
 
-    should "require a unqiue ISBN number" do
+    should "require a unique ISBN number" do
       Book.create!(title: "The Sign of the Four", author: "Conan Doyle", isbn: "abc 123")
       book_two = Book.new(title: "A Study in Scarlet", author: "Conan Doyle", isbn: "ABC-123")
 
