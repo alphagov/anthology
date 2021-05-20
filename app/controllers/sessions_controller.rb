@@ -26,11 +26,6 @@ class SessionsController < ApplicationController
     redirect_to new_session_path
   end
 
-  def failure
-    flash[:alert] = "Please sign in to access the library."
-    redirect_to new_session_path
-  end
-
 private
 
   def fail_and_redirect(message = "There was a problem signing you in.")

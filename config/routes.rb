@@ -4,9 +4,7 @@ Rails.application.routes.draw do
 
   get "library.csv", to: "root#library_csv"
 
-  resources :sessions, only: :new do
-    get :failure, collection: true
-  end
+  resources :sessions, only: :new
 
   resources :copy, controller: "copies" do
     collection do
