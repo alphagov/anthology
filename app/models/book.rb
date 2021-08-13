@@ -23,7 +23,7 @@ class Book < ApplicationRecord
   default_scope -> { order("title ASC") }
 
   def strip_isbn
-    self.isbn = isbn.gsub(/\-?\s?/, "")
+    self.isbn = isbn.gsub(/-?\s?/, "")
   end
 
   def available?
@@ -31,7 +31,6 @@ class Book < ApplicationRecord
   end
 
   def setup_first_copy
-    copy = copies.create!
-    copy
+    copies.create!
   end
 end

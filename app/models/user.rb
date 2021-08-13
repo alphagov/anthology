@@ -53,7 +53,7 @@ class User < ApplicationRecord
       return
     end
 
-    hostname = email.match(/@([A-Za-z0-9\-\.]+)\Z/) do |matches|
+    hostname = email.match(/@([A-Za-z0-9\-.]+)\Z/) do |matches|
       matches[1]
     end
 
