@@ -6,8 +6,6 @@ An easier way to keep track of the books on your office bookshelf.
 * Keeps track of multiple copies of each book
 * Looks up book details from Google Books and Openlibrary based on the ISBN
 
-![](http://jordanhatch.github.com/anthology/img/screenshot.png)
-
 ## Getting started
 
     bundle install
