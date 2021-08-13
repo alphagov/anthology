@@ -80,7 +80,7 @@ private
 
   def assign_metadata_to_book(book)
     book.isbn.strip!
-    book.isbn.gsub!(/\-/, "")
+    book.isbn.gsub!(/-/, "")
 
     return if book.isbn.blank?
 

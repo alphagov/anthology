@@ -16,6 +16,7 @@ class Copy < ApplicationRecord
   scope :recently_added, -> { order("created_at DESC") }
 
   class NotAvailable < RuntimeError; end
+
   class NotOnLoan < RuntimeError; end
 
   def current_loan

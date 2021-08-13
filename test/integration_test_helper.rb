@@ -1,7 +1,7 @@
 require_relative "test_helper"
 require "capybara/rails"
 
-include OmniAuthStubHelper
+include OmniAuthStubHelper # rubocop:disable Style/MixinUsage
 prepare_omniauth_for_testing
 
 class ActionDispatch::IntegrationTest
