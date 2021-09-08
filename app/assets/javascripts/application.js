@@ -12,5 +12,4 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require libs/mustache
 //= require_tree .

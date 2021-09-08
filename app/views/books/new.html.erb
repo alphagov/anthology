@@ -21,23 +21,3 @@
     <% end %>
   <% end %>
 </section>
-
-<script id="book-preview-template" type="text/html">
-  <article id="book-preview">
-    <img src="{{ covers.google }}" />
-    <h1>{{ title }}</h1>
-    <dl>
-      <dt>Author</dt>
-      <dd>{{ author }}</dd>
-    </dl>
-    <div class="clear"></div>
-  </article>
-
-  {{#creatable}}
-    <div class="book-action creatable"><span>This book can be added to the library.</span> <input type="submit" value="Add to Library" class="btn" /></div>
-  {{/creatable}}
-
-  {{#exists}}
-    <div class="book-action exists"><span>This book already exists in the library.</span> <a href="/books/{{ existing_book.id }}/copies/new" class='btn'>Add another copy</a></div>
-  {{/exists}}
-</script>
