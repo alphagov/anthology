@@ -131,79 +131,6 @@ header {
   &.flash_alert { background: #d63f36; border-bottom-color: #a8332c; }
 }
 
-
-
-ul.resource_list {
-  li { display: block; border-bottom: 1px solid #bbb;
-    &:first-child { border-top: 1px solid #bbb; }
-    &.available a { border-left: 0.5em solid #95d656; }
-    &.unavailable a { border-left: 0.5em solid #ddd; }
-
-    a { padding: 1em 1rem; display: block; text-decoration: none; color: inherit;
-      &:hover, &:active { background: #eee; background-image: -webkit-linear-gradient(#f6f6f6, #e6e6e6); }
-      h2 { font-size: 1.2em; margin: 0.25em 0; }
-      p { margin: 0.25rem 0; padding: 0;
-        color: #666; font-size: 0.9em;
-      }
-    }
-  }
-
-  margin: 0;
-
-  @media (min-width: 640px){
-    margin: 0 1em;
-    border-left: 1px solid #bbb;
-    border-right: 1px solid #bbb;
-  }
-}
-
-
-
-.searchable_container {
-  @media (min-width: 640px){
-    margin: -1em 1em 1em;
-    ul { margin: 0; }
-  }
-
-  form { background: #ccc; margin: 0; padding: 0.2rem 1rem;
-
-    @media (min-width: 640px){ padding: 0.25em; }
-    input[type=text] {
-      @include border-box;
-      font-size: 0.85em;
-      margin: 0;
-      padding: 0.45em;
-      border: none;
-      display: block;
-      font-family: Helvetica, Arial, sans-serif;
-      width: 100%;
-    }
-  }
-}
-
-.display_selection {
-  background: #f6f6f6;
-  border-bottom: 1px solid #aaa;
-  padding: 0.5em 1rem;
-  font-size: 0.85em;
-  font-weight: 600;
-
-  @media (min-width: 640px){
-    border-left: 1px solid #aaa;
-    border-right: 1px solid #aaa;
-    width: 9em;
-    margin-left: 1em;
-  }
-
-  ul {
-    font-weight: normal;
-    display: inline-block; margin: 0; padding: 0 0 0 0.5em;
-    li { display: inline; padding-right: 0.5em;
-      &.selected a { color: #666; text-decoration: none; }
-    }
-  }
-}
-
 section.resource {
   padding: 1em;
 
@@ -219,8 +146,6 @@ section.sign_in {
   h1 { margin: 0; }
 }
 
-
-
 .formtastic {
   li.input { list-style: none; }
 
@@ -231,7 +156,6 @@ section.sign_in {
     padding: 0.25em;
     float: right;
     margin: -1.65rem 0.7rem 0 0;
-    display: inline-block;
     position: relative;
     z-index: 1;
   }
