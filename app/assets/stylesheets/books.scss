@@ -48,7 +48,7 @@ ul.books {
   span[rel='author'] { display: block; font-size: 0.8em; padding-top: 0.5em; color: #000; }
 }
 
-section.single_book {
+main.single_book {
   @media (min-width: 640px){
     font-size: 1.2em;
 
@@ -92,7 +92,7 @@ section.single_book {
   }
 }
 
-section.user {
+main.user {
   @media (min-width: 640px){
     font-size: 1.2em;
   }

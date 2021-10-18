@@ -131,7 +131,7 @@ header {
   &.flash_alert { background: #d63f36; border-bottom-color: #a8332c; }
 }
 
-section.resource {
+main.resource {
   padding: 1em;
 
   &.wrap {
@@ -142,7 +142,7 @@ section.resource {
   }
 }
 
-section.sign_in {
+main.sign_in {
   h1 { margin: 0; }
 }
 

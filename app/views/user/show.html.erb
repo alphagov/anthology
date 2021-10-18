@@ -1,4 +1,4 @@
-<section class="user wrap">
+<main class="user wrap">
   <h1><%= @user.name.possessive %> Books</h1>
 
   <ul class="copies">
@@ -10,4 +10,4 @@
   <ul class="copies">
     <%= render :partial => "loan", :collection => @user.previous_loans %>
   </ul>
-</section>
+</main>

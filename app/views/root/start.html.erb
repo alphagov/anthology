@@ -1,4 +1,4 @@
-<section class="wrap two-column start">
+<main class="wrap two-column start">
   <div class="greeting">
     <h1>Welcome, <%= current_user.name %>!</h1>
     <span>You have <%= link_to "#{pluralize current_user.copies.count, 'book'} on loan", user_path(current_user) %> right now.</span>
@@ -44,4 +44,4 @@
       <% end %>
     </ul>
   </div>
-</section>
+</main>
