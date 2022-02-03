@@ -19,3 +19,9 @@ Rails/UniqueValidationWithoutIndex:
 
 Style/WordArray:
   Enabled: false
+
+AllCops:
+  Exclude:
+  # Exclude warning that "change_column is not reversible". This change could be complicated
+  # to reverse (data may need to be altered), and reversing should not be necessary.
+    - db/migrate/20210806180637_change_user_image_url_data_type.rb
