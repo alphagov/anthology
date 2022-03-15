@@ -193,7 +193,7 @@ GEM
     openlibrary (1.0.0)
       json
       rest-client
-    paper_trail (12.2.0)
+    paper_trail (12.3.0)
       activerecord (>= 5.2)
       request_store (~> 1.1)
     parallel (1.21.0)
