@@ -10,6 +10,7 @@ module Books
   mattr_accessor :permitted_email_hostnames
 
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
     config.active_record.belongs_to_required_by_default = false
 
@@ -19,6 +20,6 @@ module Books
     # in config/environments, which are processed later.
     #
     # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")  end
+    # config.eager_load_paths << Rails.root.join("extras")
   end
 end
