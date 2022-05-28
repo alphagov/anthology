@@ -6,7 +6,7 @@ FactoryBot.define do
       on_loan { true }
 
       after(:create) do |copy, _e|
-        FactoryBot.create(:loan, copy: copy)
+        FactoryBot.create(:loan, copy:)
       end
     end
   end
