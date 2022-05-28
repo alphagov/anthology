@@ -8,7 +8,9 @@ jobs:
 
     services:
       postgres:
-        image: postgres:11.5
+        image: postgres:12.11
+        env:
+          POSTGRES_PASSWORD: postgres
         ports: ["5432:5432"]
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
@@ -24,9 +26,9 @@ jobs:
     - name: Build App
       env:
         PGHOST: localhost
-        PGUSER: postgres
         RAILS_ENV: test
         DB_USERNAME: postgres
+        DB_PASSWORD: postgres
       run: |
         bundle install --jobs 4 --retry 3
         bundle exec rake db:setup
@@ -34,8 +36,8 @@ jobs:
     - name: Run Tests
       env:
         PGHOST: localhost
-        PGUSER: postgres
         RAILS_ENV: test
         DB_USERNAME: postgres
+        DB_PASSWORD: postgres
       run: |
         bundle exec rake
