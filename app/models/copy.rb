@@ -51,7 +51,7 @@ class Copy < ApplicationRecord
   def borrow(user)
     raise NotAvailable unless available?
 
-    loans.create!(user: user)
+    loans.create!(user:)
   end
 
   def return(as_user = nil, to_shelf = nil)
