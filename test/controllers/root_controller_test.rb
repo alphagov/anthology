@@ -5,41 +5,41 @@ describe RootController do
     stub_user_session
   end
 
-  context "the start page" do
+  describe "the start page" do
     setup do
       # create some books
       FactoryBot.create_list(:book, 8)
     end
 
-    should "be a successful request" do
+    it "returns a successful response" do
       get :start
 
       assert response.successful?
     end
 
-    should "load eight books to display to the user" do
+    it "loads eight books to display to the user" do
       get :start
 
       assert_equal 8, assigns(:books).count
       assert_instance_of Book, assigns(:books).first
     end
 
-    should "load 3 recently added copies to display to the user" do
+    it "loads 3 recently added copies to display to the user" do
       get :start
 
       assert_equal 3, assigns(:recently_added_copies).count
       assert_instance_of Copy, assigns(:recently_added_copies).first
     end
 
-    should "render the start template" do
+    it "renders the start template" do
       get :start
 
       assert_template "start"
     end
   end
 
-  context "the library csv page" do
-    should "generates a CSV file with a row for each book" do
+  describe "the library csv page" do
+    it "generates a CSV file with a row for each book" do
       FactoryBot.create(:book, id: 1, title: "Book 1", author: "A. One", isbn: "1")
       FactoryBot.create(:book, id: 2, title: "Book 2", author: "A. Two", isbn: "2")
 

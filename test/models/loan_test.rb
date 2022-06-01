@@ -6,28 +6,28 @@ describe Loan do
     @user = FactoryBot.create(:user)
   end
 
-  context "creating a new loan" do
-    should "require a user" do
+  describe "creating a new loan" do
+    it "requires a user" do
       loan = @copy.loans.build(user: nil)
 
       assert_not loan.valid?
       assert ["can't be blank"], loan.errors[:user]
     end
 
-    should "require a copy" do
+    it "requires a copy" do
       loan = FactoryBot.build(:loan, copy: nil, user: @user)
 
       assert_not loan.valid?
       assert ["can't be blank"], loan.errors[:copy]
     end
 
-    should "set the state to 'on_loan' by default" do
+    it "sets the state to 'on_loan' by default" do
       loan = @copy.loans.create!(user: @user)
 
       assert_equal "on_loan", loan.state
     end
 
-    should "set the loan date by default" do
+    it "sets the loan date by default" do
       travel_to Time.zone.local(2021, 2, 1, 15, 44) do
         @loan = @copy.loans.create!(user: @user)
       end
@@ -35,7 +35,7 @@ describe Loan do
       assert_equal Time.zone.local(2021, 2, 1, 15, 44), @loan.loan_date
     end
 
-    should "set the copy on_loan attribute to true" do
+    it "sets the copy on_loan attribute to true" do
       @copy.loans.create!(user: @user)
       @copy.reload
 
@@ -43,25 +43,25 @@ describe Loan do
     end
   end
 
-  context "returning a loan" do
+  describe "returning a loan" do
     setup do
       @loan = @copy.loans.create!(user: @user)
     end
 
-    should "update the state to returned" do
+    it "updates the state to returned" do
       @loan.return
 
       assert_equal "returned", @loan.state
     end
 
-    should "set the copy on_loan attribute to false" do
+    it "sets the copy on_loan attribute to false" do
       @loan.return
       @copy.reload
 
       assert_not @copy.on_loan?
     end
 
-    should "raise an exception if already returned" do
+    it "raises an exception if already returned" do
       @loan.return
 
       assert_raises Loan::NotOnLoan do
@@ -69,7 +69,7 @@ describe Loan do
       end
     end
 
-    should "set the return date for the loan" do
+    it "sets the return date for the loan" do
       travel_to Time.zone.local(2021, 3, 3, 12, 59) do
         @loan.return
       end
@@ -77,7 +77,7 @@ describe Loan do
       assert_equal Time.zone.local(2021, 3, 3, 12, 59), @loan.return_date
     end
 
-    should "set the returning user when present" do
+    it "sets the returning user when present" do
       returning_user = create(:user)
       @loan.return(returning_user)
 
@@ -85,7 +85,7 @@ describe Loan do
       assert_equal returning_user, @loan.returned_by
     end
 
-    should "returned_by_another_user? is true if returned by a different user" do
+    it "returned_by_another_user? is true if returned by a different user" do
       returning_user = create(:user)
       @loan.return(returning_user)
       @loan.reload
@@ -93,7 +93,7 @@ describe Loan do
       assert @loan.returned_by_another_user?
     end
 
-    should "returned_by_another_user? is false if returned by the same user" do
+    it "returned_by_another_user? is false if returned by the same user" do
       returning_user = @loan.user
       @loan.return(returning_user)
       @loan.reload
@@ -101,7 +101,7 @@ describe Loan do
       assert_not @loan.returned_by_another_user?
     end
 
-    should "set the returning shelf when present" do
+    it "sets the returning shelf when present" do
       shelf = Shelf.first
       @loan.return(nil, shelf)
 
@@ -109,7 +109,7 @@ describe Loan do
       assert_equal shelf, @loan.returned_to_shelf
     end
 
-    should "measure the loan duration" do
+    it "measures the loan duration" do
       @loan.loan_date = Time.zone.local(2021, 1, 1)
       @loan.return_date = Time.zone.local(2021, 2, 1, 12, 0)
 
