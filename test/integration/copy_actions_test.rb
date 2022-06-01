@@ -1,17 +1,17 @@
 require "integration_test_helper"
 
 class CopyActionsTest < ActionDispatch::IntegrationTest
-  context "as a signed in user" do
+  describe "a signed in user" do
     setup do
       sign_in_user
     end
 
-    context "given an available copy exists" do
+    describe "given an available copy exists" do
       setup do
         @copy = FactoryBot.create(:copy, book_reference: "123")
       end
 
-      should "render the copy page" do
+      it "renders the copy page" do
         visit "/copy/123"
 
         assert page.has_content?("123")
@@ -20,7 +20,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         assert page.has_content?("Borrow")
       end
 
-      should "allow the book to be borrowed" do
+      it "allows the book to be borrowed" do
         visit "/copy/123"
         click_on "Borrow"
 
@@ -30,19 +30,19 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         assert page.has_content?("since #{Time.zone.today.strftime('%b %d, %Y')}")
       end
 
-      should "not display the loan history section if no previous loans" do
+      it "does not display the loan history section if there are no previous loans" do
         visit "/copy/123"
 
         assert page.has_no_content?("Loan history")
       end
 
-      should "link to the book page" do
+      it "links to the book page" do
         visit "/copy/123"
         assert page.has_link?("See all copies of this book", href: "/books/#{@copy.book.id}")
       end
 
-      context "given a shelf exists" do
-        should "allow shelf to be set" do
+      describe "given a shelf exists" do
+        it "allows the shelf to be set" do
           visit "/copy/123"
           within ".shelf" do
             click_link "set"
@@ -61,13 +61,13 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
       end
     end
 
-    context "given a copy is on loan to the signed in user" do
+    describe "given a copy is on loan to the signed in user" do
       setup do
         @copy = FactoryBot.create(:copy, book_reference: "123")
         @copy.borrow(signed_in_user)
       end
 
-      should "render the copy page" do
+      it "renders the copy page" do
         visit "/copy/123"
 
         assert page.has_content?("123")
@@ -76,7 +76,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         assert page.has_content?("Return")
       end
 
-      should "allow the book to be returned" do
+      it "allows the book to be returned" do
         visit "/copy/123"
         select "7th floor", from: "Return to"
         click_on "Return"
@@ -90,14 +90,14 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
       end
     end
 
-    context "given a copy is on loan to another user" do
+    describe "given a copy is on loan to another user" do
       setup do
         @another_user = FactoryBot.create(:user, name: "O'Brien")
         @copy = FactoryBot.create(:copy, book_reference: "123")
         @copy.borrow(@another_user)
       end
 
-      should "render the copy page" do
+      it "renders the copy page" do
         visit "/copy/123"
 
         assert page.has_content?("123")
@@ -106,7 +106,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         assert page.has_content?("since #{Time.zone.today.strftime('%b %d, %Y')}")
       end
 
-      should "allow the book to be returned" do
+      it "allows the book to be returned" do
         visit "/copy/123"
         click_on "Return"
 
@@ -121,7 +121,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
       end
     end
 
-    context "given a copy which has been borrowed multiple times" do
+    describe "given a copy which has been borrowed multiple times" do
       setup do
         @copy = FactoryBot.create(:copy, book_reference: "53")
 
@@ -135,7 +135,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         ]
       end
 
-      should "display a list of previous loans" do
+      it "displays a list of previous loans" do
         visit "/copy/53"
 
         assert page.has_selector?("h3", text: "Loan history")
@@ -149,7 +149,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         ], rows
       end
 
-      should "link the name previous loaning user to their profile" do
+      it "links the name previous loaning user to their profile" do
         visit "/copy/53"
 
         assert page.has_link?("Julia", href: "/user/#{@user1.id}")

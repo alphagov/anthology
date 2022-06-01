@@ -16,8 +16,8 @@ class BookMetadataLookupTest < ActiveSupport::TestCase
     })
   end
 
-  context ".find_by_isbn" do
-    should "call both APIs with the given ISBN number" do
+  describe ".find_by_isbn" do
+    it "calls both APIs with the given ISBN number" do
       isbn = "0995739013"
 
       GoogleBooks.expects(:search).with("isbn:#{isbn}").returns([@google_data])
@@ -27,8 +27,8 @@ class BookMetadataLookupTest < ActiveSupport::TestCase
     end
   end
 
-  context ".format_response" do
-    should "raise BookNotFound if sources does not contain google or openlibrary keys" do
+  describe ".format_response" do
+    it "raises BookNotFound if sources does not contain google or openlibrary keys" do
       sources = { "another library" => "book" }
 
       assert_raises BookMetadataLookup::BookNotFound do
@@ -36,7 +36,7 @@ class BookMetadataLookupTest < ActiveSupport::TestCase
       end
     end
 
-    should "return book data when only google data is present" do
+    it "returns book data when only google data is present" do
       sources = { google: @google_data, openlibrary: nil }
 
       expected_result = { google_id: "1", title: "Code Complete", author: "Steve McConnell", openlibrary_id: nil }
@@ -44,7 +44,7 @@ class BookMetadataLookupTest < ActiveSupport::TestCase
       assert_equal expected_result, BookMetadataLookup.format_response(sources)
     end
 
-    should "return book data when only openlibrary data is present" do
+    it "returns book data when only openlibrary data is present" do
       sources = { google: nil, openlibrary: @openlibrary_data }
 
       expected_result = {
@@ -57,7 +57,7 @@ class BookMetadataLookupTest < ActiveSupport::TestCase
       assert_equal expected_result, BookMetadataLookup.format_response(sources)
     end
 
-    should "use the title and author from google when both data sources are present" do
+    it "uses the title and author from google when both data sources are present" do
       sources = { google: @google_data, openlibrary: @openlibrary_data }
 
       expected_result = {
@@ -71,14 +71,14 @@ class BookMetadataLookupTest < ActiveSupport::TestCase
     end
   end
 
-  context ".format_openlibrary_authors" do
-    should "get the name of a single author" do
+  describe ".format_openlibrary_authors" do
+    it "gets the name of a single author" do
       author = [{ "url" => "http://openlibrary.org/authors/OL1/Ethan_Brown", "name" => "Ethan Brown" }]
 
       assert_equal "Ethan Brown", BookMetadataLookup.format_openlibrary_authors(author)
     end
 
-    should "get the names of multiple authors" do
+    it "gets the names of multiple authors" do
       authors = [
         { "url" => "http://openlibrary.org/authors/OL1/Agatha_Henderson", "name" => "Agatha Henderson" },
         { "url" => "http://openlibrary.org/authors/OL2/Jane_E._Reed", "name" => "Jane E. Reed" },

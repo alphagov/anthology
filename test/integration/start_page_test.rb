@@ -1,12 +1,12 @@
 require "integration_test_helper"
 
 class StartPageTest < ActionDispatch::IntegrationTest
-  context "as a signed in user" do
+  describe "as a signed in user" do
     setup do
       sign_in_user
     end
 
-    should "load the start page" do
+    it "loads the start page" do
       FactoryBot.create_list(:book, 8)
 
       visit "/"
@@ -15,14 +15,14 @@ class StartPageTest < ActionDispatch::IntegrationTest
       assert page.has_content?("You have 0 books on loan")
     end
 
-    should "update the number of items on loan" do
+    it "updates the number of items on loan" do
       FactoryBot.create_list(:loan, 5, user: signed_in_user)
 
       visit "/"
       assert page.has_content?("You have 5 books on loan")
     end
 
-    should "allow the user to look up a valid copy by id" do
+    it "allows the user to look up a valid copy by id" do
       FactoryBot.create(:copy, book_reference: "123")
 
       visit "/"
@@ -35,7 +35,7 @@ class StartPageTest < ActionDispatch::IntegrationTest
       assert "/copy/123", current_path
     end
 
-    should "show an error when a user attempts to look up an invalid copy id" do
+    it "shows an error when a user attempts to look up an invalid copy id" do
       visit "/"
 
       within ".copy-lookup" do
@@ -47,7 +47,7 @@ class StartPageTest < ActionDispatch::IntegrationTest
       assert page.has_content?("Copy 999 couldn't be found")
     end
 
-    should "display recently added copies added to the library" do
+    it "displays recently added copies added to the library" do
       @book = FactoryBot.create(:book, title: "The Lion, the Witch and the Wardrobe")
       @older_copies = FactoryBot.create_list(:copy, 10)
       @copy = FactoryBot.create(:copy, book_reference: "123", book: @book)
@@ -61,7 +61,7 @@ class StartPageTest < ActionDispatch::IntegrationTest
       end
     end
 
-    should "display recent loans from the library" do
+    it "displays recent loans from the library" do
       copies_on_loan = FactoryBot.create_list(:copy_on_loan, 5)
 
       visit "/"

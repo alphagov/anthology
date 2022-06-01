@@ -1,17 +1,17 @@
 require "integration_test_helper"
 
 class BookActionsTest < ActionDispatch::IntegrationTest
-  context "as a signed in user" do
+  describe "a signed in user" do
     setup do
       sign_in_user
     end
 
-    context "given a book exists" do
+    describe "given a book exists" do
       setup do
         @book = FactoryBot.create(:book, title: "The Wind in the Willows", author: "Kenneth Grahame", google_id: "mock-google-id")
       end
 
-      should "see the book details" do
+      it "shows the book details" do
         visit "/books/#{@book.id}"
 
         within ".cover" do
@@ -24,7 +24,7 @@ class BookActionsTest < ActionDispatch::IntegrationTest
         end
       end
 
-      should "see copies" do
+      it "shows a book's copies" do
         visit "/books/#{@book.id}"
 
         assert page.has_content?("1 copy")
@@ -35,7 +35,7 @@ class BookActionsTest < ActionDispatch::IntegrationTest
         end
       end
 
-      should "see the book history for a book with changes" do
+      it "displays the book history for a book with changes" do
         with_versioning do
           PaperTrail.request.whodunnit = FactoryBot.create(:user, name: "Mr Toad").id.to_s
           @book.update!(title: "Goodnight Mister Tom")
@@ -52,7 +52,7 @@ class BookActionsTest < ActionDispatch::IntegrationTest
         end
       end
 
-      should "see a message instead of book history for a book without any changes" do
+      it "displays a message instead of book history for a book without any changes" do
         visit "/books/#{@book.id}"
         click_on "See revision history"
 
