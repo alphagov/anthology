@@ -1,40 +1,17 @@
-require "test_helper"
+require "integration_test_helper"
 
-describe RootController do
-  setup do
-    stub_user_session
+class RootControllerTest < ActionDispatch::IntegrationTest
+  before do
+    post "/auth/google"
+    follow_redirect!
   end
 
   describe "the start page" do
-    setup do
-      # create some books
-      FactoryBot.create_list(:book, 8)
-    end
-
     it "returns a successful response" do
-      get :start
+      get root_path
 
-      assert response.successful?
-    end
-
-    it "loads eight books to display to the user" do
-      get :start
-
-      assert_equal 8, assigns(:books).count
-      assert_instance_of Book, assigns(:books).first
-    end
-
-    it "loads 3 recently added copies to display to the user" do
-      get :start
-
-      assert_equal 3, assigns(:recently_added_copies).count
-      assert_instance_of Copy, assigns(:recently_added_copies).first
-    end
-
-    it "renders the start template" do
-      get :start
-
-      assert_template "start"
+      assert_match(/Welcome, Stub User!/, @response.body)
+      assert_response :success
     end
   end
 
@@ -43,7 +20,7 @@ describe RootController do
       FactoryBot.create(:book, id: 1, title: "Book 1", author: "A. One", isbn: "1")
       FactoryBot.create(:book, id: 2, title: "Book 2", author: "A. Two", isbn: "2")
 
-      get :library_csv
+      get library_csv_path
 
       assert_response :success
       assert_equal "text/csv", @response.media_type
