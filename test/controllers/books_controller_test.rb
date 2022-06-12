@@ -1,89 +1,70 @@
-require "test_helper"
+require "integration_test_helper"
 
-describe BooksController do
-  setup do
-    stub_user_session
+class BooksControllerTest < ActionDispatch::IntegrationTest
+  before do
+    post "/auth/google"
+    follow_redirect!
   end
 
   describe "listing the books on the index page" do
-    setup do
-      @books = [
-        FactoryBot.create(:book, title: "Harry Potter and the Chamber of Secrets"),
-        FactoryBot.create(:book, title: "The Hobbit"),
-        FactoryBot.create(:book, title: "Nineteen Eighty-Four"),
-      ]
+    before do
+      FactoryBot.create(:book, title: "JavaScript: The Definitive Guide")
+      FactoryBot.create(:book, title: "Effective Software Testing")
+      FactoryBot.create(:book, title: "Practical Cloud Security")
     end
 
     it "returns a successful response" do
-      get :index
-      assert response.successful?
+      get books_path
+
+      assert_response :success
     end
 
     it "initializes a list of books" do
-      get :index
-      assert_equal 3, assigns(:books).length
-      assert_equal @books.map(&:title).sort, assigns(:books).map(&:title).sort
-    end
+      get books_path
 
-    it "renders the index view" do
-      get :index
-      assert_template "index"
+      assert_select "h3", "availability"
+      assert_select "img", 3
     end
 
     describe "searching for a book" do
       it "returns results for a title search" do
-        get :index, params: { q: "Harry" }
-        assert_equal "Harry Potter and the Chamber of Secrets", assigns(:books).first.title
+        get books_path(q: "JavaScript")
+
+        assert_select "img", 1
+        assert_match "JavaScript: The Definitive Guide", @response.body
       end
 
       it "does not return results when there are no matches" do
-        get :index, params: { q: "Lord Voldermort" }
-        assert_equal 0, assigns(:books).length
+        get books_path(q: "Angular")
+
+        assert_select "img", 0
       end
     end
   end
 
-  describe "new book form" do
-    it "renders the form" do
-      get :new
-      assert_template "new"
-    end
-
+  describe "new book page" do
     it "returns a successful response" do
-      get :new
-      assert response.successful?
-    end
+      get new_book_path
 
-    it "assigns an new book object" do
-      get :new
-
-      assert_instance_of Book, assigns(:book)
-      assert_nil assigns(:book).title
+      assert_response :success
     end
   end
 
   describe "viewing a single book" do
-    setup do
+    before do
       @book = FactoryBot.create(:book)
     end
 
     it "returns a successful response" do
-      get :show, params: { id: @book.id }
-      assert response.successful?
+      get book_path(@book.id)
+
+      assert_response :success
     end
 
     it "loads the book details" do
-      get :show, params: { id: @book.id }
+      get book_path(@book.id)
 
-      assert_equal @book.id, assigns(:book).id
-      assert_equal @book.title, assigns(:book).title
-      assert_equal @book.author, assigns(:book).author
-    end
-
-    it "renders the show template" do
-      get :show, params: { id: @book.id }
-
-      assert_template "books/show"
+      assert_select "section.single_book"
     end
   end
 end
