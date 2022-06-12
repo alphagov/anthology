@@ -14,11 +14,6 @@ module OmniAuthStubHelper
     User.find_by(email: mock_auth_hash[:info][:email])
   end
 
-  # suitable for controller tests
-  def stub_omniauth_request_auth_hash(auth_hash = mock_auth_hash)
-    request.env["omniauth.auth"] = auth_hash
-  end
-
   def mock_auth_hash
     {
       provider: "google",

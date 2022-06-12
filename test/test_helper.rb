@@ -26,8 +26,3 @@ class ActiveSupport::TestCase
     DatabaseCleaner.clean
   end
 end
-
-class ActionController::TestCase
-  include OmniAuthStubHelper
-  include UserSessionStubHelper
-end
