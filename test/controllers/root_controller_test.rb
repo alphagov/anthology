@@ -2,8 +2,7 @@ require "integration_test_helper"
 
 class RootControllerTest < ActionDispatch::IntegrationTest
   before do
-    post "/auth/google"
-    follow_redirect!
+    sign_in_user
   end
 
   describe "the start page" do

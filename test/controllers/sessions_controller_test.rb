@@ -10,8 +10,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     it "redirects with an error if the auth hash is empty" do
       OmniAuth.config.mock_auth[:google] = OmniAuth::AuthHash.new({})
 
-      post "/auth/google"
-      follow_redirect!
+      sign_in_user
 
       assert_redirected_to new_session_path
       assert_equal "There was a problem signing you in.", @controller.flash[:alert]
@@ -28,8 +27,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
       }
       OmniAuth.config.mock_auth[:google] = OmniAuth::AuthHash.new(auth_hash)
 
-      post "/auth/google"
-      follow_redirect!
+      sign_in_user
 
       assert_equal user.id, @controller.session[:user_id]
       assert_redirected_to root_path
@@ -42,8 +40,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
         .with(auth_hash)
         .returns(nil)
 
-      post "/auth/google"
-      follow_redirect!
+      sign_in_user
 
       assert_nil @controller.session[:user_id]
       assert_redirected_to new_session_path
@@ -56,8 +53,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
         .with(auth_hash)
         .raises(User::CreationFailure.new("something bad"))
 
-      post "/auth/google"
-      follow_redirect!
+      sign_in_user
 
       assert_redirected_to new_session_path
       assert_match(/Could not sign you in/, @controller.flash[:alert])
@@ -77,8 +73,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
       }
       OmniAuth.config.mock_auth[:google] = OmniAuth::AuthHash.new(auth_hash)
 
-      post "/auth/google"
-      follow_redirect!
+      sign_in_user
 
       assert_equal user.id, @controller.session[:user_id]
 

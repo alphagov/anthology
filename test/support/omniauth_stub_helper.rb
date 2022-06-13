@@ -5,9 +5,14 @@ module OmniAuthStubHelper
     OmniAuth.config.mock_auth[:google] = OmniAuth::AuthHash.new(mock_auth_hash)
   end
 
-  def sign_in_user
+  def sign_in_user_with_capybara
     visit new_session_path
     click_on "Sign in with Google"
+  end
+
+  def sign_in_user
+    post "/auth/google"
+    follow_redirect!
   end
 
   def signed_in_user

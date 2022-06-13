@@ -2,8 +2,7 @@ require "integration_test_helper"
 
 class BooksControllerTest < ActionDispatch::IntegrationTest
   before do
-    post "/auth/google"
-    follow_redirect!
+    sign_in_user
   end
 
   describe "listing the books on the index page" do
