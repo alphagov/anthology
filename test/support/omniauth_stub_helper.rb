@@ -2,7 +2,11 @@ module OmniAuthStubHelper
   # suitable for integration tests
   def prepare_omniauth_for_testing
     OmniAuth.config.test_mode = true
-    OmniAuth.config.mock_auth[:google] = OmniAuth::AuthHash.new(mock_auth_hash)
+    mock_hash_returned_by_omniauth
+  end
+
+  def mock_hash_returned_by_omniauth(hash_returned = mock_auth_hash)
+    OmniAuth.config.mock_auth[:google] = OmniAuth::AuthHash.new(hash_returned)
   end
 
   def sign_in_user_with_capybara

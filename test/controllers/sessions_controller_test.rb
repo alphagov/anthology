@@ -1,14 +1,12 @@
 require "integration_test_helper"
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
-  let(:auth_hash) do
-    { "uid" => "12345" }
-  end
   let(:user) { create(:user) }
 
   describe "POST create" do
     it "redirects with an error if the auth hash is empty" do
-      OmniAuth.config.mock_auth[:google] = OmniAuth::AuthHash.new({})
+      auth_hash = {}
+      mock_hash_returned_by_omniauth(auth_hash)
 
       sign_in_user
 
@@ -25,7 +23,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
           email: user.email,
         },
       }
-      OmniAuth.config.mock_auth[:google] = OmniAuth::AuthHash.new(auth_hash)
+      mock_hash_returned_by_omniauth(auth_hash)
 
       sign_in_user
 
@@ -34,7 +32,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it "redirects with an error if the user cannot be found" do
-      OmniAuth.config.mock_auth[:google] = OmniAuth::AuthHash.new(auth_hash)
+      auth_hash = { "uid" => "12345" }
+      mock_hash_returned_by_omniauth(auth_hash)
 
       User.expects(:find_or_create_from_auth_hash!)
         .with(auth_hash)
@@ -47,7 +46,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it "redirects with error when creating a user fails" do
-      OmniAuth.config.mock_auth[:google] = OmniAuth::AuthHash.new(auth_hash)
+      auth_hash = { "uid" => "12345" }
+      mock_hash_returned_by_omniauth(auth_hash)
 
       User.expects(:find_or_create_from_auth_hash!)
         .with(auth_hash)
@@ -71,7 +71,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
           email: user.email,
         },
       }
-      OmniAuth.config.mock_auth[:google] = OmniAuth::AuthHash.new(auth_hash)
+      mock_hash_returned_by_omniauth(auth_hash)
 
       sign_in_user
 
