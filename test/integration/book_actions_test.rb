@@ -3,7 +3,7 @@ require "integration_test_helper"
 class BookActionsTest < ActionDispatch::IntegrationTest
   describe "a signed in user" do
     setup do
-      sign_in_user
+      sign_in_user_with_capybara
     end
 
     describe "given a book exists" do

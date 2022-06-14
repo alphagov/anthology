@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   match "auth/:provider/callback", to: "sessions#create", via: %i[get post]
   get "auth/sign_out", to: "sessions#sign_out", as: :sign_out
 
-  get "library.csv", to: "root#library_csv"
+  get "library.csv", to: "root#library_csv", as: :library_csv
 
   resources :sessions, only: :new
 

@@ -1,13 +1,16 @@
-require "test_helper"
+require "integration_test_helper"
 
-describe UserController do
+class UserControllerTest < ActionDispatch::IntegrationTest
+  before do
+    sign_in_user
+  end
+
   it "gets the user page" do
-    stub_user_session
-    user = User.all.first
+    my_user = User.find_by(email: "stub.user@example.org")
 
-    get :show, params: { id: user.id }
+    get user_url(my_user.id)
 
     assert_response :success
-    assert_template "show"
+    assert_match(/Stub User’s Books/, @response.body)
   end
 end

@@ -3,7 +3,7 @@ require "integration_test_helper"
 class StartPageTest < ActionDispatch::IntegrationTest
   describe "as a signed in user" do
     setup do
-      sign_in_user
+      sign_in_user_with_capybara
     end
 
     it "loads the start page" do
