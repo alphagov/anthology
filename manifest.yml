@@ -2,7 +2,6 @@
 applications:
 - name: gds-library
   memory: 256M
-  stack: cflinuxfs3
   buildpacks:
     - ruby_buildpack
   instances: 2
