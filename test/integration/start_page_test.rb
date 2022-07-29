@@ -32,7 +32,7 @@ class StartPageTest < ActionDispatch::IntegrationTest
         click_on "Go"
       end
 
-      assert "/copy/123", current_path
+      assert_equal "/copy/123", current_path
     end
 
     it "shows an error when a user attempts to look up an invalid copy id" do
@@ -43,7 +43,7 @@ class StartPageTest < ActionDispatch::IntegrationTest
         click_on "Go"
       end
 
-      assert "/", current_path
+      assert_equal "/", current_path
       assert page.has_content?("Copy 999 couldn't be found")
     end
 
