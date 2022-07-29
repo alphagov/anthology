@@ -11,14 +11,14 @@ describe Loan do
       loan = @copy.loans.build(user: nil)
 
       assert_not loan.valid?
-      assert ["can't be blank"], loan.errors[:user]
+      assert_equal ["can't be blank"], loan.errors[:user]
     end
 
     it "requires a copy" do
       loan = FactoryBot.build(:loan, copy: nil, user: @user)
 
       assert_not loan.valid?
-      assert ["can't be blank"], loan.errors[:copy]
+      assert_equal ["can't be blank"], loan.errors[:copy]
     end
 
     it "sets the state to 'on_loan' by default" do

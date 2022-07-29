@@ -125,7 +125,7 @@ describe Copy do
       Loan.any_instance.expects(:return).with(user, shelf)
 
       @copy_on_loan.return(user, shelf)
-      assert shelf, @copy_on_loan.shelf
+      assert_equal shelf, @copy_on_loan.shelf
     end
   end
 
