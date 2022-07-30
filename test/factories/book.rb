@@ -4,5 +4,6 @@ FactoryBot.define do
     sequence(:author) { |n| "Lewis Carroll ##{n}" }
     sequence(:isbn) { |n| "155481#{n}" }
     google_id { "cdxf__Ch8QMC" }
+    openlibrary_id { "OL23867119M" }
   end
 end
