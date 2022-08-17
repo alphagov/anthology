@@ -142,10 +142,10 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
         rows = page.all("table.history tr").map { |r| r.all("th, td").map(&:text).map(&:strip) }
         assert_equal [
-          ["From", "Until", "Duration", "Returned to", "by"],
-          ["17 June 2012", "10 July 2012", "23 days", "", "Julia"],
-          ["5 April 2012", "1 May 2012", "26 days", "", "Emmanuel Goldstein"],
-          ["1 January 2012", "15 January 2012", "14 days", "", "Julia"],
+          ["From", "Until", "Duration", "by"],
+          ["17 June 2012", "10 July 2012", "23 days", "Julia"],
+          ["5 April 2012", "1 May 2012", "26 days", "Emmanuel Goldstein"],
+          ["1 January 2012", "15 January 2012", "14 days", "Julia"],
         ], rows
       end
 
