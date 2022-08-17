@@ -101,14 +101,6 @@ describe Loan do
       assert_not @loan.returned_by_another_user?
     end
 
-    it "sets the returning shelf when present" do
-      shelf = Shelf.first
-      @loan.return(nil, shelf)
-
-      @loan.reload
-      assert_equal shelf, @loan.returned_to_shelf
-    end
-
     it "measures the loan duration" do
       @loan.loan_date = Time.zone.local(2021, 1, 1)
       @loan.return_date = Time.zone.local(2021, 2, 1, 12, 0)

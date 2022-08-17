@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_15_151215) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_17_084740) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -74,7 +74,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_15_151215) do
     t.datetime "updated_at", precision: nil, null: false
     t.datetime "return_date", precision: nil
     t.integer "returned_by_id"
-    t.integer "returned_to_shelf_id"
   end
 
   create_table "shelves", id: :serial, force: :cascade do |t|

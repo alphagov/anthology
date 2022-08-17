@@ -2,7 +2,6 @@ class Loan < ApplicationRecord
   belongs_to :copy
   belongs_to :user
   belongs_to :returned_by, class_name: "User"
-  belongs_to :returned_to_shelf, class_name: "Shelf"
 
   has_one :book, through: :copy
 
@@ -19,13 +18,12 @@ class Loan < ApplicationRecord
 
   class NotOnLoan < RuntimeError; end
 
-  def return(as_user = nil, to_shelf = nil)
+  def return(as_user = nil)
     raise NotOnLoan unless state == "on_loan"
 
     self.state = "returned"
     self.return_date = Time.zone.now
     self.returned_by = as_user
-    self.returned_to_shelf = to_shelf
     save!
   end
 

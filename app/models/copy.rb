@@ -58,7 +58,7 @@ class Copy < ApplicationRecord
     raise NotOnLoan unless on_loan?
 
     loans.where(state: "on_loan").find_each do |loan|
-      loan.return(as_user, to_shelf)
+      loan.return(as_user)
     end
 
     self.shelf = to_shelf

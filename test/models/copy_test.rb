@@ -122,7 +122,7 @@ describe Copy do
       user = create(:user)
       shelf = Shelf.first
 
-      Loan.any_instance.expects(:return).with(user, shelf)
+      Loan.any_instance.expects(:return).with(user)
 
       @copy_on_loan.return(user, shelf)
       assert_equal shelf, @copy_on_loan.shelf
