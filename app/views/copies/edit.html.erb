@@ -11,7 +11,7 @@
   </div>
 
   <%= semantic_form_for [@copy] do |f| %>
-    <h3>Which shelf is this book on?</h3>
+    <h3>Where is this copy?</h3>
 
     <fieldset class="location">
       <label>
@@ -20,7 +20,7 @@
     </fieldset>
 
     <%= f.actions do %>
-      <%= f.submit "Set shelf" %>
+      <%= f.submit "Set location" %>
     <% end %>
   <% end %>
 </section>

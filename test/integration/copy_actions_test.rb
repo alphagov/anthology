@@ -51,7 +51,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
           assert_equal "/copy/123/edit", current_path
 
           select "6th floor", from: "Location"
-          click_on "Set shelf"
+          click_on "Set location"
 
           assert_equal "/copy/123", current_path
           within ".location" do

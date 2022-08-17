@@ -30,7 +30,7 @@
       <% if copy.location.present? %>
         (<%= copy.location.to_s %> - <%= link_to "edit", edit_copy_path(copy) %>)
       <% else %>
-        (shelf unknown - <%= link_to "set", edit_copy_path(copy) %>)
+        (location unknown - <%= link_to "set", edit_copy_path(copy) %>)
       <% end %>
       </span>
       <%= link_to "Borrow", borrow_copy_path(copy), :class => 'btn', :method => :post %>

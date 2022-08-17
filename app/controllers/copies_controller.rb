@@ -43,7 +43,7 @@ class CopiesController < ApplicationController
   def update
     @copy = Copy.find_by(book_reference: params[:id])
     if @copy.update(params.require(:copy).permit(:location_id))
-      flash[:notice] = "Shelf updated"
+      flash[:notice] = "Location updated"
       redirect_to copy_path(@copy)
     else
       render action: :edit
