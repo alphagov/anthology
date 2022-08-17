@@ -13,9 +13,9 @@
   <%= semantic_form_for [@copy] do |f| %>
     <h3>Which shelf is this book on?</h3>
 
-    <fieldset class="shelf">
+    <fieldset class="location">
       <label>
-        <%= f.input :shelf,  :as => :select,      :collection => Shelf.all, include_blank: "unknown" %>
+        <%= f.input :location, as: :select, collection: Location.all, include_blank: "unknown" %>
       </label>
     </fieldset>
 

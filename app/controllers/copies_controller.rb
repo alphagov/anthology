@@ -42,7 +42,7 @@ class CopiesController < ApplicationController
 
   def update
     @copy = Copy.find_by(book_reference: params[:id])
-    if @copy.update(params.require(:copy).permit(:shelf_id))
+    if @copy.update(params.require(:copy).permit(:location_id))
       flash[:notice] = "Shelf updated"
       redirect_to copy_path(@copy)
     else
@@ -61,10 +61,10 @@ class CopiesController < ApplicationController
   end
 
   def return
-    if resource.return(current_user, shelf)
+    if resource.return(current_user, location)
       msg = "Copy #{resource.book_reference} has now been returned"
-      if shelf
-        msg << " to #{shelf}"
+      if location
+        msg << " to #{location}"
       end
       msg << ". Thanks!"
       flash[:notice] = msg
@@ -89,9 +89,9 @@ class CopiesController < ApplicationController
 
 private
 
-  def shelf
-    shelf_id = params.require(:copy).fetch(:shelf_id, nil)
-    shelf_id && Shelf.find_by(id: shelf_id)
+  def location
+    location_id = params.require(:copy)[:location_id]
+    location_id && Location.find_by(id: location_id)
   end
 
   def parent
@@ -103,6 +103,6 @@ private
   end
 
   def copy_params
-    params.require(:copy).permit(:book_id, :book_reference, :on_loan, :shelf_id)
+    params.require(:copy).permit(:book_id, :book_reference, :on_loan, :location_id)
   end
 end

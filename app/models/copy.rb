@@ -2,7 +2,7 @@ class Copy < ApplicationRecord
   belongs_to :book
   has_many :loans, dependent: :destroy
   has_many :users, through: :loans
-  belongs_to :shelf
+  belongs_to :location
 
   validates :book_reference, presence: true, uniqueness: true
 
@@ -54,14 +54,14 @@ class Copy < ApplicationRecord
     loans.create!(user:)
   end
 
-  def return(as_user = nil, to_shelf = nil)
+  def return(as_user = nil, to_location = nil)
     raise NotOnLoan unless on_loan?
 
     loans.where(state: "on_loan").find_each do |loan|
       loan.return(as_user)
     end
 
-    self.shelf = to_shelf
+    self.location = to_location
     save!
   end
 

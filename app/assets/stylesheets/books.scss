@@ -114,7 +114,7 @@ ul.copies {
 
     p, h2 { display: inline; margin: 0; padding: 0; font-size: 1em; }
 
-    .shelf {
+    .location {
       font-weight: normal;
       font-size: 80%;
     }
@@ -177,7 +177,7 @@ ul.copies {
       overflow: initial;
     }
 
-    #copy_shelf_input {
+    #copy_location_input {
       label {
         width: 6em;
         text-align: right;
