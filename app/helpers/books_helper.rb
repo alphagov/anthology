@@ -23,11 +23,10 @@ module BooksHelper
 
   def formatted_version_author(version)
     user_id = version.whodunnit
-    if user_id.blank?
-      "Unknown user"
-    else
-      User.where(id: user_id).first.name || "Unknown user"
-    end
+
+    # user_id can be an empty string or can belong to a user who no longer exists in
+    # the database due to bad data
+    User.where(id: user_id).first.try(:name) || "Unknown user"
   end
 
   def formatted_version_changes(version)
