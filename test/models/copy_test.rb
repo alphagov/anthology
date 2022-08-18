@@ -118,25 +118,25 @@ describe Copy do
       assert @copy_on_loan.return(user)
     end
 
-    it "returns the copy to the specified shelf" do
+    it "returns the copy to the specified location" do
       user = create(:user)
-      shelf = Shelf.first
+      location = Location.first
 
       Loan.any_instance.expects(:return).with(user)
 
-      @copy_on_loan.return(user, shelf)
-      assert_equal shelf, @copy_on_loan.shelf
+      @copy_on_loan.return(user, location)
+      assert_equal location, @copy_on_loan.location
     end
   end
 
-  describe "shelves" do
-    it "is able to set the shelf" do
+  describe "the location of copies" do
+    it "is possible to update a copy's location" do
       copy = FactoryBot.create(:copy)
-      copy.update!(shelf_id: 1)
+      copy.update!(location_id: 1)
 
       copy.reload
 
-      assert_equal 1, copy.shelf_id
+      assert_equal 1, copy.location_id
     end
   end
 

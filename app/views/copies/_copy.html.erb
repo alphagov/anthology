@@ -10,7 +10,7 @@
 
       <%= semantic_form_for [:return, copy], method: :post do |f| %>
         <ul>
-          <%= f.input :shelf,  :as => :select,      :collection => Shelf.all, include_blank: "unknown", label: "Return to" %>
+          <%= f.input :location, as: :select, collection: Location.all, include_blank: "unknown", label: "Return to" %>
 
           <li><%= f.submit "Return" %></li>
         </ul>
@@ -26,11 +26,11 @@
   <% elsif copy.available? %>
     <p>
       Available to borrow
-      <span class='shelf'>
-      <% if copy.shelf.present? %>
-        (<%= copy.shelf.to_s %> - <%= link_to "edit", edit_copy_path(copy) %>)
+      <span class="location">
+      <% if copy.location.present? %>
+        (<%= copy.location.to_s %> - <%= link_to "edit", edit_copy_path(copy) %>)
       <% else %>
-        (shelf unknown - <%= link_to "set", edit_copy_path(copy) %>)
+        (location unknown - <%= link_to "set", edit_copy_path(copy) %>)
       <% end %>
       </span>
       <%= link_to "Borrow", borrow_copy_path(copy), :class => 'btn', :method => :post %>

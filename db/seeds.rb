@@ -1,2 +1,2 @@
-Shelf.create!(name: "6th floor")
-Shelf.create!(name: "7th floor")
+Location.create!(name: "GDS London hub")
+Location.create!(name: "GDS Bristol hub")

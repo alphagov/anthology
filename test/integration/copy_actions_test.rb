@@ -41,21 +41,21 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         assert page.has_link?("See all copies of this book", href: "/books/#{@copy.book.id}")
       end
 
-      describe "given a shelf exists" do
-        it "allows the shelf to be set" do
+      describe "given a location exists" do
+        it "allows the location to be set" do
           visit "/copy/123"
-          within ".shelf" do
+          within ".location" do
             click_link "set"
           end
 
           assert_equal "/copy/123/edit", current_path
 
-          select "6th floor", from: "Shelf"
-          click_on "Set shelf"
+          select "GDS London hub", from: "Location"
+          click_on "Set location"
 
           assert_equal "/copy/123", current_path
-          within ".shelf" do
-            assert page.has_content?("6th floor")
+          within ".location" do
+            assert page.has_content?("GDS London hub")
           end
         end
       end
@@ -78,14 +78,14 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
       it "allows the book to be returned" do
         visit "/copy/123"
-        select "7th floor", from: "Return to"
+        select "GDS Bristol hub", from: "Return to"
         click_on "Return"
 
         assert_equal "/copy/123", current_path
         assert page.has_content?("123")
         assert page.has_content?("Available to borrow")
-        within ".shelf" do
-          assert page.has_content?("7th floor")
+        within ".location" do
+          assert page.has_content?("GDS Bristol hub")
         end
       end
     end

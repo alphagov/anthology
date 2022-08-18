@@ -22,9 +22,9 @@
       </label>
     </fieldset>
 
-    <fieldset class="shelf">
-      <label for="shelf">
-        <%= f.input :shelf,  :as => :select,      :collection => Shelf.all, include_blank: "unknown" %>
+    <fieldset class="location">
+      <label for="location">
+        <%= f.input :location, as: :select, collection: Location.all, include_blank: "unknown" %>
       </label>
     </fieldset>
 
