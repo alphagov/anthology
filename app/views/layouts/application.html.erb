@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="utf-8" />
   <title><%= library_title %></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
@@ -36,13 +37,14 @@
     <% end %>
   </header>
 
-  <% flash.each do |id, message| %>
-  <div class="flash flash_<%= id %> wrap">
-    <%= message %>
-  </div>
-  <% end %>
+  <main>
+    <% flash.each do |id, message| %>
+    <div class="flash flash_<%= id %> wrap">
+      <%= message %>
+    </div>
+    <% end %>
 
-  <%= yield %>
-
+    <%= yield %>
+  </main>
 </body>
 </html>
