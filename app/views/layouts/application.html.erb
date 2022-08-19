@@ -12,7 +12,7 @@
 <body>
 
   <header>
-    <h1><%= link_to library_title, root_path %></h1>
+    <span id="library-title"><%= link_to library_title, root_path %></span>
     <div class="clear"></div>
     <% if current_user %>
       <nav class="signed-in">
@@ -23,11 +23,11 @@
 
         <ul class="user">
           <li>
-            <h1>
+            <span id="name-and-loans">
             <%= link_to user_path(current_user) do %>
               <span class="name"><%= current_user.name %></span> <span class="loan_count">(<%= current_user.copies.count %>)</span>
             <% end %>
-            </h1>
+            </span>
           </li>
           <li><%= link_to "sign out", sign_out_path %></li>
         </ul>
