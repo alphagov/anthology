@@ -16,6 +16,11 @@
 
     padding: 0;
     margin: 0;
+
+    h1 {
+      margin-left: 20px;
+      margin-bottom: 0px;
+    }
   }
 
   .filters {
@@ -30,8 +35,10 @@
   .filters li.filter {
     margin: 1rem 1rem;
 
-    h3 {
+    div {
       margin: 0.5rem 0;
+      font-size: 1.2em;
+      font-weight: bold;
     }
 
     ul {

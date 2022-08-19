@@ -26,7 +26,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     it "shows all books" do
       get books_path
 
-      assert_select "h3", "availability"
+      assert_select "h1", "Books"
       assert_select "img", 4
     end
 
