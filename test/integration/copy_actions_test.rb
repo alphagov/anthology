@@ -138,7 +138,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
       it "displays a list of previous loans" do
         visit "/copy/53"
 
-        assert page.has_selector?("h3", text: "Loan history")
+        assert page.has_selector?("h2", text: "Loan history")
 
         rows = page.all("table.history tr").map { |r| r.all("th, td").map(&:text).map(&:strip) }
         assert_equal [

@@ -74,7 +74,9 @@ section.single_book {
     h2 { font-size: 1em; font-weight: normal; }
   }
 
-  p, h3 { padding: 0 1rem; }
+  p {
+    padding: 0 1rem;
+  }
 
   .action { border: 1px solid #aaa; text-align: right; padding: 0.5em; }
 
