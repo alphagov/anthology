@@ -14,7 +14,7 @@ gem "paper_trail"
 gem "pg"
 gem "possessive"
 gem "puma"
-gem "sass-rails"
+gem "sassc-rails"
 
 group :test, :development do
   gem "listen"
