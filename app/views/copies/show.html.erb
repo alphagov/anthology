@@ -15,7 +15,7 @@
   </ul>
 
   <% if @previous_loans.any? %>
-    <h3>Loan history</h3>
+    <h2>Loan history</h2>
     <table class="history">
       <thead>
         <tr>
@@ -41,7 +41,7 @@
     </table>
   <% end %>
 
-  <nav class="actions">
+  <div class="actions">
     <ul>
       <li><%= link_to "See all copies of this book", book_path(@book) %></li>
       <li><%= link_to "Add another copy", new_book_copy_path(@book) %></li>
@@ -50,5 +50,5 @@
         <li><%= link_to "Report this copy as missing", missing_copy_path(@copy), method: :put %></li>
       <% end %>
     </ul>
-  </nav>
+  </div>
 </section>

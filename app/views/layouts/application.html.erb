@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="utf-8" />
   <title><%= library_title %></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
@@ -11,7 +12,7 @@
 <body>
 
   <header>
-    <h1><%= link_to library_title, root_path %></h1>
+    <span id="library-title"><%= link_to library_title, root_path %></span>
     <div class="clear"></div>
     <% if current_user %>
       <nav class="signed-in">
@@ -22,11 +23,11 @@
 
         <ul class="user">
           <li>
-            <h1>
+            <span id="name-and-loans">
             <%= link_to user_path(current_user) do %>
               <span class="name"><%= current_user.name %></span> <span class="loan_count">(<%= current_user.copies.count %>)</span>
             <% end %>
-            </h1>
+            </span>
           </li>
           <li><%= link_to "sign out", sign_out_path %></li>
         </ul>
@@ -36,13 +37,14 @@
     <% end %>
   </header>
 
-  <% flash.each do |id, message| %>
-  <div class="flash flash_<%= id %> wrap">
-    <%= message %>
-  </div>
-  <% end %>
+  <main>
+    <% flash.each do |id, message| %>
+    <div class="flash flash_<%= id %> wrap">
+      <%= message %>
+    </div>
+    <% end %>
 
-  <%= yield %>
-
+    <%= yield %>
+  </main>
 </body>
 </html>

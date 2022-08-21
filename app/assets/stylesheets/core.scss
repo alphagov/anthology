@@ -62,7 +62,7 @@ header {
     border-bottom: 1px solid #888;
   }
 
-  > h1 { font-size: 1em; margin: 0; text-align: left; padding: 0.6rem 1rem;
+  #library-title { font-size: 1em; margin: 0; text-align: left; padding: 0.6rem 1rem;
     border-bottom: 1px solid #888; text-shadow: #555 0px 1px 1px;
     font-weight: 100;
 
@@ -95,7 +95,7 @@ header {
       font-size: 0.65em;
     }
 
-    h1 { font-size: 1em; margin: 0; float: left;
+    #name-and-loans { font-size: 1em; margin: 0; float: left;
       a { text-decoration: none;
         .name { text-decoration: underline; }
         .loan_count { color: #000; }

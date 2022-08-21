@@ -31,7 +31,7 @@ module BooksHelper
 
   def formatted_version_changes(version)
     version.changeset.map { |key, (_old_value, new_value)|
-      tag.li do
+      tag.div do
         "#{key.capitalize}: #{tag.code { new_value.to_s }}".html_safe
       end
     }.join("").html_safe
