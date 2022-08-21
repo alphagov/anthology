@@ -12,7 +12,7 @@
   </li>
   <li class="filter search-filter">
     <%= form_with url: "", method: :get do |form| %>
-      <%= form.label :book_reference, "Search for a book by copy ID", hidden: true %>
+      <%= form.label :book_reference, "Search book titles", hidden: true %>
       <%= form.text_field :q, value: params[:q], placeholder: "Search titles..." %>
       <%= form.submit "Search", class: "button btn" %>
     <% end %>
