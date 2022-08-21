@@ -282,8 +282,6 @@ GEM
       rubocop (~> 1.31)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
-    sass-rails (6.0.0)
-      sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -341,7 +339,7 @@ DEPENDENCIES
   puma
   rails (= 7.0.3.1)
   rubocop-govuk
-  sass-rails
+  sassc-rails
   spring
 
 RUBY VERSION
