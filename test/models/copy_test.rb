@@ -21,14 +21,6 @@ describe Copy do
       assert_equal 3, third_copy.book_reference
     end
 
-    it "does not allow duplicate book references" do
-      first_copy = @book.copies.create!(book_reference: 30)
-      second_copy = @book.copies.build(book_reference: 30)
-
-      assert_equal 30, first_copy.book_reference
-      assert_not second_copy.valid?
-    end
-
     it "sets on_loan to false by default" do
       copy = @book.copies.create!
 

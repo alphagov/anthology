@@ -4,8 +4,6 @@ class Copy < ApplicationRecord
   has_many :users, through: :loans
   belongs_to :location
 
-  validates :book_reference, presence: true, uniqueness: true
-
   before_validation :allocate_book_reference, on: :create, if: proc { |c| c.book_reference.blank? }
 
   scope :on_loan, -> { where(on_loan: true) }
