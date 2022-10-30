@@ -7,9 +7,11 @@ class ActionDispatch::IntegrationTest
 
   before do
     prepare_omniauth_for_testing
+    DatabaseCleaner.start
   end
 
   after do
     Capybara.use_default_driver
+    DatabaseCleaner.clean
   end
 end

@@ -2,26 +2,6 @@
   <h1>Add a new copy of <%= @book.title %></h1>
 
   <%= semantic_form_for [@book, @copy] do |f| %>
-    <h3>Does this copy already have an ID number?</h3>
-
-    <fieldset class="copy-number">
-      <label for="copy_has_id_number_true" class="copy-option-label">
-        <span>Yes, I've given it a number:</span>
-        <%= radio_button_tag "copy_has_id_number", "true", (params[:copy_has_id_number].present?) %>
-      </label>
-
-      <ul>
-        <%= f.input :book_reference, label: false, placeholder: Copy.next_available_book_reference.to_s %>
-      </ul>
-    </fieldset>
-
-    <fieldset class="copy-number">
-      <label for="copy_has_id_number_0" class="copy-option-label">
-        <span>No, generate one for me.</span>
-        <%= radio_button_tag "copy_has_id_number", "0", (params[:copy_has_id_number].blank?) %>
-      </label>
-    </fieldset>
-
     <fieldset class="location">
       <label for="location">
         <%= f.input :location, as: :select, collection: Location.all, include_blank: "unknown" %>
@@ -33,4 +13,3 @@
     <% end %>
   <% end %>
 </section>
-

@@ -4,15 +4,11 @@ class Copy < ApplicationRecord
   has_many :users, through: :loans
   belongs_to :location
 
-  validates :book_reference, presence: true, uniqueness: true
-
-  before_validation :allocate_book_reference, on: :create, if: proc { |c| c.book_reference.blank? }
-
   scope :on_loan, -> { where(on_loan: true) }
   scope :available, -> { where(on_loan: false) }
   scope :missing, -> { where(missing: true) }
 
-  scope :ordered_by_availability, -> { order("on_loan ASC, book_reference ASC") }
+  scope :ordered_by_availability, -> { order("on_loan ASC, id ASC") }
   scope :recently_added, -> { order("created_at DESC") }
 
   class NotAvailable < RuntimeError; end
@@ -71,17 +67,5 @@ class Copy < ApplicationRecord
 
   def unset_missing
     update(missing: false)
-  end
-
-  def allocate_book_reference
-    self.book_reference = Copy.next_available_book_reference
-  end
-
-  def to_param
-    book_reference.to_s
-  end
-
-  def self.next_available_book_reference
-    (Copy.order("book_reference desc nulls last").first || Copy.new).book_reference.to_i + 1
   end
 end

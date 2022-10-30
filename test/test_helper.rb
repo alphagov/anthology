@@ -6,7 +6,6 @@ require "mocha/minitest"
 Dir[Rails.root.join("test/support/*.rb")].sort.each { |f| require f }
 
 DatabaseCleaner.strategy = :transaction
-DatabaseCleaner.clean
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!

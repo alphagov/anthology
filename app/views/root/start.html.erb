@@ -9,8 +9,8 @@
       <h2>Find a copy</h2>
       <%= form_with url: lookup_copy_index_path, method: :post do |form| %>
         <p>
-          <%= form.label :book_reference, "Search for a book by copy ID", hidden: true %>
-          <%= form.text_field :book_reference, placeholder: "Enter a copy ID..." %>
+          <%= form.label :id, "Search for a book by copy ID", hidden: true %>
+          <%= form.text_field :id, placeholder: "Enter a copy ID..." %>
           <%= form.submit "Go", class: "btn" %>
         </p>
       <% end %>
@@ -40,7 +40,7 @@
     <h2>Recent loans</h2>
     <ul>
       <% @recent_loans.each do |loan| %>
-        <li><%= link_to loan.user.name, user_path(loan.user) %> borrowed <%= link_to "##{loan.copy.book_reference}: #{loan.book.title}", copy_path(loan.copy) %> <span class="timestamp"><%= distance_of_time_in_words_to_now loan.loan_date %> ago</span></li>
+        <li><%= link_to loan.user.name, user_path(loan.user) %> borrowed <%= link_to "##{loan.copy.id}: #{loan.book.title}", copy_path(loan.copy) %> <span class="timestamp"><%= distance_of_time_in_words_to_now loan.loan_date %> ago</span></li>
       <% end %>
     </ul>
   </div>

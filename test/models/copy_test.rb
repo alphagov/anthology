@@ -5,30 +5,7 @@ describe Copy do
     @book = FactoryBot.create(:book)
   end
 
-  it "returns the book reference as the url parameter" do
-    copy = FactoryBot.create(:copy, book_reference: "123")
-    assert_equal "123", copy.to_param
-  end
-
   describe "creating a new copy" do
-    it "increments the book reference" do
-      first_copy = @book.copies.first # already created on book creation
-      second_copy = @book.copies.create!(book_reference: 2)
-      third_copy = @book.copies.create!
-
-      assert_equal 1, first_copy.book_reference
-      assert_equal 2, second_copy.book_reference
-      assert_equal 3, third_copy.book_reference
-    end
-
-    it "does not allow duplicate book references" do
-      first_copy = @book.copies.create!(book_reference: 30)
-      second_copy = @book.copies.build(book_reference: 30)
-
-      assert_equal 30, first_copy.book_reference
-      assert_not second_copy.valid?
-    end
-
     it "sets on_loan to false by default" do
       copy = @book.copies.create!
 
@@ -145,11 +122,11 @@ describe Copy do
       # delete first auto-generated copy of book
       @book.copies.delete_all
 
-      FactoryBot.create(:copy, book_reference: 101, book: @book)
-      FactoryBot.create(:copy, book_reference: 201, book: @book)
-      FactoryBot.create(:copy, book_reference: 301, book: @book)
-      assert_equal 301, Copy.recently_added.first.book_reference
-      assert_equal 101, Copy.recently_added.last.book_reference
+      FactoryBot.create(:copy, id: 101, book: @book)
+      FactoryBot.create(:copy, id: 201, book: @book)
+      FactoryBot.create(:copy, id: 301, book: @book)
+      assert_equal 301, Copy.recently_added.first.id
+      assert_equal 101, Copy.recently_added.last.id
     end
   end
 end

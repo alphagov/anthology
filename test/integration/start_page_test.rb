@@ -23,12 +23,12 @@ class StartPageTest < ActionDispatch::IntegrationTest
     end
 
     it "allows the user to look up a valid copy by id" do
-      FactoryBot.create(:copy, book_reference: "123")
+      FactoryBot.create(:copy, id: "123")
 
       visit "/"
 
       within ".copy-lookup" do
-        fill_in "book_reference", with: "123"
+        fill_in "id", with: "123"
         click_on "Go"
       end
 
@@ -39,7 +39,7 @@ class StartPageTest < ActionDispatch::IntegrationTest
       visit "/"
 
       within ".copy-lookup" do
-        fill_in "book_reference", with: "999"
+        fill_in "id", with: "999"
         click_on "Go"
       end
 
@@ -50,7 +50,7 @@ class StartPageTest < ActionDispatch::IntegrationTest
     it "displays recently added copies added to the library" do
       @book = FactoryBot.create(:book, title: "The Lion, the Witch and the Wardrobe")
       @older_copies = FactoryBot.create_list(:copy, 10)
-      @copy = FactoryBot.create(:copy, book_reference: "123", book: @book)
+      @copy = FactoryBot.create(:copy, id: "123", book: @book)
 
       visit "/"
       within ".recently-added" do
@@ -68,9 +68,9 @@ class StartPageTest < ActionDispatch::IntegrationTest
       within ".recent-activity ul" do
         copies_on_loan.reverse.each_with_index do |copy, i|
           within "li:nth-of-type(#{i + 1})" do
-            assert page.has_content?("#{copy.current_user.name} borrowed ##{copy.book_reference}: #{copy.book.title}")
+            assert page.has_content?("#{copy.current_user.name} borrowed ##{copy.id}: #{copy.book.title}")
             assert page.has_selector?("a[href='/user/#{copy.current_user.id}']")
-            assert page.has_selector?("a[href='/copy/#{copy.book_reference}']")
+            assert page.has_selector?("a[href='/copy/#{copy.id}']")
           end
         end
       end
