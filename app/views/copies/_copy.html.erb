@@ -1,7 +1,7 @@
 <li class="loan_status <%= copy.status.to_s %> <%= copy.current_user == current_user ? "my_copy" : "" %>
   <%= "missing" if copy.missing? %>">
   <% if local_assigns[:link_to_copy] %>
-    <h2><%= link_to "##{copy.book_reference}", copy_path(copy) %></h2>
+    <h2><%= link_to "##{copy.id}", copy_path(copy) %></h2>
   <% end %>
 
   <% if copy.on_loan? %>

@@ -8,7 +8,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
     describe "given an available copy exists" do
       setup do
-        @copy = FactoryBot.create(:copy, book_reference: "123")
+        @copy = FactoryBot.create(:copy, id: "123")
       end
 
       it "renders the copy page" do
@@ -63,7 +63,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
     describe "given a copy is on loan to the signed in user" do
       setup do
-        @copy = FactoryBot.create(:copy, book_reference: "123")
+        @copy = FactoryBot.create(:copy, id: "123")
         @copy.borrow(signed_in_user)
       end
 
@@ -93,7 +93,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
     describe "given a copy is on loan to another user" do
       setup do
         @another_user = FactoryBot.create(:user, name: "O'Brien")
-        @copy = FactoryBot.create(:copy, book_reference: "123")
+        @copy = FactoryBot.create(:copy, id: "123")
         @copy.borrow(@another_user)
       end
 
@@ -123,7 +123,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
     describe "given a copy which has been borrowed multiple times" do
       setup do
-        @copy = FactoryBot.create(:copy, book_reference: "53")
+        @copy = FactoryBot.create(:copy, id: "53")
 
         @user1 = FactoryBot.create(:user, name: "Julia")
         @user2 = FactoryBot.create(:user, name: "Emmanuel Goldstein")

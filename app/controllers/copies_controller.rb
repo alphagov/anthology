@@ -10,17 +10,17 @@ class CopiesController < ApplicationController
   end
 
   def edit
-    @copy = Copy.find_by(book_reference: params[:id])
+    @copy = Copy.find_by(id: params[:id])
     @book = @copy.book
   end
 
   def lookup
-    @copy = Copy.find_by(book_reference: params[:book_reference])
+    @copy = Copy.find_by(id: params[:id])
 
     if @copy
       redirect_to copy_path(@copy)
     else
-      flash[:alert] = "Copy #{params[:book_reference]} couldn't be found."
+      flash[:alert] = "Copy #{params[:id]} couldn't be found."
       redirect_to root_path
     end
   end
@@ -28,12 +28,8 @@ class CopiesController < ApplicationController
   def create
     @copy = parent.copies.build(copy_params)
 
-    if params[:copy_has_id_number].blank?
-      @copy.book_reference = nil
-    end
-
     if @copy.save
-      flash[:notice] = "Copy #{@copy.book_reference} has been added to the library."
+      flash[:notice] = "Copy #{@copy.id} has been added to the library."
       redirect_to book_path(@copy.book)
     else
       render action: :new
@@ -41,7 +37,7 @@ class CopiesController < ApplicationController
   end
 
   def update
-    @copy = Copy.find_by(book_reference: params[:id])
+    @copy = Copy.find_by(id: params[:id])
     if @copy.update(params.require(:copy).permit(:location_id))
       flash[:notice] = "Location updated"
       redirect_to copy_path(@copy)
@@ -52,17 +48,17 @@ class CopiesController < ApplicationController
 
   def borrow
     if resource.borrow(current_user)
-      flash[:notice] = "Copy #{resource.book_reference} is now on loan to you."
+      flash[:notice] = "Copy #{resource.id} is now on loan to you."
     end
   rescue Copy::NotAvailable
-    flash[:alert] = "Copy #{resource.book_reference} is already on loan to #{resource.current_user.name}."
+    flash[:alert] = "Copy #{resource.id} is already on loan to #{resource.current_user.name}."
   ensure
     redirect_to copy_path(resource)
   end
 
   def return
     if resource.return(current_user, location)
-      msg = "Copy #{resource.book_reference} has now been returned"
+      msg = "Copy #{resource.id} has now been returned"
       if location
         msg << " to #{location}"
       end
@@ -70,20 +66,20 @@ class CopiesController < ApplicationController
       flash[:notice] = msg
     end
   rescue Copy::NotOnLoan
-    flash[:alert] = "Copy #{resource.book_reference} is not on loan."
+    flash[:alert] = "Copy #{resource.id} is not on loan."
   ensure
     redirect_to copy_path(resource)
   end
 
   def set_missing
     resource.set_missing
-    flash[:notice] = "Copy ##{resource.book_reference} has been marked as missing"
+    flash[:notice] = "Copy ##{resource.id} has been marked as missing"
     redirect_to copy_path(resource)
   end
 
   def unset_missing
     resource.unset_missing
-    flash[:notice] = "Copy ##{resource.book_reference} is no longer marked as missing"
+    flash[:notice] = "Copy ##{resource.id} is no longer marked as missing"
     redirect_to copy_path(resource)
   end
 
@@ -99,10 +95,10 @@ private
   end
 
   def resource
-    @copy = Copy.find_by(book_reference: params[:id]) || not_found
+    @copy = Copy.find_by(id: params[:id]) || not_found
   end
 
   def copy_params
-    params.require(:copy).permit(:book_id, :book_reference, :on_loan, :location_id)
+    params.require(:copy).permit(:id, :book_id, :on_loan, :location_id)
   end
 end

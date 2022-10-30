@@ -28,10 +28,13 @@ class BookActionsTest < ActionDispatch::IntegrationTest
         visit "/books/#{@book.id}"
 
         assert page.has_content?("1 copy")
+
+        copy_id = @book.copies.first.id
+
         within ".copies li" do
-          assert page.has_link?("#1", href: "/copy/1")
+          assert page.has_link?("##{copy_id}", href: "/copy/#{copy_id}")
           assert page.has_content?("Available to borrow")
-          assert page.has_link?("Borrow", href: "/copy/1/borrow")
+          assert page.has_link?("Borrow", href: "/copy/#{copy_id}/borrow")
         end
       end
 
