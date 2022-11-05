@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_29_222254) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_30_145558) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -57,7 +57,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_29_222254) do
 
   create_table "copies", id: :serial, force: :cascade do |t|
     t.integer "book_id"
-    t.integer "book_reference"
     t.boolean "on_loan", default: false, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
