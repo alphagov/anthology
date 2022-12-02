@@ -50,13 +50,12 @@ class StartPageTest < ActionDispatch::IntegrationTest
     it "displays recently added copies added to the library" do
       @book = FactoryBot.create(:book, title: "The Lion, the Witch and the Wardrobe")
       @older_copies = FactoryBot.create_list(:copy, 10)
-      @copy = FactoryBot.create(:copy, id: "123", book: @book)
-
+      @copy = FactoryBot.create(:copy, id: "12345", book: @book)
       visit "/"
       within ".recently-added" do
         within "li:first" do
           assert page.has_selector?("img[alt^='The Lion, the Witch and the Wardrobe']")
-          assert page.has_selector?("a[href='/copy/123']")
+          assert page.has_selector?("a[href='/copy/12345']")
         end
       end
     end
