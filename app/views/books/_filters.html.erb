@@ -11,9 +11,9 @@
     </ul>
   </li>
   <li class="filter search-filter">
-    <%= form_with url: "", method: :get do |form| %>
-      <%= form.label :copy_id, "Search book titles", hidden: true %>
-      <%= form.text_field :q, value: params[:q], placeholder: "Search titles..." %>
+    <%= form_with method: :get do |form| %>
+      <%= form.label :query, "Search book titles", hidden: true %>
+      <%= form.text_field :query, value: params[:query], placeholder: "Search titles..." %>
       <%= form.submit "Search", class: "button btn" %>
     <% end %>
   </li>
