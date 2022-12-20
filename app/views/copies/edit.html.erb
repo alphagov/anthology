@@ -11,12 +11,10 @@
   </div>
 
   <%= semantic_form_for [@copy] do |f| %>
-    <h3>Where is this copy?</h3>
+    <h2>Where is this copy?</h2>
 
     <fieldset class="location">
-      <label>
-        <%= f.input :location, as: :select, collection: Location.all, include_blank: "unknown" %>
-      </label>
+      <%= f.input :location, as: :select, collection: Location.all, include_blank: "unknown" %>
     </fieldset>
 
     <%= f.actions do %>

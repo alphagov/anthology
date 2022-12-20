@@ -32,14 +32,14 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
     describe "searching for a book" do
       it "returns results for a title search" do
-        get books_path(q: "JavaScript")
+        get books_path(query: "JavaScript")
 
         assert_select "img", 1
         assert_match "JavaScript: The Definitive Guide", @response.body
       end
 
       it "does not return results when there are no matches" do
-        get books_path(q: "Angular")
+        get books_path(query: "Angular")
 
         assert_select "img", 0
       end

@@ -3,7 +3,7 @@ class BooksController < ApplicationController
 
   before_action :lookup_book, only: %i[show edit history update]
 
-  has_scope :title_search, as: :q
+  has_scope :title_search, as: :query
   has_scope :availability do |_controller, scope, value|
     case value
     when "available" then scope.available
