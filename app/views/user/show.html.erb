@@ -1,13 +1,22 @@
 <section class="user wrap">
   <h1><%= @user.name.possessive %> Books</h1>
 
-  <ul class="copies">
-    <%= render :partial => "copy", :collection => @user.current_copies %>
-  </ul>
+  <% if @user.current_copies.any? %>
+    <h2>Current loans</h2>
 
-  <h2>Previous loans</h2>
+    <ul class="copies">
+      <%= render partial: "copy", collection: @user.current_copies %>
+    </ul>
+  <% end %>
 
-  <ul class="copies">
-    <%= render :partial => "loan", :collection => @user.previous_loans %>
-  </ul>
+
+  <% if @user.previous_loans.any? %>
+    <h2>Previous loans</h2>
+
+    <ul class="copies">
+      <%= render partial: "loan", collection: @user.previous_loans %>
+    </ul>
+  <% else %>
+    <p>No previous loans</p>
+  <% end %>
 </section>
