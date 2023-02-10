@@ -47,6 +47,22 @@ class StartPageTest < ActionDispatch::IntegrationTest
       assert page.has_content?("Copy 999 couldn't be found")
     end
 
+    it "allows the user to look up a book by title" do
+      FactoryBot.create(:book, title: "first title")
+      FactoryBot.create(:book, title: "second title")
+      FactoryBot.create(:book, title: "third title")
+
+      visit "/"
+
+      within ".title-lookup" do
+        fill_in "query", with: "first"
+        click_on "Go"
+      end
+
+      assert_equal "/books", current_path
+      assert_equal 1, page.find_all("img").length
+    end
+
     it "displays recently added copies added to the library" do
       @book = FactoryBot.create(:book, title: "The Lion, the Witch and the Wardrobe")
       @older_copies = FactoryBot.create_list(:copy, 10)

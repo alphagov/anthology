@@ -20,8 +20,8 @@
       <h2>Search books by title</h2>
       <%= form_with url: books_path, method: :get do |form| %>
         <p>
-          <%= form.label :q, "Search for a book by title", hidden: true %>
-          <%= form.text_field :q, placeholder: "Search titles..." %>
+          <%= form.label :query, "Search for a book by title", hidden: true %>
+          <%= form.text_field :query, placeholder: "Search titles..." %>
           <%= form.submit "Go", class: "btn" %>
         </p>
       <% end %>
