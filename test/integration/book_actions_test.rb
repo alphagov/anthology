@@ -43,8 +43,7 @@ class BookActionsTest < ActionDispatch::IntegrationTest
           PaperTrail.request.whodunnit = FactoryBot.create(:user, name: "Mr Toad").id.to_s
           @book.update!(title: "Goodnight Mister Tom")
 
-          visit "/books/#{@book.id}"
-          click_on "See revision history"
+          visit "/books/#{@book.id}/history"
 
           assert page.has_content?(@book.title)
 
@@ -56,8 +55,7 @@ class BookActionsTest < ActionDispatch::IntegrationTest
       end
 
       it "displays a message instead of book history for a book without any changes" do
-        visit "/books/#{@book.id}"
-        click_on "See revision history"
+        visit "/books/#{@book.id}/history"
 
         assert page.has_content?(@book.title)
         assert page.has_content?("No changes have been made to this book yet.")
