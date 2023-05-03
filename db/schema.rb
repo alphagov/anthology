@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_30_145558) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_03_150032) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -88,7 +88,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_30_145558) do
     t.string "email", limit: 255
     t.string "provider", limit: 255
     t.string "provider_uid", limit: 255
-    t.text "image_url"
   end
 
   create_table "versions", id: :serial, force: :cascade do |t|

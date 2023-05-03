@@ -36,7 +36,6 @@ class User < ApplicationRecord
   def self.atts_from_auth_hash(hash)
     {
       name: hash[:info][:name],
-      image_url: hash[:info][:image],
       provider: hash[:provider],
       provider_uid: hash[:uid],
     }
