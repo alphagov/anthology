@@ -42,7 +42,6 @@ describe User do
     assert_equal "stub.user@example.org", user.email
     assert_equal "google", user.provider
     assert_equal "12345", user.provider_uid
-    assert_equal "https://example.org/image.jpg", user.image_url
   end
 
   it "can be found from a matching email" do

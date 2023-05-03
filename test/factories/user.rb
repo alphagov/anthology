@@ -6,8 +6,5 @@ FactoryBot.define do
     end
     provider { "google" }
     sequence(:provider_uid)
-    sequence(:image_url) do |n|
-      "https://example.org/users/#{n}.jpg"
-    end
   end
 end
