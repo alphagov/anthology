@@ -18,7 +18,6 @@ class Book < ApplicationRecord
   scope :available, -> { joins(:copies).where(copies: { on_loan: false }) }
   scope :on_loan, -> { joins(:copies).where(copies: { on_loan: true }) }
   scope :missing, -> { joins(:copies).where(copies: { missing: true }) }
-  scope :location, ->(location_id) { joins(:copies).where(copies: { on_loan: false, location_id: }) }
 
   default_scope -> { order("title ASC") }
 
