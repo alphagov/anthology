@@ -50,14 +50,13 @@ class Copy < ApplicationRecord
     loans.create!(user:)
   end
 
-  def return(as_user = nil, to_location = nil)
+  def return(as_user = nil)
     raise NotOnLoan unless on_loan?
 
     loans.where(state: "on_loan").find_each do |loan|
       loan.return(as_user)
     end
 
-    self.location = to_location
     save!
   end
 

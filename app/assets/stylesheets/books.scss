@@ -116,10 +116,6 @@ ul.copies {
 
     p, h2 { display: inline; margin: 0; padding: 0; font-size: 1em; }
 
-    .location {
-      font-weight: normal;
-      font-size: 80%;
-    }
     h2 { display: inline-block; font-weight: normal;  width: 2.5em; }
     .btn { font-size: 1rem; }
 
@@ -166,30 +162,6 @@ ul.copies {
   &.missing {
     background: #ddd;
     border-left: 12px solid #d2381d;
-  }
-
-  form.copy {
-    float: right;
-    ul, li {
-      display: inline-block;
-      background: transparent;
-      padding: 0;
-    }
-    li {
-      overflow: initial;
-    }
-
-    #copy_location_input {
-      label {
-        width: 6em;
-        text-align: right;
-        padding-right: .3em;
-      }
-      select {
-        width: 7em;
-      }
-    }
-    background: transparent;
   }
 
 }

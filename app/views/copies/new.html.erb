@@ -2,10 +2,6 @@
   <h1>Add a new copy of <%= @book.title %></h1>
 
   <%= semantic_form_for [@book, @copy] do |f| %>
-    <fieldset class="location">
-      <%= f.input :location, as: :select, collection: Location.all, include_blank: "unknown" %>
-    </fieldset>
-
     <%= f.actions do %>
       <%= f.submit "Add this copy" %>
     <% end %>

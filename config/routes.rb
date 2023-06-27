@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :sessions, only: :new
 
   # The 'new' and 'create' routes are nested under /books, so are excluded here
-  resources :copy, only: %i[show edit update], controller: "copies" do
+  resources :copy, only: %i[show], controller: "copies" do
     collection do
       post :lookup
     end

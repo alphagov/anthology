@@ -94,27 +94,6 @@ describe Copy do
 
       assert @copy_on_loan.return(user)
     end
-
-    it "returns the copy to the specified location" do
-      user = create(:user)
-      location = Location.first
-
-      Loan.any_instance.expects(:return).with(user)
-
-      @copy_on_loan.return(user, location)
-      assert_equal location, @copy_on_loan.location
-    end
-  end
-
-  describe "the location of copies" do
-    it "is possible to update a copy's location" do
-      copy = FactoryBot.create(:copy)
-      copy.update!(location_id: 1)
-
-      copy.reload
-
-      assert_equal 1, copy.location_id
-    end
   end
 
   describe "recently added copies" do

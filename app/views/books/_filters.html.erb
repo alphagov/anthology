@@ -3,9 +3,6 @@
     <div>availability</div>
     <ul>
       <li><%= filter_link "available", :availability, "available" %></li>
-      <% Location.all.each do |location| %>
-        <li><%= filter_link "- #{location}", :availability, "location_#{location.id}" %></li>
-      <% end %>
       <li><%= filter_link "on loan", :availability, "on_loan" %></li>
       <li><%= filter_link "missing", :availability, "missing" %></li>
     </ul>

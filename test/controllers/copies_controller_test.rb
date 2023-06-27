@@ -13,7 +13,6 @@ class CopiesControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
       assert_select "h1", "##{@copy.id} #{@copy.book.title}"
 
-      assert_select "span.location a", { text: "set" }
       assert_select "a.btn", { text: "Borrow" }
     end
   end
@@ -29,42 +28,16 @@ class CopiesControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
       assert_select "h1", "Add a new copy of #{@book.title}"
 
-      # location dropdown contains "unknown" plus 2 entries from the seeded data
-      assert_select "form select option", 3
       assert_select "[value=?]", "Add this copy"
     end
 
     it "saves the copy and redirects" do
       assert_difference "Copy.count" do
-        post book_copies_path(@book), params: { copy: { "location_id": "" } }
+        post book_copies_path(@book)
       end
 
       assert_redirected_to book_path(@book)
       assert_equal "Copy #{Copy.last.id} has been added to the library.", @controller.flash[:notice]
-    end
-  end
-
-  describe "editing a copy" do
-    it "shows the existing copy with a form to set its location" do
-      get edit_copy_path(@copy)
-
-      assert_response :success
-      assert_select "h1", @copy.book.title
-
-      # location dropdown contains "unknown" plus 2 entries from the seeded data
-      assert_select "form select option", 3
-      assert_select "[value=?]", "Set location"
-    end
-
-    it "updates the copy's location" do
-      assert_nil @copy.location
-
-      patch copy_path(@copy), params: { copy: { location_id: "1" } }
-      @copy.reload
-
-      assert_equal 1, @copy.location.id
-      assert_redirected_to copy_path(@copy)
-      assert_equal "Location updated", flash[:notice]
     end
   end
 
@@ -103,41 +76,23 @@ class CopiesControllerTest < ActionDispatch::IntegrationTest
       assert_equal "Copy #{@copy.id} is already on loan to #{user.name}.", @controller.flash[:alert]
     end
 
-    it "returns a copy to a set location" do
-      return_location = Location.find("1")
+    it "returns a copy" do
       copy_on_loan = FactoryBot.create(:copy_on_loan)
       current_loan = Loan.last
 
       assert_equal "on_loan", current_loan.state
 
-      post return_copy_path(copy_on_loan), params: { copy: { location_id: return_location.id } }
+      post return_copy_path(copy_on_loan)
       copy_on_loan.reload
       current_loan.reload
 
       assert_equal "returned", current_loan.state
-      assert_equal return_location, copy_on_loan.location
-      assert_redirected_to copy_path(copy_on_loan)
-      assert_equal "Copy #{copy_on_loan.id} has now been returned to #{return_location.name}. Thanks!", @controller.flash[:notice]
-    end
-
-    it "returns a copy to an unknown location" do
-      copy_on_loan = FactoryBot.create(:copy_on_loan)
-      current_loan = Loan.last
-
-      assert_equal "on_loan", current_loan.state
-
-      post return_copy_path(copy_on_loan), params: { copy: { location_id: "" } }
-      copy_on_loan.reload
-      current_loan.reload
-
-      assert_equal "returned", current_loan.state
-      assert_nil copy_on_loan.location
       assert_redirected_to copy_path(copy_on_loan)
       assert_equal "Copy #{copy_on_loan.id} has now been returned. Thanks!", @controller.flash[:notice]
     end
 
     it "shows an error if the copy is not on loan" do
-      post return_copy_path(@copy), params: { copy: { location_id: "1" } }
+      post return_copy_path(@copy)
 
       assert_not @copy.on_loan
       assert_redirected_to copy_path(@copy)
